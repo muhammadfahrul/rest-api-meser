@@ -95,21 +95,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function getImage($name)
-    {
-        $image_path = storage_path('images') . '/' . $name;
-        if (file_exists($image_path)) {
-            $file = file_get_contents($image_path);
-
-            return response($file, 200)->header('Content-Type', 'image/jpeg');
-        }
-
-        return response()->json([
-            "message" => "Image Not Found",
-            "status" => false
-        ]);
-    }
-
     public function add(Request $request)
     {
         $this->validate($request, [
@@ -130,7 +115,7 @@ class ProductController extends Controller
             $rand_md5 = md5($rand).".".$image->extension();
             $data->image = $rand_md5;
 
-            $image->move(storage_path('images'),$rand_md5);
+            $image->move(public_path('images'),$rand_md5);
         }
         $data->category_id = $request->input('category_id');
         $data->save();
@@ -165,7 +150,7 @@ class ProductController extends Controller
                 $rand_md5 = md5($rand).".".$image->extension();
                 $data->image = $rand_md5;
 
-                $image->move(storage_path('images'),$rand_md5);
+                $image->move(public_path('images'),$rand_md5);
             }
             $data->category_id = $request->input('category_id');
             $data->save();
@@ -183,6 +168,21 @@ class ProductController extends Controller
             ]);
         }
 
+    }
+
+    public function getImage($name)
+    {
+        $image_path = public_path('images') . '/' . $name;
+        if (file_exists($image_path)) {
+            $file = file_get_contents($image_path);
+
+            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        }
+
+        return response()->json([
+            "message" => "Image Not Found",
+            "status" => false
+        ]);
     }
 
     public function delete($id)
