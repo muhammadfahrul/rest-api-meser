@@ -106,7 +106,9 @@ class OrderController extends Controller
         $order = new Order();
         $order->id = $request->input('order_id');
 
-        for ($i=0; $i < count($order); $i++) { 
+        $products = $request->input('products');
+
+        for ($i=0; $i < count($products); $i++) { 
             $order->quantity = $request->input('products.'.$i.'.quantity');
             $order->product_id = $request->input('products.'.$i.'.product_id');
             $order->save();
@@ -133,7 +135,9 @@ class OrderController extends Controller
         if ($order) {
             $order->id = $request->input('order_id');
 
-            for ($i=0; $i < count($order); $i++) { 
+            $products = $request->input('products');
+
+            for ($i=0; $i < count($products); $i++) { 
                 $order->quantity = $request->input('products.'.$i.'.quantity');
                 $order->product_id = $request->input('products.'.$i.'.product_id');
                 $order->save();
