@@ -181,7 +181,7 @@ class ProductController extends Controller
 
     }
 
-    public function getImage()
+    public function getImage($name)
     {
         // $image_path = storage_path('images') . '/' . $name;
         // if (file_exists($image_path)) {
@@ -195,14 +195,11 @@ class ProductController extends Controller
         //     "status" => false
         // ]);
 
-        $images = [];
-        $files = Storage::disk('gcs')->files('images');
-        foreach ($files as $file) {
-            $images[] = [
-                'name' => str_replace('images/', '', $file),
-                'src'  => Storage::disk('gcs')->url($file),
-            ];
-        }
+        $files = Storage::disk('gcs')->files('images/'.$name);
+        $images = [
+            "name" => str_replace('images/', '', $files),
+            "src"  => Storage::disk('gcs')->url($files),
+        ];
 
         return response()->json([
             "message" => "Success retrieve data",

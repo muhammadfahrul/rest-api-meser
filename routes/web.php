@@ -25,7 +25,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->delete('/users/{id}', 'UserController@delete');
 
     $router->get('/products', 'ProductController@showAll');
-    $router->get('/products-image', 'ProductController@getImage');
+    $router->get('/products-image/{name}', 'ProductController@getImage');
     $router->get('/products-join', 'ProductController@showAllJoin');
     $router->get('/products/{id}', 'ProductController@showId');
     $router->get('/products-join/{id}', 'ProductController@showIdJoin');
