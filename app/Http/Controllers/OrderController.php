@@ -77,7 +77,7 @@ class OrderController extends Controller
     public function showIdJoin($id)
     {
         $findId = Order::find($id);
-        $data = Order::where('order_id', $id)->with(array('product'=>function($query){
+        $data = Order::where('id', $id)->with(array('product'=>function($query){
             $query->select();
         }))->get();
         if(!$findId) {
@@ -98,13 +98,13 @@ class OrderController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'order_id' => 'required',
+            'id' => 'required',
             // 'products.quantity' => 'required',
             // 'products.product_id' => 'required|exists:t_products,id'
         ]);
         
         $order = new Order();
-        $order->id = $request->input('order_id');
+        $order->id = $request->input('id');
 
         $products = $request->input('products');
 
@@ -126,14 +126,14 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'order_id' => 'required',
+            'id' => 'required',
             // 'products.quantity' => 'required',
             // 'products.product_id' => 'required|exists:t_products,id'
         ]);
         
         $order = Order::find($id);
         if ($order) {
-            $order->id = $request->input('order_id');
+            $order->id = $request->input('id');
 
             $products = $request->input('products');
 
