@@ -25,15 +25,15 @@ class OrderController extends Controller
             return response()->json([
                 "message" => "Data Not Found"
             ]);
+        }else {
+            Log::info('Showing all order');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing all order');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showAllJoin()
@@ -45,15 +45,15 @@ class OrderController extends Controller
             return response()->json([
                 "message" => "Data Not Found"
             ]);
+        }else {
+            Log::info('Showing all order with product');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing all order with product');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showId($id)
@@ -63,15 +63,15 @@ class OrderController extends Controller
             return response()->json([
                 "message" => "Parameter Not Found"
             ]);
+        }else {
+            Log::info('Showing order by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing order by id');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showIdJoin($id)
@@ -84,15 +84,15 @@ class OrderController extends Controller
             return response()->json([
                 "message" => "Parameter Not Found"
             ]);
+        }else {
+            Log::info('Showing order with product by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing order with product by id');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function add(Request $request)

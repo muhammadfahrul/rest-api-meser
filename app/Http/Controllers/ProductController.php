@@ -46,15 +46,15 @@ class ProductController extends Controller
             return response()->json([
                 "message" => "Data Not Found"
             ]);
+        }else {
+            Log::info('Showing all product with category');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing all product with category');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showId($id)
@@ -85,15 +85,15 @@ class ProductController extends Controller
             return response()->json([
                 "message" => "Parameter Not Found"
             ]);
+        }else {
+            Log::info('Showing product with category by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing product with category by id');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function add(Request $request)
@@ -181,7 +181,7 @@ class ProductController extends Controller
 
     }
 
-    public function getImage($name)
+    public function showAllImage()
     {
         // $image_path = storage_path('images') . '/' . $name;
         // if (file_exists($image_path)) {
@@ -195,11 +195,14 @@ class ProductController extends Controller
         //     "status" => false
         // ]);
 
-        $files = Storage::disk('gcs')->files('images/'.$name);
-        $images = [
-            "name" => str_replace('images/', '', $files),
-            "src"  => Storage::disk('gcs')->url($files),
-        ];
+        $images = [];
+        $files = Storage::disk('gcs')->files('images');
+        foreach ($files as $file) {
+            $images[] = [
+                'name' => str_replace('images/', '', $file),
+                'src'  => Storage::disk('gcs')->url($file),
+            ];
+        }
 
         return response()->json([
             "message" => "Success retrieve data",

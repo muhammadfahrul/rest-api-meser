@@ -44,15 +44,15 @@ class PaymentController extends Controller
             return response()->json([
                 "message" => "Data Not Found"
             ]);
+        }else {
+            Log::info('Showing all payment');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing all payment');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showAllJoin()
@@ -64,15 +64,15 @@ class PaymentController extends Controller
             return response()->json([
                 "message" => "Data Not Found"
             ]);
+        }else {
+            Log::info('Showing all payment with order');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing all payment with order');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showId($id)
@@ -82,15 +82,15 @@ class PaymentController extends Controller
             return response()->json([
                 "message" => "Parameter Not Found"
             ]);
+        }else {
+            Log::info('Showing payment by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing payment by id');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function showIdJoin($id)
@@ -103,15 +103,15 @@ class PaymentController extends Controller
             return response()->json([
                 "message" => "Parameter Not Found"
             ]);
+        }else {
+            Log::info('Showing payment with order by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
         }
-
-        Log::info('Showing payment with order by id');
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $data
-        ]);
     }
 
     public function add(Request $request)
@@ -250,8 +250,7 @@ class PaymentController extends Controller
         $pay = Payment::where('order_id', $req['order_id'])->get();
         // return $pay;
         $pays = Payment::find($pay[0]->id);
-        if(!$pay)
-        {
+        if(!$pay) {
             return response()->json([
                 "messages" => "Order id not found",
                 "status" => false
@@ -260,8 +259,7 @@ class PaymentController extends Controller
         $pays->transaction_time = $req['transaction_time'];
         $pays->transaction_status = $req['transaction_status'];
         $pays->transaction_id = $req['transaction_id'];
-        if($pays->save())
-        {
+        if($pays->save()) {
             return response()->json([
                 "messages" => "Transaction changes"
             ], 200);
