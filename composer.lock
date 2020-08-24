@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4be8fced66fbffeff2568a82e343bfc0",
+    "content-hash": "2eeb88e44a1100834ff3340aefed89b2",
     "packages": [
         {
             "name": "brick/math",
@@ -1503,6 +1503,48 @@
             "description": "The Illuminate View package.",
             "homepage": "https://laravel.com",
             "time": "2020-08-10T20:00:58+00:00"
+        },
+        {
+            "name": "irazasyed/larasupport",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/irazasyed/larasupport.git",
+                "reference": "67e5f32591dc462baf381e2fda0d9c69334fc355"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/irazasyed/larasupport/zipball/67e5f32591dc462baf381e2fda0d9c69334fc355",
+                "reference": "67e5f32591dc462baf381e2fda0d9c69334fc355",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Syed Irfaq R.",
+                    "email": "syed+gh@lukonet.com"
+                }
+            ],
+            "description": "Adds Support to use Laravel Packages in Lumen.",
+            "keywords": [
+                "laravel",
+                "laravel lumen",
+                "laravel lumen support",
+                "laravel packages",
+                "lumen",
+                "lumen packages",
+                "lumen support"
+            ],
+            "time": "2015-05-24T22:20:44+00:00"
         },
         {
             "name": "laravel/lumen-framework",
