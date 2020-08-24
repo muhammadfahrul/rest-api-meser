@@ -111,11 +111,15 @@ class ProductController extends Controller
         $data->stock = $request->input('stock');
         $image = $request->file('image');
         if(!empty($image)){
-            $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
-            $rand_md5 = md5($rand).".".$image->extension();
-            $data->image = $rand_md5;
+            // $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
+            // $rand_md5 = md5($rand).".".$image->extension();
+            // $data->image = $rand_md5;
 
-            $image->move(storage_path('images'),$rand_md5);
+            // $image->move(storage_path('images'),$rand_md5);
+            
+            $name = time() . '-' . $file->getClientOriginalName();
+            $filePath = 'images/' . $name;
+            Storage::disk('gcs')->put($filePath, file_get_contents($file));
         }
         $data->category_id = $request->input('category_id');
         $data->save();
@@ -146,11 +150,15 @@ class ProductController extends Controller
             $data->stock = $request->input('stock');
             $image = $request->file('image');
             if(!empty($image)){
-                $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
-                $rand_md5 = md5($rand).".".$image->extension();
-                $data->image = $rand_md5;
+                // $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
+                // $rand_md5 = md5($rand).".".$image->extension();
+                // $data->image = $rand_md5;
 
-                $image->move(storage_path('images'),$rand_md5);
+                // $image->move(storage_path('images'),$rand_md5);
+                
+                $name = time() . '-' . $file->getClientOriginalName();
+                $filePath = 'images/' . $name;
+                Storage::disk('gcs')->put($filePath, file_get_contents($file));
             }
             $data->category_id = $request->input('category_id');
             $data->save();
@@ -172,17 +180,28 @@ class ProductController extends Controller
 
     public function getImage($name)
     {
-        $image_path = storage_path('images') . '/' . $name;
-        if (file_exists($image_path)) {
-            $file = file_get_contents($image_path);
+        // $image_path = storage_path('images') . '/' . $name;
+        // if (file_exists($image_path)) {
+        //     $file = file_get_contents($image_path);
 
-            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        //     return response($file, 200)->header('Content-Type', 'image/jpeg');
+        // }
+
+        // return response()->json([
+        //     "message" => "Image Not Found",
+        //     "status" => false
+        // ]);
+
+        $images = [];
+        $files = Storage::disk('gcs')->files('images');
+        foreach ($files as $file) {
+            $images[] = [
+                'name' => str_replace('images/', '', $file),
+                'src'  => Storage::disk('gcs')->url($file),
+            ];
         }
-
-        return response()->json([
-            "message" => "Image Not Found",
-            "status" => false
-        ]);
+        
+        return response()->json($images);
     }
 
     public function delete($id)
