@@ -16,6 +16,8 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
+    $router->post('/login', 'LoginController@login');
+
     $router->get('/users', 'UserController@showAll');
     $router->get('/users/{id}', 'UserController@showId');
     $router->post('/users', 'UserController@add');
@@ -24,9 +26,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->get('/products', 'ProductController@showAll');
     $router->get('/products-image/{name}', 'ProductController@getImage');
-    $router->get('/products-join', 'OrderController@showAllJoin');
+    $router->get('/products-join', 'ProductController@showAllJoin');
     $router->get('/products/{id}', 'ProductController@showId');
-    $router->get('/products-join/{id}', 'OrderController@showIdJoin');
+    $router->get('/products-join/{id}', 'ProductController@showIdJoin');
     $router->post('/products', 'ProductController@add');
     $router->put('/products/{id}', 'ProductController@update');
     $router->delete('/products/{id}', 'ProductController@delete');

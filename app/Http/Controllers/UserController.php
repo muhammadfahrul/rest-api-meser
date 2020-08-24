@@ -63,7 +63,7 @@ class UserController extends Controller
         
         $data = new User();
         $data->username = $request->input('username');
-        $data->password = $request->input('password');
+        $data->password = Hash::make($request->input('password'));
         $data->save();
 
         Log::info('Adding user');
@@ -85,7 +85,7 @@ class UserController extends Controller
         $data = User::find($id);
         if ($data) {
             $data->username = $request->input('username');
-            $data->password = $request->input('password');
+            $data->password = Hash::make($request->input('password'));
             $data->save();
 
             Log::info('Updating user by id');
