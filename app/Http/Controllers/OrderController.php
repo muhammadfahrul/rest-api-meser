@@ -118,7 +118,6 @@ class OrderController extends Controller
         return response()->json([
             "message" => "Success Added",
             "status" => true,
-            "data" => $order
         ]);
     }
 
@@ -145,8 +144,7 @@ class OrderController extends Controller
 
             return response()->json([
                 "message" => "Success Updated",
-                "status" => true,
-                "data" => $order
+                "status" => true
             ]);        
         }else {
             return response()->json([
@@ -166,8 +164,7 @@ class OrderController extends Controller
 
             return response()->json([
                 "message" => "Success Deleted",
-                "status" => true,
-                "data" => $order
+                "status" => true
             ]);   
         }else {
             return response()->json([
