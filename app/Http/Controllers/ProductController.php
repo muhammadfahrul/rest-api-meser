@@ -195,12 +195,9 @@ class ProductController extends Controller
         //     "status" => false
         // ]);
 
-        $images = [];
         $name = Storage::disk('gcs')->files('images');
-        $images[] = [
-            'name' => str_replace('images/', '', $name),
-            'src'  => Storage::disk('gcs')->url($name),
-        ];
+        $image_name = str_replace('images/', '', $name);
+        $image_src = Storage::disk('gcs')->url($name);
         // foreach ($files as $file) {
         //     $images[] = [
         //         'name' => str_replace('images/', '', $file),
@@ -208,7 +205,14 @@ class ProductController extends Controller
         //     ];
         // }
 
-        return response()->json($images);
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => [
+                "name" => $image_name,
+                "src" => $image_src
+            ]
+        ]);
     }
 
     public function delete($id)
