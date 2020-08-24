@@ -97,7 +97,7 @@ class ProductController extends Controller
 
     public function getImage($name)
     {
-        $image_path = storage_path('image') . '/' . $name;
+        $image_path = storage_path('images') . '/' . $name;
         if (file_exists($image_path)) {
             $file = file_get_contents($image_path);
 
