@@ -196,13 +196,17 @@ class ProductController extends Controller
         // ]);
 
         $images = [];
-        $files = Storage::disk('gcs')->files('images');
-        foreach ($files as $file) {
-            $images[] = [
-                'name' => str_replace('images/', '', $file),
-                'src'  => Storage::disk('gcs')->url($file),
-            ];
-        }
+        $name = Storage::disk('gcs')->files('images');
+        $images[] = [
+            'name' => str_replace('images/', '', $name),
+            'src'  => Storage::disk('gcs')->url($name),
+        ];
+        // foreach ($files as $file) {
+        //     $images[] = [
+        //         'name' => str_replace('images/', '', $file),
+        //         'src'  => Storage::disk('gcs')->url($file),
+        //     ];
+        // }
 
         return response()->json($images);
     }
