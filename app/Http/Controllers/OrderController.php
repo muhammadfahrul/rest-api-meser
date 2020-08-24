@@ -77,7 +77,7 @@ class OrderController extends Controller
     public function showIdJoin($id)
     {
         $findId = Order::find($id);
-        $data = Order::where('id', $id)->with(array('product'=>function($query){
+        $data = Order::where('code', $id)->with(array('product'=>function($query){
             $query->select();
         }))->get();
         if(!$findId) {
@@ -98,7 +98,7 @@ class OrderController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required',
+            'code' => 'required',
             // 'products.quantity' => 'required',
             // 'products.product_id' => 'required|exists:t_products,id'
         ]);
@@ -107,7 +107,7 @@ class OrderController extends Controller
 
         for ($i=0; $i < count($products); $i++) { 
             $order = new Order();
-            $order->id = $request->input('id');
+            $order->code = $request->input('code');
             $order->quantity = $request->input('products.'.$i.'.quantity');
             $order->product_id = $request->input('products.'.$i.'.product_id');
             $order->save();
@@ -124,7 +124,7 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'id' => 'required',
+            'code' => 'required',
             // 'products.quantity' => 'required',
             // 'products.product_id' => 'required|exists:t_products,id'
         ]);
@@ -134,7 +134,7 @@ class OrderController extends Controller
             $products = $request->input('products');
 
             for ($i=0; $i < count($products); $i++) { 
-                $order->id = $request->input('id');
+                $order->code = $request->input('code');
                 $order->quantity = $request->input('products.'.$i.'.quantity');
                 $order->product_id = $request->input('products.'.$i.'.product_id');
                 $order->save();
