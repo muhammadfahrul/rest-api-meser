@@ -13,8 +13,9 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->integer('id');
+        Schema::create('t_orders', function (Blueprint $table) {
+            $table->id();
+            $table->integer('order_id');
             $table->string('quantity');
             $table->integer('product_id');
             $table->timestamps();
@@ -28,6 +29,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('t_orders');
     }
 }

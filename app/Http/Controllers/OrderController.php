@@ -18,23 +18,23 @@ class OrderController extends Controller
         //
     }
 
-    // public function showAll()
-    // {
-    //     $data = Order::all();
-    //     if(!$data) {
-    //         return response()->json([
-    //             "message" => "Data Not Found"
-    //         ]);
-    //     }
+    public function showAll()
+    {
+        $data = Order::all();
+        if(!$data) {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
+        }
 
-    //     Log::info('Showing all order');
+        Log::info('Showing all order');
 
-    //     return response()->json([
-    //         "message" => "Success retrieve data",
-    //         "status" => true,
-    //         "data" => $data
-    //     ]);
-    // }
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $data
+        ]);
+    }
 
     public function showAllJoin()
     {
@@ -56,23 +56,23 @@ class OrderController extends Controller
         ]);
     }
 
-    // public function showId($id)
-    // {
-    //     $data = Order::find($id);
-    //     if(!$data) {
-    //         return response()->json([
-    //             "message" => "Parameter Not Found"
-    //         ]);
-    //     }
+    public function showId($id)
+    {
+        $data = Order::find($id);
+        if(!$data) {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);
+        }
 
-    //     Log::info('Showing order by id');
+        Log::info('Showing order by id');
 
-    //     return response()->json([
-    //         "message" => "Success retrieve data",
-    //         "status" => true,
-    //         "data" => $data
-    //     ]);
-    // }
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $data
+        ]);
+    }
 
     public function showIdJoin($id)
     {

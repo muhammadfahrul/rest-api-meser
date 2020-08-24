@@ -36,6 +36,26 @@ class ProductController extends Controller
         }
     }
 
+    public function showAllJoin()
+    {
+        $data = Product::with(array('category'=>function($query){
+            $query->select();
+        }))->get();
+        if(!$data) {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
+        }
+
+        Log::info('Showing all product with category');
+
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $data
+        ]);
+    }
+
     public function showId($id)
     {
         $data = Product::find($id);
@@ -54,11 +74,33 @@ class ProductController extends Controller
         }
     }
 
+    public function showIdJoin($id)
+    {
+        $findId = Product::find($id);
+        $data = Product::where('id', $id)->with(array('category'=>function($query){
+            $query->select();
+        }))->get();
+        if(!$findId) {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);
+        }
+
+        Log::info('Showing product with category by id');
+
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $data
+        ]);
+    }
+
     public function add(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
             'price' => 'required',
+            'stock' => 'required',
             'image' => 'required|image',
             'category_id' => 'required|exists:categories,id'
         ]);
@@ -66,6 +108,7 @@ class ProductController extends Controller
         $data = new Product();
         $data->name = $request->input('name');
         $data->price = $request->input('price');
+        $data->stock = $request->input('stock');
         $image = $request->file('image');
         if(!empty($image)){
             $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
@@ -91,6 +134,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'price' => 'required',
+            'stock' => 'required',
             'image' => 'required|image',
             'category_id' => 'required|exists:categories,id'
         ]);
@@ -99,6 +143,7 @@ class ProductController extends Controller
         if ($data) {
             $data->name = $request->input('name');
             $data->price = $request->input('price');
+            $data->stock = $request->input('stock');
             $image = $request->file('image');
             if(!empty($image)){
                 $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();

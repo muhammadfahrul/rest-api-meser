@@ -55,25 +55,25 @@ class PaymentController extends Controller
         ]);
     }
 
-    // public function showAllJoin()
-    // {
-    //     $data = Payment::with(array('order'=>function($query){
-    //         $query->select();
-    //     }))->get();
-    //     if(!$data) {
-    //         return response()->json([
-    //             "message" => "Data Not Found"
-    //         ]);
-    //     }
+    public function showAllJoin()
+    {
+        $data = Payment::with(array('order'=>function($query){
+            $query->select();
+        }))->get();
+        if(!$data) {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
+        }
 
-    //     Log::info('Showing all payment');
+        Log::info('Showing all payment with order');
 
-    //     return response()->json([
-    //         "message" => "Success retrieve data",
-    //         "status" => true,
-    //         "data" => $data
-    //     ]);
-    // }
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $data
+        ]);
+    }
 
     public function showId($id)
     {
@@ -93,26 +93,26 @@ class PaymentController extends Controller
         ]);
     }
 
-    // public function showIdJoin($id)
-    // {
-    //     $findId = Payment::find($id);
-    //     $data = Payment::where('id', $id)->with(array('order'=>function($query){
-    //         $query->select();
-    //     }))->get();
-    //     if(!$findId) {
-    //         return response()->json([
-    //             "message" => "Parameter Not Found"
-    //         ]);
-    //     }
+    public function showIdJoin($id)
+    {
+        $findId = Payment::find($id);
+        $data = Payment::where('id', $id)->with(array('order'=>function($query){
+            $query->select();
+        }))->get();
+        if(!$findId) {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);
+        }
 
-    //     Log::info('Showing payment with post comment by id');
+        Log::info('Showing payment with order by id');
 
-    //     return response()->json([
-    //         "message" => "Success retrieve data",
-    //         "status" => true,
-    //         "data" => $data
-    //     ]);
-    // }
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $data
+        ]);
+    }
 
     public function add(Request $request)
     {

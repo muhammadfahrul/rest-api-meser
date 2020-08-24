@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = 'orders';
+    protected $table = 't_orders';
 
     public function product(){
         return $this->belongsTo('App\Product');
