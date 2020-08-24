@@ -120,7 +120,7 @@ class PaymentController extends Controller
             'payment_type' => 'required',
             'gross_amount' => 'required',
             // 'bank' => 'required',
-            'order_id' => 'required|exists:orders,id'
+            'order_id' => 'required|exists:t_orders,id'
         ]);
         
         $data = new Payment();

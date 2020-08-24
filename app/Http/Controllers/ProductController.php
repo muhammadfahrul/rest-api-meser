@@ -102,7 +102,7 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'image' => 'required|image',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:t_categories,id'
         ]);
         
         $data = new Product();
@@ -136,7 +136,7 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'image' => 'required|image',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:t_categories,id'
         ]);
         
         $data = Product::find($id);

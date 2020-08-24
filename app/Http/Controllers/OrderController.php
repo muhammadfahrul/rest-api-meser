@@ -100,7 +100,7 @@ class OrderController extends Controller
         $this->validate($request, [
             'id' => 'required',
             'products.quantity' => 'required',
-            'products.product_id' => 'required|exists:products,id'
+            'products.product_id' => 'required|exists:t_products,id'
         ]);
         
         $order = new Order();
@@ -126,7 +126,7 @@ class OrderController extends Controller
         $this->validate($request, [
             'id' => 'required',
             'products.quantity' => 'required',
-            'products.product_id' => 'required|exists:products,id'
+            'products.product_id' => 'required|exists:t_products,id'
         ]);
         
         $order = Order::find($id);
