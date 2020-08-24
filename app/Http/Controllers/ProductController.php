@@ -118,7 +118,7 @@ class ProductController extends Controller
 
             // $image->move(storage_path('images'),$rand_md5);
             
-            $name = time() . '-' . $file->getClientOriginalName();
+            $name = time() . '-' . $image->getClientOriginalName();
             $filePath = 'images/' . $name;
             Storage::disk('gcs')->put($filePath, file_get_contents($file));
         }
@@ -157,7 +157,7 @@ class ProductController extends Controller
 
                 // $image->move(storage_path('images'),$rand_md5);
                 
-                $name = time() . '-' . $file->getClientOriginalName();
+                $name = time() . '-' . $image->getClientOriginalName();
                 $filePath = 'images/' . $name;
                 Storage::disk('gcs')->put($filePath, file_get_contents($file));
             }
