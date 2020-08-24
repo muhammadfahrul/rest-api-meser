@@ -120,7 +120,7 @@ class ProductController extends Controller
             
             $name = time() . '-' . $image->getClientOriginalName();
             $filePath = 'images/' . $name;
-            Storage::disk('gcs')->put($filePath, file_get_contents($file));
+            Storage::disk('gcs')->put($filePath, file_get_contents($image));
         }
         $data->category_id = $request->input('category_id');
         $data->save();
@@ -159,7 +159,7 @@ class ProductController extends Controller
                 
                 $name = time() . '-' . $image->getClientOriginalName();
                 $filePath = 'images/' . $name;
-                Storage::disk('gcs')->put($filePath, file_get_contents($file));
+                Storage::disk('gcs')->put($filePath, file_get_contents($image));
             }
             $data->category_id = $request->input('category_id');
             $data->save();
