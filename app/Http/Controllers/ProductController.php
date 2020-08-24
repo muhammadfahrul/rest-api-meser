@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -200,7 +201,7 @@ class ProductController extends Controller
                 'src'  => Storage::disk('gcs')->url($file),
             ];
         }
-        
+
         return response()->json($images);
     }
 
