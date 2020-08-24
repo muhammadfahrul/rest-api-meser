@@ -95,6 +95,21 @@ class ProductController extends Controller
         ]);
     }
 
+    public function getImage($name)
+    {
+        $image_path = storage_path('image') . '/' . $name;
+        if (file_exists($image_path)) {
+            $file = file_get_contents($image_path);
+
+            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        }
+
+        return response()->json([
+            "message" => "Image Not Found",
+            "status" => false
+        ]);
+    }
+
     public function add(Request $request)
     {
         $this->validate($request, [
