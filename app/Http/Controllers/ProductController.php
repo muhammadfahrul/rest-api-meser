@@ -195,23 +195,19 @@ class ProductController extends Controller
         //     "status" => false
         // ]);
 
-        $name = Storage::disk('gcs')->files('images');
-        $image_name = str_replace('images/', '', $name);
-        $image_src = Storage::disk('gcs')->url($name);
-        // foreach ($files as $file) {
-        //     $images[] = [
-        //         'name' => str_replace('images/', '', $file),
-        //         'src'  => Storage::disk('gcs')->url($file),
-        //     ];
-        // }
+        $images = [];
+        $files = Storage::disk('gcs')->files('images');
+        foreach ($files as $file) {
+            $images[] = [
+                'name' => str_replace('images/', '', $file),
+                'src'  => Storage::disk('gcs')->url($file),
+            ];
+        }
 
         return response()->json([
             "message" => "Success retrieve data",
             "status" => true,
-            "data" => [
-                "name" => $image_name,
-                "src" => $image_src
-            ]
+            "data" => $images
         ]);
     }
 
