@@ -99,16 +99,15 @@ class OrderController extends Controller
     {
         $this->validate($request, [
             'id' => 'required',
-            // 'products.quantity' => 'required',
-            // 'products.product_id' => 'required|exists:t_products,id'
+            'products.quantity' => 'required',
+            'products.product_id' => 'required|exists:t_products,id'
         ]);
-        
-        $order = new Order();
-        $order->id = $request->input('id');
 
         $products = $request->input('products');
 
         for ($i=0; $i < count($products); $i++) { 
+            $order = new Order();
+            $order->id = $request->input('id');
             $order->quantity = $request->input('products.'.$i.'.quantity');
             $order->product_id = $request->input('products.'.$i.'.product_id');
             $order->save();
@@ -127,17 +126,16 @@ class OrderController extends Controller
     {
         $this->validate($request, [
             'id' => 'required',
-            // 'products.quantity' => 'required',
-            // 'products.product_id' => 'required|exists:t_products,id'
+            'products.quantity' => 'required',
+            'products.product_id' => 'required|exists:t_products,id'
         ]);
         
         $order = Order::find($id);
         if ($order) {
-            $order->id = $request->input('id');
-
             $products = $request->input('products');
 
             for ($i=0; $i < count($products); $i++) { 
+                $order->id = $request->input('id');
                 $order->quantity = $request->input('products.'.$i.'.quantity');
                 $order->product_id = $request->input('products.'.$i.'.product_id');
                 $order->save();
