@@ -253,8 +253,8 @@ class PaymentController extends Controller
         if(!$pay)
         {
             return response()->json([
-                "messages"=> "Order id not found",
-                "status"=>"error"
+                "messages" => "Order id not found",
+                "status" => false
             ]);
         }
         $pays->transaction_time = $req['transaction_time'];
@@ -263,7 +263,7 @@ class PaymentController extends Controller
         if($pays->save())
         {
             return response()->json([
-                "messages"=> "Transaction changes"
+                "messages" => "Transaction changes"
             ], 200);
         }
     }
