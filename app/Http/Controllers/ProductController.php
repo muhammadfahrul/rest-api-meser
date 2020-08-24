@@ -117,9 +117,8 @@ class ProductController extends Controller
             // $data->image = $rand_md5;
 
             // $image->move(storage_path('images'),$rand_md5);
-
-            $time = Carbon\Carbon::now();
-            $name = $time->toDateString() . '-' . $image->getClientOriginalName();
+            
+            $name = time() . '-' . $image->getClientOriginalName();
             $data->image = $name;
             $filePath = 'images/' . $name;
             Storage::disk('gcs')->put($filePath, file_get_contents($image));
@@ -159,8 +158,7 @@ class ProductController extends Controller
 
                 // $image->move(storage_path('images'),$rand_md5);
                 
-                $time = Carbon\Carbon::now();
-                $name = $time->toDateString() . '-' . $image->getClientOriginalName();
+                $name = time() . '-' . $image->getClientOriginalName();
                 $data->image = $name;
                 $filePath = 'images/' . $name;
                 Storage::disk('gcs')->put($filePath, file_get_contents($image));
