@@ -37,14 +37,6 @@ class Sanitizer extends Controller
             $item['id'] = $id
                 ->maxLength(50)
                 ->apply($item['id']);
-            $price = new self;
-            $item['price'] = $price
-                ->maxLength(50)
-                ->apply($item['price']);
-            $quantity = new self;
-            $item['quantity'] = $quantity
-                ->maxLength(50)
-                ->apply($item['quantity']);
             $name = new self;
             $item['name'] = $name
                 ->maxLength(50)
@@ -71,24 +63,24 @@ class Sanitizer extends Controller
 
         static::fieldPhone($field['phone']);
 
-        // if (!empty($field['billing_address']) || !empty($field['shipping_address'])) {
-        //     $keys = array('billing_address', 'shipping_address');
-        //     foreach ($keys as $key) {
-        //         if (!array_key_exists($key, $field)) continue;
+        if (!empty($field['billing_address']) || !empty($field['shipping_address'])) {
+            $keys = array('billing_address', 'shipping_address');
+            foreach ($keys as $key) {
+                if (!array_key_exists($key, $field)) continue;
 
-        //         $camel = static::upperCamelize($key);
-        //         $function = "field$camel";
-        //         static::$function($field[$key]);
-        //     }
-        // }
+                $camel = static::upperCamelize($key);
+                $function = "field$camel";
+                static::$function($field[$key]);
+            }
+        }
         
     }
 
     private static function fieldBillingAddress(&$field)
     {
         $fields = array(
-            'full_name'   => 20,
-            'username'    => 20,
+            'first_name'   => 20,
+            'last_name'    => 20,
             'address'      => 200,
             'city'         => 20,
             'country_code' => 10

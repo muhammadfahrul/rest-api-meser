@@ -33,7 +33,7 @@ class MidtransController extends Controller
 
         $item_list = array();
         $amount = 0;
-        Config::$serverKey = 'SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj';
+        Config::$serverKey = 'Your-Server-Key';
         if (!isset(Config::$serverKey)) {
             return "Please set your payment server key";
         }
@@ -44,7 +44,7 @@ class MidtransController extends Controller
         
         // Required
 
-        $item_list[] = [
+         $item_list[] = [
                 'id' => "111",
                 'price' => 20000,
                 'quantity' => 1,
@@ -93,11 +93,11 @@ class MidtransController extends Controller
         );
 
         // Optional, remove this to display all available payment methods
-        // $enable_payments = array();
+        $enable_payments = array();
 
         // Fill transaction details
         $transaction = array(
-            // 'enabled_payments' => $enable_payments,
+            'enabled_payments' => $enable_payments,
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
             'item_details' => $item_details,
