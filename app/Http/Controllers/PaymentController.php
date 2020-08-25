@@ -6,23 +6,22 @@ use App\Payment;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Midtrans\Config;
 
-// // Midtrans API Resources
-// use App\Http\Controllers\Midtrans\Transaction;
+// Midtrans API Resources
+use App\Http\Controllers\Midtrans\Transaction;
 
-// // Plumbing
-// use App\Http\Controllers\Midtrans\ApiRequestor;
-// use App\Http\Controllers\Midtrans\SnapApiRequestor;
-// use App\Http\Controllers\Midtrans\Notification;
-// use App\Http\Controllers\Midtrans\CoreApi;
-// use App\Http\Controllers\Midtrans\Snap;
+// Plumbing
+use App\Http\Controllers\Midtrans\ApiRequestor;
+use App\Http\Controllers\Midtrans\SnapApiRequestor;
+use App\Http\Controllers\Midtrans\Notification;
+use App\Http\Controllers\Midtrans\CoreApi;
+use App\Http\Controllers\Midtrans\Snap;
 
-// // Sanitization
-// use App\Http\Controllers\Midtrans\Sanitizer;
+// Sanitization
+use App\Http\Controllers\Midtrans\Sanitizer;
 
 class PaymentController extends Controller
 {
@@ -141,16 +140,23 @@ class PaymentController extends Controller
                 "data" => $data
             ]);
         }elseif ($data->payment_type == "bank_transfer") {
-            // $item_list = array();
-            // $amount = 0;
-            // Config::$serverKey = 'SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj';
-            // if (!isset(Config::$serverKey)) {
-            //     return "Please set your payment server key";
-            // }
-            // Config::$isSanitized = true;
+            $data->transaction_id = 0;
+            $data->transaction_time = "";
+            $data->transaction_status = "created";
+            $data->save();
 
-            // // Enable 3D-Secure
-            // Config::$is3ds = true;
+            Log::info('Adding payment'); 
+
+            $item_list = array();
+            $amount = 0;
+            Config::$serverKey = 'SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj';
+            if (!isset(Config::$serverKey)) {
+                return "Please set your payment server key";
+            }
+            Config::$isSanitized = true;
+
+            // Enable 3D-Secure
+            Config::$is3ds = true;
             
             $order_join = Order::where('code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
@@ -166,139 +172,61 @@ class PaymentController extends Controller
             // Required
             $item_details[] = $array_item;
 
-            return response()->json($item_details);
+            $transaction_details = array(
+                'order_code' => $data->order_code,
+                'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
+            );
 
-            // $transaction_details = array(
-            //     'order_id' => $data->order_code,
-            //     'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
-            // );
+            $order = Order::find($data->order_code);
+            // $customer = Customer::find($order->user_id);
 
-            // $order = Order::find($data->order_code);
-            // // $customer = Customer::find($order->user_id);
+            // Optional
+            $customer_details = array(
+                'full_name' => 'Messer App',
+                'username' => 'messer',
+                'email' => 'messer@gmail.com',
+                'phone_number' => '082467528825'
+            );
 
-            // // Optional
-            // $customer_details = array(
-            //     'email' => 'messer@gmail.com',
-            //     'first_name' => 'Messer',
-            //     'last_name' => 'App',
-            //     'phone' => '082467528825'
-            // );
+            // Optional, remove this to display all available payment methods
+            $enable_payments = array($data->payment_type);
 
-            // // Optional, remove this to display all available payment methods
-            // $enable_payments = array($data->payment_type);
+            $bank_transfer_details = array(
+                'bank' => $data->bank,
+                'va_number' => mt_rand(100000, 999999)
+            );
 
-            // $bank_transfer_details = array(
-            //     'bank' => $data->bank,
-            //     'va_number' => mt_rand(100000, 999999)
-            // );
+            // Fill transaction details
+            $transaction = array(
+                'payment_type' => $enable_payments,
+                'transaction_details' => $transaction_details,
+                'customer_details' => $customer_details,
+                'item_details' => $item_details,
+                'bank_transfer' => $bank_transfer_details,
+            );
+            // return $transaction;
+            try {
+                $chargeToken = CoreApi::charge($transaction);
 
-            // // Fill transaction details
-            // $transaction = array(
-            //     'payment_type' => $enable_payments,
-            //     'transaction_details' => $transaction_details,
-            //     'customer_details' => $customer_details,
-            //     'item_details' => $item_details,
-            //     'bank_transfer' => $bank_transfer_details,
-            // );
-            // // return $transaction;
-            // try {
-            //     $chargeToken = CoreApi::charge($transaction);
-
-            //     // return response()->json($chargeToken);
-            //     return response()->json([
-            //         "message" => "Transaction with bank transfer method is successful",
-            //         "status" => true,
-            //         "results" => $chargeToken,
-            //         "data" => $data
-            //     ]);
-            // } catch (\Exception $e) {
-            //     dd($e);
-            //     // return ['code' => 0 , 'message' => 'failed'];
-            //     return response()->json([
-            //         "message" => "failed",
-            //         "status" => false,
-            //         // "results" => $chargeToken,
-            //         // "data" => [
-            //         //     "attributes" => $data
-            //         // ]
-            //     ]);
-            // }
-            
-            // $transaction_req = [
-            //     "payment_type" => $data->payment_type,
-            //     "transaction_details" => [
-            //         "order_id" => $data->order_code,
-            //         "gross_amount" => $data->gross_amount
-            //     ],
-            //     "customer_details" => [
-            //         "email" => "messer@gmail.com",
-            //         "first_name" => "Messer",
-            //         "last_name" => "App",
-            //         "phone" => "082576285642"
-            //     ],
-            //     'item_details' => $item_details,
-            //     "bank_transfer" => [
-            //         "bank" => $data->bank,
-            //         "va_number" => mt_rand(100000, 999999),
-            //     ]
-            // ];
-    
-            // $url = 'https://api.sandbox.midtrans.com/v2/charge';
-
-            // $serverKey = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj:');
-            
-            // $http_header = [
-            //     'Content-Type' => 'application/json',
-            //     'Authorization' => 'Basic '.$serverKey,
-            //     'Accept' => 'application/json'
-            // ];
-    
-            // $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            // // $results = response()->json($response);
-            // return $response->json();
-            // if ( $data["status_code"] == "406") {
-            //     return response()->json([
-            //         "status" => "failed", 
-            //         "message" => "Transaksi sudah dilakukan! periksa kembali order_id anda"
-            //     ], 406);
-            // }else {
-            //     $data->transaction_id = $results["transaction_id"];
-            //     $data->transaction_time = $results["transaction_time"];
-            //     $data->transaction_status = $results["transaction_status"];
-            //     if ($data->save()) {
-            //         return response()->json([
-            //             "message" => "Transaction with bank transfer method is successful",
-            //             "status" => true,
-            //             "data" => $data
-            //         ]);
-            //     }else {
-            //         return response()->json([
-            //             "message" => "failed",
-            //             "status" => false
-            //         ]);
-            //     }
-
-            //     Log::info('Adding payment'); 
-
-            //     // $insertData = [
-            //     //     "order_id" => $data["order_id"],
-            //     //     "transaction_id" => $data["transaction_id"],
-            //     //     "payment_type" => $data["payment_type"],
-            //     //     "gross_amount" => $data["gross_amount"],
-            //     //     "transaction_time" => $data["transaction_time"],
-            //     //     "transaction_status" => $data["transaction_status"]
-            //     // ];
-            //     // if (Payment::create($insertData)){
-            //     //     return response()->json(["status" => "success", 
-            //     //                             "message" => "Transaksi berhasil mohon untuk menunggu konfirmasi!",
-            //     //                             "results" => $insertData
-            //     // ], 200);
-            //     // } else {
-            //     //     return response()->json(["status" => "failed",
-            //     //                              "message" => "Data gagal disimpan!"
-            //     // ], 401);
-            //     // }
-            // }
+                // return response()->json($chargeToken);
+                return response()->json([
+                    "message" => "Transaction with bank transfer method is successful",
+                    "status" => true,
+                    // "results" => $chargeToken,
+                    "data" => $data
+                ]);
+            } catch (\Exception $e) {
+                dd($e);
+                // return ['code' => 0 , 'message' => 'failed'];
+                return response()->json([
+                    "message" => "failed",
+                    "status" => false,
+                    // "results" => $chargeToken,
+                    // "data" => [
+                    //     "attributes" => $data
+                    // ]
+                ]);
+            }
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
