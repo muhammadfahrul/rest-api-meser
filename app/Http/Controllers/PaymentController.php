@@ -212,7 +212,7 @@ class PaymentController extends Controller
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true,
-                    "results" => $chargeToken,
+                    // "results" => $chargeToken,
                     "data" => $data
                 ]);
             } catch (\Exception $e) {
