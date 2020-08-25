@@ -128,10 +128,10 @@ class PaymentController extends Controller
         $data->gross_amount = $request->input('gross_amount');
         $data->bank = $request->input('bank');
         $data->order_id = $request->input('order_id');
-        $data->transaction_id = 0;
-        $data->transaction_time = "";
-        $data->transaction_status = "created";
         if ($data->payment_type == "cash") {
+            $data->transaction_id = 0;
+            $data->transaction_time = "";
+            $data->transaction_status = "success";
             $data->save();
 
             Log::info('Adding payment');   
@@ -142,6 +142,9 @@ class PaymentController extends Controller
                 "data" => $data
             ]);
         }elseif ($data->payment_type == "bank_transfer") {
+            $data->transaction_id = 0;
+            $data->transaction_time = "";
+            $data->transaction_status = "created";
             $data->save();
 
             Log::info('Adding payment');   
