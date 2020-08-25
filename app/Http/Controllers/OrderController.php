@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
-use Validator;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
@@ -98,28 +97,9 @@ class OrderController extends Controller
 
     public function add(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $this->validate($request, [
             'code' => 'required',
-            'products' => [
-                'quantity' => 'required',
-                'product_id' => 'required|exists:t_products,id',
-            ]
         ]);
-
-        if ($validator->fails()){
-             return response()->json([
-                "message" => $validator->errors()->toArray(),
-                "status" => false
-             ]);
-        }
-        
-        // $this->validate($request, [
-        //     'code' => 'required',
-        //     'products' => [
-        //         'quantity' => 'required',
-        //         'product_id' => 'required|exists:t_products,id',
-        //     ]
-        // ]);
 
         $products = $request->input('products');
 
@@ -141,28 +121,9 @@ class OrderController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
+        $this->validate($request, [
             'code' => 'required',
-            'products' => [
-                'quantity' => 'required',
-                'product_id' => 'required|exists:t_products,id',
-            ]
         ]);
-
-        if ($validator->fails()){
-             return response()->json([
-                "message" => $validator->errors()->toArray(),
-                "status" => false
-             ]);
-        }
-
-        // $this->validate($request, [
-        //     'code' => 'required',
-        //     'products' => [
-        //         'quantity' => 'required',
-        //         'product_id' => 'required|exists:t_products,id',
-        //     ]
-        // ]);
         
         $order = Order::find($id);
         if ($order) {
