@@ -56,9 +56,9 @@ class OrderController extends Controller
         }
     }
 
-    public function showId($id)
+    public function showId($code)
     {
-        $data = Order::find($id);
+        $data = Order::find($code);
         if($data) {
             Log::info('Showing order by id');
 
@@ -74,10 +74,10 @@ class OrderController extends Controller
         }
     }
 
-    public function showIdJoin($id)
+    public function showIdJoin($code)
     {
-        $findId = Order::find($id);
-        $data = Order::where('code', $id)->with(array('product'=>function($query){
+        $findId = Order::find($code);
+        $data = Order::where('code', $code)->with(array('product'=>function($query){
             $query->select();
         }))->get();
         if($findId) {
@@ -119,13 +119,13 @@ class OrderController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $code)
     {
         $this->validate($request, [
             'code' => 'required',
         ]);
         
-        $order = Order::find($id);
+        $order = Order::find($code);
         if ($order) {
             $products = $request->input('products');
 
@@ -150,9 +150,9 @@ class OrderController extends Controller
 
     }
 
-    public function delete($id)
+    public function delete($code)
     {
-        $order = Order::find($id);
+        $order = Order::find($code);
         if($order) {
             $order->delete();
 

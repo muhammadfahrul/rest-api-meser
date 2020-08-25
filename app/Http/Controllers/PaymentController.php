@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
-use App\Customer;
 use App\Order;
-use App\OrderItem;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -160,7 +158,7 @@ class PaymentController extends Controller
             // Enable 3D-Secure
             Config::$is3ds = true;
             
-            $orderitem = OrderItem::where('order_id', $data->order_id)->with(array('product'=>function($query){
+            $order = Order::where('order_id', $data->order_id)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
             $array_item = [];

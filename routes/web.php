@@ -43,11 +43,11 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->get('/orders', 'OrderController@showAll');
     $router->get('/orders-join', 'OrderController@showAllJoin');
-    $router->get('/orders/{id}', 'OrderController@showId');
-    $router->get('/orders-join/{id}', 'OrderController@showIdJoin');
+    $router->get('/orders/{code}', 'OrderController@showId');
+    $router->get('/orders-join/{code}', 'OrderController@showIdJoin');
     $router->post('/orders', 'OrderController@add');
-    $router->put('/orders/{id}', 'OrderController@update');
-    $router->delete('/orders/{id}', 'OrderController@delete');
+    $router->put('/orders/{code}', 'OrderController@update');
+    $router->delete('/orders/{code}', 'OrderController@delete');
 
     $router->get('/payments', 'PaymentController@showAll');
     $router->get('/payments-join', 'PaymentController@showAllJoin');
