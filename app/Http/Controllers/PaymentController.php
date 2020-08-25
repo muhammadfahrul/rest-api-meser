@@ -166,6 +166,8 @@ class PaymentController extends Controller
             // Required
             $item_details[] = $array_item;
 
+            return response()->json($item_details);
+
             // $transaction_details = array(
             //     'order_id' => $data->order_code,
             //     'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
@@ -222,40 +224,38 @@ class PaymentController extends Controller
             //     ]);
             // }
             
-            $transaction_req = [
-                "payment_type" => $data->payment_type,
-                "transaction_details" => [
-                    "order_id" => $data->order_code,
-                    "gross_amount" => $data->gross_amount
-                ],
-                "customer_details" => [
-                    "email" => "messer@gmail.com",
-                    "first_name" => "Messer",
-                    "last_name" => "App",
-                    "phone" => "082576285642"
-                ],
-                'item_details' => [
-                    $item_details,
-                ],
-                "bank_transfer" => [
-                    "bank" => $data->bank,
-                    "va_number" => mt_rand(100000, 999999),
-                ]
-            ];
+            // $transaction_req = [
+            //     "payment_type" => $data->payment_type,
+            //     "transaction_details" => [
+            //         "order_id" => $data->order_code,
+            //         "gross_amount" => $data->gross_amount
+            //     ],
+            //     "customer_details" => [
+            //         "email" => "messer@gmail.com",
+            //         "first_name" => "Messer",
+            //         "last_name" => "App",
+            //         "phone" => "082576285642"
+            //     ],
+            //     'item_details' => $item_details,
+            //     "bank_transfer" => [
+            //         "bank" => $data->bank,
+            //         "va_number" => mt_rand(100000, 999999),
+            //     ]
+            // ];
     
-            $url = 'https://api.sandbox.midtrans.com/v2/charge';
+            // $url = 'https://api.sandbox.midtrans.com/v2/charge';
 
-            $serverKey = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj:');
+            // $serverKey = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj:');
             
-            $http_header = [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Basic '.$serverKey,
-                'Accept' => 'application/json'
-            ];
+            // $http_header = [
+            //     'Content-Type' => 'application/json',
+            //     'Authorization' => 'Basic '.$serverKey,
+            //     'Accept' => 'application/json'
+            // ];
     
-            $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            // $results = response()->json($response);
-            return $response->json();
+            // $response = Http::withHeaders($http_header)->post($url, $transaction_req);
+            // // $results = response()->json($response);
+            // return $response->json();
             // if ( $data["status_code"] == "406") {
             //     return response()->json([
             //         "status" => "failed", 
