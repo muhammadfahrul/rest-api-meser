@@ -234,7 +234,9 @@ class PaymentController extends Controller
                     "last_name" => "App",
                     "phone" => "082576285642"
                 ],
-                'item_details' => $item_details,
+                'item_details' => [
+                    $item_details,
+                ],
                 "bank_transfer" => [
                     "bank" => $data->bank,
                     "va_number" => mt_rand(100000, 999999),
