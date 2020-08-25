@@ -36,6 +36,26 @@ class CategoryController extends Controller
         }
     }
 
+    public function showAllJoin()
+    {
+        $data = Category::with(array('product'=>function($query){
+            $query->select();
+        }))->get();
+        if(!$data) {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
+        }else {
+            Log::info('Showing all category with product');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
+        }
+    }
+
     public function showId($id)
     {
         $data = Category::find($id);
@@ -45,6 +65,27 @@ class CategoryController extends Controller
             ]);
         }else {
             Log::info('Showing category by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
+        }
+    }
+
+    public function showIdJoin($id)
+    {
+        $findId = Category::find($id);
+        $data = Category::where('id', $id)->with(array('product'=>function($query){
+            $query->select();
+        }))->get();
+        if(!$findId) {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);
+        }else {
+            Log::info('Showing category with product by id');
 
             return response()->json([
                 "message" => "Success retrieve data",

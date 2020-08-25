@@ -34,7 +34,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->delete('/products/{id}', 'ProductController@delete');
 
     $router->get('/categories', 'CategoryController@showAll');
+    $router->get('/categories-join', 'CategoryController@showAllJoin');
     $router->get('/categories/{id}', 'CategoryController@showId');
+    $router->get('/categories-join/{id}', 'CategoryController@showIdJoin');
     $router->post('/categories', 'CategoryController@add');
     $router->put('/categories/{id}', 'CategoryController@update');
     $router->delete('/categories/{id}', 'CategoryController@delete');
