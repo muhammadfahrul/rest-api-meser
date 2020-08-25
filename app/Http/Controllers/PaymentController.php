@@ -6,22 +6,23 @@ use App\Payment;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Midtrans\Config;
 
-// Midtrans API Resources
-use App\Http\Controllers\Midtrans\Transaction;
+// // Midtrans API Resources
+// use App\Http\Controllers\Midtrans\Transaction;
 
-// Plumbing
-use App\Http\Controllers\Midtrans\ApiRequestor;
-use App\Http\Controllers\Midtrans\SnapApiRequestor;
-use App\Http\Controllers\Midtrans\Notification;
-use App\Http\Controllers\Midtrans\CoreApi;
-use App\Http\Controllers\Midtrans\Snap;
+// // Plumbing
+// use App\Http\Controllers\Midtrans\ApiRequestor;
+// use App\Http\Controllers\Midtrans\SnapApiRequestor;
+// use App\Http\Controllers\Midtrans\Notification;
+// use App\Http\Controllers\Midtrans\CoreApi;
+// use App\Http\Controllers\Midtrans\Snap;
 
-// Sanitization
-use App\Http\Controllers\Midtrans\Sanitizer;
+// // Sanitization
+// use App\Http\Controllers\Midtrans\Sanitizer;
 
 class PaymentController extends Controller
 {
