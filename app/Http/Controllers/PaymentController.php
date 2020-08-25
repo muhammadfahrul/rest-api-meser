@@ -119,86 +119,110 @@ class PaymentController extends Controller
         $this->validate($request, [
             'payment_type' => 'required',
             'gross_amount' => 'required',
-            // 'bank' => 'required',
+            'bank' => 'required_if:payment_type,bank_transfer',
             'order_id' => 'required|exists:t_orders,id'
         ]);
         
         $data = new Payment();
         $data->payment_type = $request->input('payment_type');
         $data->gross_amount = $request->input('gross_amount');
-        // $data->bank = $request->input('bank');
+        $data->bank = $request->input('bank');
         $data->order_id = $request->input('order_id');
         $data->transaction_id = 0;
         $data->transaction_time = "";
         $data->transaction_status = "created";
-        $data->save();
+        if ($data->payment_type == "cash") {
+            $data->save();
 
-        Log::info('Adding payment');
+            Log::info('Adding payment');   
 
-        // return response()->json([
-        //     "message" => "Success Added",
-        //     "status" => true,
-        //     "data" => [
-        //         "attributes" => $data
-        //     ]
-        // ]);
-        
-        $item_list = array();
-        $amount = 0;
-        Config::$serverKey = 'SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj';
-        if (!isset(Config::$serverKey)) {
-            return "Please set your payment server key";
-        }
-        Config::$isSanitized = true;
+            return response()->json([
+                "message" => "Transaction with cash method is successful",
+                "status" => true,
+                "data" => $data
+            ]);
+        }elseif ($data->payment_type == "bank_transfer") {
+            $data->save();
 
-        // Enable 3D-Secure
-        Config::$is3ds = true;
-        
-        $orderitem = OrderItem::where('order_id', $data->order_id)->with(array('product'=>function($query){
-            $query->select();
-        }))->get();
-        $array_item = [];
-        for ($i=0; $i < count($orderitem); $i++) { 
-            $array_item['id'] = $orderitem[$i]['product']['id'];
-            $array_item['price'] = $orderitem[$i]['product']['price'];
-            $array_item['quantity'] = $orderitem[$i]['quantity'];
-            $array_item['name'] = $orderitem[$i]['product']['name'];
-        }
+            Log::info('Adding payment');   
 
-        // Required
-        $item_details[] = $array_item;
+            $item_list = array();
+            $amount = 0;
+            Config::$serverKey = 'SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj';
+            if (!isset(Config::$serverKey)) {
+                return "Please set your payment server key";
+            }
+            Config::$isSanitized = true;
 
-        $transaction_details = array(
-            'order_id' => $data->order_id,
-            'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
-        );
+            // Enable 3D-Secure
+            Config::$is3ds = true;
+            
+            $orderitem = OrderItem::where('order_id', $data->order_id)->with(array('product'=>function($query){
+                $query->select();
+            }))->get();
+            $array_item = [];
+            for ($i=0; $i < count($orderitem); $i++) { 
+                $array_item['id'] = $orderitem[$i]['product']['id'];
+                $array_item['price'] = $orderitem[$i]['product']['price'];
+                $array_item['quantity'] = $orderitem[$i]['quantity'];
+                $array_item['name'] = $orderitem[$i]['product']['name'];
+            }
 
-        $order = Order::find($data->order_id);
-        $customer = Customer::find($order->user_id);
+            // Required
+            $item_details[] = $array_item;
 
-        // Optional
-        $customer_details = array(
-            'full_name' => $customer->full_name,
-            'username' => $customer->username,
-            'email' => $customer->email,
-            'phone_number' => $customer->phone_number
-        );
+            $transaction_details = array(
+                'order_id' => $data->order_id,
+                'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
+            );
 
-        // Optional, remove this to display all available payment methods
-        $enable_payments = array($data->payment_type);
+            $order = Order::find($data->order_id);
+            $customer = Customer::find($order->user_id);
 
-        // Fill transaction details
-        $transaction = array(
-            'enabled_payments' => $enable_payments,
-            'transaction_details' => $transaction_details,
-            'customer_details' => $customer_details,
-            'item_details' => $item_details,
-        );
-        // return $transaction;
-        try {
-            $snapToken = Snap::createTransaction($transaction);
+            // Optional
+            $customer_details = array(
+                'full_name' => $customer->full_name,
+                'username' => $customer->username,
+                'email' => $customer->email,
+                'phone_number' => $customer->phone_number
+            );
 
-            // return response()->json($snapToken);
+            // Optional, remove this to display all available payment methods
+            $enable_payments = array($data->payment_type);
+
+            // Fill transaction details
+            $transaction = array(
+                'enabled_payments' => $enable_payments,
+                'transaction_details' => $transaction_details,
+                'customer_details' => $customer_details,
+                'item_details' => $item_details,
+            );
+            // return $transaction;
+            try {
+                $snapToken = Snap::createTransaction($transaction);
+
+                // return response()->json($snapToken);
+                return response()->json([
+                    "message" => "Transaction added successfully",
+                    "status" => true,
+                    "results" => $snapToken,
+                    "data" => [
+                        "attributes" => $data
+                    ]
+                ]);
+            } catch (\Exception $e) {
+                dd($e);
+                // return ['code' => 0 , 'message' => 'failed'];
+                return response()->json([
+                    "message" => "failed",
+                    "status" => false,
+                    // "results" => $snapToken,
+                    // "data" => [
+                    //     "attributes" => $data
+                    // ]
+                ]);
+            }
+        }else {
             return response()->json([
                 "message" => "Transaction added successfully",
                 "status" => true,
@@ -207,19 +231,7 @@ class PaymentController extends Controller
                     "attributes" => $data
                 ]
             ]);
-        } catch (\Exception $e) {
-            dd($e);
-            // return ['code' => 0 , 'message' => 'failed'];
-            return response()->json([
-                "message" => "failed",
-                "status" => false,
-                // "results" => $snapToken,
-                // "data" => [
-                //     "attributes" => $data
-                // ]
-            ]);
         }
-
     }
 
     public function delete($id)
