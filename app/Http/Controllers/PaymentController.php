@@ -118,14 +118,14 @@ class PaymentController extends Controller
             'payment_type' => 'required',
             'gross_amount' => 'required',
             'bank' => 'required_if:payment_type,bank_transfer',
-            'order_id' => 'required|exists:t_orders,id'
+            'order_code' => 'required|exists:t_orders,code'
         ]);
         
         $data = new Payment();
         $data->payment_type = $request->input('payment_type');
         $data->gross_amount = $request->input('gross_amount');
         $data->bank = $request->input('bank');
-        $data->order_id = $request->input('order_id');
+        $data->order_code = $request->input('order_code');
         if ($data->payment_type == "cash") {
             $data->transaction_id = 0;
             $data->transaction_time = "";
@@ -158,7 +158,7 @@ class PaymentController extends Controller
             // Enable 3D-Secure
             Config::$is3ds = true;
             
-            $order = Order::where('order_id', $data->order_id)->with(array('product'=>function($query){
+            $order = Order::where('order_code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
             $array_item = [];
@@ -173,11 +173,11 @@ class PaymentController extends Controller
             $item_details[] = $array_item;
 
             $transaction_details = array(
-                'order_id' => $data->order_id,
+                'order_code' => $data->order_code,
                 'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
             );
 
-            $order = Order::find($data->order_id);
+            $order = Order::find($data->order_code);
             $customer = Customer::find($order->user_id);
 
             // Optional
@@ -256,7 +256,7 @@ class PaymentController extends Controller
     public function midtransPush(Request $request)
     {
         $req = $request->all();
-        $pay = Payment::where('order_id', $req['order_id'])->get();
+        $pay = Payment::where('order_code', $req['order_code'])->get();
         // return $pay;
         $pays = Payment::find($pay[0]->id);
         if($pay) {
