@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Validator;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
