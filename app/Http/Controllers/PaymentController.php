@@ -252,48 +252,53 @@ class PaymentController extends Controller
             ];
     
             $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            $results = response()->json($response);
-            if ( $data["status_code"] == "406") {
-                return response()->json(["status" => "failed", 
-                                         "message" => "Transaksi sudah dilakukan! periksa kembali order_id anda"], 406);
-            }else {
-                $data->transaction_id = $results["transaction_id"];
-                $data->transaction_time = $results["transaction_time"];
-                $data->transaction_status = $results["transaction_status"];
-                if ($data->save()) {
-                    return response()->json([
-                        "message" => "Transaction with bank transfer method is successful",
-                        "status" => true,
-                        "data" => $data
-                    ]);
-                }else {
-                    return response()->json([
-                        "message" => "failed",
-                        "status" => false
-                    ]);
-                }
+            // $results = response()->json($response);
+            return response()->json([
+                "data" => $response
+            ]);
+            // if ( $data["status_code"] == "406") {
+            //     return response()->json([
+            //         "status" => "failed", 
+            //         "message" => "Transaksi sudah dilakukan! periksa kembali order_id anda"
+            //     ], 406);
+            // }else {
+            //     $data->transaction_id = $results["transaction_id"];
+            //     $data->transaction_time = $results["transaction_time"];
+            //     $data->transaction_status = $results["transaction_status"];
+            //     if ($data->save()) {
+            //         return response()->json([
+            //             "message" => "Transaction with bank transfer method is successful",
+            //             "status" => true,
+            //             "data" => $data
+            //         ]);
+            //     }else {
+            //         return response()->json([
+            //             "message" => "failed",
+            //             "status" => false
+            //         ]);
+            //     }
 
-                Log::info('Adding payment'); 
+            //     Log::info('Adding payment'); 
 
-                // $insertData = [
-                //     "order_id" => $data["order_id"],
-                //     "transaction_id" => $data["transaction_id"],
-                //     "payment_type" => $data["payment_type"],
-                //     "gross_amount" => $data["gross_amount"],
-                //     "transaction_time" => $data["transaction_time"],
-                //     "transaction_status" => $data["transaction_status"]
-                // ];
-                // if (Payment::create($insertData)){
-                //     return response()->json(["status" => "success", 
-                //                             "message" => "Transaksi berhasil mohon untuk menunggu konfirmasi!",
-                //                             "results" => $insertData
-                // ], 200);
-                // } else {
-                //     return response()->json(["status" => "failed",
-                //                              "message" => "Data gagal disimpan!"
-                // ], 401);
-                // }
-            }
+            //     // $insertData = [
+            //     //     "order_id" => $data["order_id"],
+            //     //     "transaction_id" => $data["transaction_id"],
+            //     //     "payment_type" => $data["payment_type"],
+            //     //     "gross_amount" => $data["gross_amount"],
+            //     //     "transaction_time" => $data["transaction_time"],
+            //     //     "transaction_status" => $data["transaction_status"]
+            //     // ];
+            //     // if (Payment::create($insertData)){
+            //     //     return response()->json(["status" => "success", 
+            //     //                             "message" => "Transaksi berhasil mohon untuk menunggu konfirmasi!",
+            //     //                             "results" => $insertData
+            //     // ], 200);
+            //     // } else {
+            //     //     return response()->json(["status" => "failed",
+            //     //                              "message" => "Data gagal disimpan!"
+            //     // ], 401);
+            //     // }
+            // }
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
