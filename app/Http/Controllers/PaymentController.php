@@ -224,12 +224,8 @@ class PaymentController extends Controller
             }
         }else {
             return response()->json([
-                "message" => "Transaction added successfully",
-                "status" => true,
-                "results" => $snapToken,
-                "data" => [
-                    "attributes" => $data
-                ]
+                "message" => "An unexpected error occurred",
+                "status" => false
             ]);
         }
     }
