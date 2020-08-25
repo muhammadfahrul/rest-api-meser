@@ -164,7 +164,7 @@ class PaymentController extends Controller
             }
 
             // Required
-            $item_details = $array_item;
+            $item_details[] = $array_item;
 
             // $transaction_details = array(
             //     'order_id' => $data->order_code,
