@@ -98,13 +98,28 @@ class OrderController extends Controller
 
     public function add(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(),[
             'code' => 'required',
             'products' => [
                 'quantity' => 'required',
                 'product_id' => 'required|exists:t_products,id',
             ]
         ]);
+
+        if ($validator->fails()){
+             return response()->json([
+                "message" => $validator->errors()->toArray(),
+                "status" => false
+             ]);
+        }
+        
+        // $this->validate($request, [
+        //     'code' => 'required',
+        //     'products' => [
+        //         'quantity' => 'required',
+        //         'product_id' => 'required|exists:t_products,id',
+        //     ]
+        // ]);
 
         $products = $request->input('products');
 
@@ -126,13 +141,28 @@ class OrderController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(),[
             'code' => 'required',
             'products' => [
                 'quantity' => 'required',
                 'product_id' => 'required|exists:t_products,id',
             ]
         ]);
+
+        if ($validator->fails()){
+             return response()->json([
+                "message" => $validator->errors()->toArray(),
+                "status" => false
+             ]);
+        }
+
+        // $this->validate($request, [
+        //     'code' => 'required',
+        //     'products' => [
+        //         'quantity' => 'required',
+        //         'product_id' => 'required|exists:t_products,id',
+        //     ]
+        // ]);
         
         $order = Order::find($id);
         if ($order) {
