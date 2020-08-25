@@ -158,15 +158,15 @@ class PaymentController extends Controller
             // Enable 3D-Secure
             Config::$is3ds = true;
             
-            $order = Order::where('order_code', $data->order_code)->with(array('product'=>function($query){
+            $order_join = Order::where('code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
             $array_item = [];
-            for ($i=0; $i < count($orderitem); $i++) { 
-                $array_item['id'] = $orderitem[$i]['product']['id'];
-                $array_item['price'] = $orderitem[$i]['product']['price'];
-                $array_item['quantity'] = $orderitem[$i]['quantity'];
-                $array_item['name'] = $orderitem[$i]['product']['name'];
+            for ($i=0; $i < count($order_join); $i++) { 
+                $array_item['id'] = $order_join[$i]['product']['id'];
+                $array_item['price'] = $order_join[$i]['product']['price'];
+                $array_item['quantity'] = $order_join[$i]['quantity'];
+                $array_item['name'] = $order_join[$i]['product']['name'];
             }
 
             // Required
@@ -178,38 +178,42 @@ class PaymentController extends Controller
             );
 
             $order = Order::find($data->order_code);
-            $customer = Customer::find($order->user_id);
+            // $customer = Customer::find($order->user_id);
 
             // Optional
             $customer_details = array(
-                'full_name' => $customer->full_name,
-                'username' => $customer->username,
-                'email' => $customer->email,
-                'phone_number' => $customer->phone_number
+                'full_name' => 'Messer App',
+                'username' => 'messer',
+                'email' => 'messer@gmail.com',
+                'phone_number' => '082467528825'
             );
 
             // Optional, remove this to display all available payment methods
             $enable_payments = array($data->payment_type);
 
+            $bank_transfer_details = array(
+                'bank' => $data->bank,
+                'va_number' => mt_rand(100000, 999999)
+            );
+
             // Fill transaction details
             $transaction = array(
-                'enabled_payments' => $enable_payments,
+                'payment_type' => $enable_payments,
                 'transaction_details' => $transaction_details,
                 'customer_details' => $customer_details,
                 'item_details' => $item_details,
+                'bank_transfer' => $bank_transfer_details,
             );
             // return $transaction;
             try {
-                $snapToken = Snap::createTransaction($transaction);
+                $chargeToken = CoreApi::charge($transaction);
 
-                // return response()->json($snapToken);
+                // return response()->json($chargeToken);
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true,
-                    "results" => $snapToken,
-                    "data" => [
-                        "attributes" => $data
-                    ]
+                    "results" => $chargeToken,
+                    "data" => $data
                 ]);
             } catch (\Exception $e) {
                 dd($e);
@@ -217,7 +221,7 @@ class PaymentController extends Controller
                 return response()->json([
                     "message" => "failed",
                     "status" => false,
-                    // "results" => $snapToken,
+                    // "results" => $chargeToken,
                     // "data" => [
                     //     "attributes" => $data
                     // ]
