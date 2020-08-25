@@ -21,17 +21,17 @@ class OrderController extends Controller
     public function showAll()
     {
         $data = Order::all();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all order');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
             ]);
         }
     }
@@ -41,11 +41,7 @@ class OrderController extends Controller
         $data = Order::with(array('product'=>function($query){
             $query->select();
         }))->get();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all order with product');
 
             return response()->json([
@@ -53,23 +49,27 @@ class OrderController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
         }
     }
 
     public function showId($id)
     {
         $data = Order::find($id);
-        if(!$data) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing order by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }
@@ -80,17 +80,17 @@ class OrderController extends Controller
         $data = Order::where('code', $id)->with(array('product'=>function($query){
             $query->select();
         }))->get();
-        if(!$findId) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($findId) {
             Log::info('Showing order with product by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }

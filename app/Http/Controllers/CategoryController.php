@@ -21,17 +21,17 @@ class CategoryController extends Controller
     public function showAll()
     {
         $data = Category::all();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all category');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
             ]);
         }
     }
@@ -41,11 +41,7 @@ class CategoryController extends Controller
         $data = Category::with(array('product'=>function($query){
             $query->select();
         }))->get();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all category with product');
 
             return response()->json([
@@ -53,23 +49,27 @@ class CategoryController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
         }
     }
 
     public function showId($id)
     {
         $data = Category::find($id);
-        if(!$data) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing category by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }
@@ -80,17 +80,17 @@ class CategoryController extends Controller
         $data = Category::where('id', $id)->with(array('product'=>function($query){
             $query->select();
         }))->get();
-        if(!$findId) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($findId) {
             Log::info('Showing category with product by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }

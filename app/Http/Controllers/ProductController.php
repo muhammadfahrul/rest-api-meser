@@ -22,17 +22,17 @@ class ProductController extends Controller
     public function showAll()
     {
         $data = Product::all();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all product');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
             ]);
         }
     }
@@ -42,11 +42,7 @@ class ProductController extends Controller
         $data = Product::with(array('category'=>function($query){
             $query->select();
         }))->get();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all product with category');
 
             return response()->json([
@@ -54,23 +50,27 @@ class ProductController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
         }
     }
 
     public function showId($id)
     {
         $data = Product::find($id);
-        if(!$data) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing product by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }
@@ -81,17 +81,17 @@ class ProductController extends Controller
         $data = Product::where('id', $id)->with(array('category'=>function($query){
             $query->select();
         }))->get();
-        if(!$findId) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($findId) {
             Log::info('Showing product with category by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }

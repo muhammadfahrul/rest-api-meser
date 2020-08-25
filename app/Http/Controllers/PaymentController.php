@@ -40,17 +40,17 @@ class PaymentController extends Controller
     public function showAll()
     {
         $data = Payment::all();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all payment');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
             ]);
         }
     }
@@ -60,11 +60,7 @@ class PaymentController extends Controller
         $data = Payment::with(array('order'=>function($query){
             $query->select();
         }))->get();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all payment with order');
 
             return response()->json([
@@ -72,23 +68,27 @@ class PaymentController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
         }
     }
 
     public function showId($id)
     {
         $data = Payment::find($id);
-        if(!$data) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing payment by id');
 
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
                 "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
             ]);
         }
     }
@@ -99,11 +99,7 @@ class PaymentController extends Controller
         $data = Payment::where('id', $id)->with(array('order'=>function($query){
             $query->select();
         }))->get();
-        if(!$findId) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($findId) {
             Log::info('Showing payment with order by id');
 
             return response()->json([
@@ -111,6 +107,10 @@ class PaymentController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);            
         }
     }
 
@@ -250,19 +250,20 @@ class PaymentController extends Controller
         $pay = Payment::where('order_id', $req['order_id'])->get();
         // return $pay;
         $pays = Payment::find($pay[0]->id);
-        if(!$pay) {
+        if($pay) {
+            $pays->transaction_time = $req['transaction_time'];
+            $pays->transaction_status = $req['transaction_status'];
+            $pays->transaction_id = $req['transaction_id'];
+            if($pays->save()) {
+                return response()->json([
+                    "messages" => "Transaction changes"
+                ], 200);
+            }
+        }else {
             return response()->json([
                 "messages" => "Order id not found",
                 "status" => false
             ]);
-        }
-        $pays->transaction_time = $req['transaction_time'];
-        $pays->transaction_status = $req['transaction_status'];
-        $pays->transaction_id = $req['transaction_id'];
-        if($pays->save()) {
-            return response()->json([
-                "messages" => "Transaction changes"
-            ], 200);
         }
     }
 }

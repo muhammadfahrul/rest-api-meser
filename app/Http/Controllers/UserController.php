@@ -24,11 +24,7 @@ class UserController extends Controller
     public function showAll()
     {
         $data = User::all();
-        if(!$data) {
-            return response()->json([
-                "message" => "Data Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing all user');
 
             return response()->json([
@@ -36,17 +32,17 @@ class UserController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
         }
     }
 
     public function showId($id)
     {
         $data = User::find($id);
-        if(!$data) {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
-        }else {
+        if($data) {
             Log::info('Showing user by id');
 
             return response()->json([
@@ -54,6 +50,10 @@ class UserController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);            
         }
     }
 
