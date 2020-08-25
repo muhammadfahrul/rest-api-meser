@@ -212,7 +212,7 @@ class PaymentController extends Controller
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true,
-                    // "results" => $chargeToken,
+                    "results" => $chargeToken,
                     "data" => $data
                 ]);
             } catch (\Exception $e) {
@@ -227,12 +227,58 @@ class PaymentController extends Controller
                     // ]
                 ]);
             }
-        }else {
-            return response()->json([
-                "message" => "An unexpected error occurred",
-                "status" => false
-            ]);
-        }
+            
+        //     $transaction_req = [
+        //         "payment_type" => $data->payment_type,
+        //         "transaction_details" => [
+        //             "order_id" => $req['data']['attributes']["order_id"],
+        //             "gross_amount" => $req['data']['attributes']["gross_amount"]
+        //         ],
+        //         "bank_transfer" => [
+        //             "bank" => $data->bank,
+        //             "va_number" => mt_rand(100000, 999999),
+        //         ]
+        //     ];
+    
+        //     $url = 'https://api.sandbox.midtrans.com/v2/charge';
+            
+        //     $http_header = [
+        //         'Content-Type' => 'application/json',
+        //         'Authorization' => 'Basic '.$this->auth,
+        //         'Accept' => 'application/json'
+        //     ];
+    
+        //     $response = Http::withHeaders($http_header)->post($url, $transaction_req);
+        //     $data = $response->json();
+        //     if ( $data["status_code"] == "406") {
+        //         return response()->json(["status" => "failed", 
+        //                                  "message" => "Transaksi sudah dilakukan! periksa kembali order_id anda"], 406);
+        //     }else {
+        //         $insertData = [
+        //             "order_id" => $data["order_id"],
+        //             "transaction_id" => $data["transaction_id"],
+        //             "payment_type" => $data["payment_type"],
+        //             "gross_amount" => $data["gross_amount"],
+        //             "transaction_time" => $data["transaction_time"],
+        //             "transaction_status" => $data["transaction_status"]
+        //         ];
+        //         if (Payment::create($insertData)){
+        //             return response()->json(["status" => "success", 
+        //                                     "message" => "Transaksi berhasil mohon untuk menunggu konfirmasi!",
+        //                                     "results" => $insertData
+        //         ], 200);
+        //         } else {
+        //             return response()->json(["status" => "failed",
+        //                                      "message" => "Data gagal disimpan!"
+        //         ], 401);
+        //         }
+        //     }
+        // }else {
+        //     return response()->json([
+        //         "message" => "An unexpected error occurred",
+        //         "status" => false
+        //     ]);
+        // }
     }
 
     public function delete($id)
