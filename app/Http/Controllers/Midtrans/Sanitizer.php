@@ -87,8 +87,8 @@ class Sanitizer extends Controller
     private static function fieldBillingAddress(&$field)
     {
         $fields = array(
-            'first_name'   => 20,
-            'last_name'    => 20,
+            'full_name'   => 20,
+            'username'    => 20,
             'address'      => 200,
             'city'         => 20,
             'country_code' => 10

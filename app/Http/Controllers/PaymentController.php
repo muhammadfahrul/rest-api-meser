@@ -182,10 +182,10 @@ class PaymentController extends Controller
 
             // Optional
             $customer_details = array(
-                'full_name' => 'Messer App',
-                'username' => 'messer',
+                'first_name' => 'Messer',
+                'last_name' => 'App',
                 'email' => 'messer@gmail.com',
-                'phone_number' => '082467528825'
+                'phone' => '082467528825'
             );
 
             // Optional, remove this to display all available payment methods
