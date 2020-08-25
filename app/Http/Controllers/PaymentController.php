@@ -147,7 +147,7 @@ class PaymentController extends Controller
             $data->transaction_status = "created";
             $data->save();
 
-            Log::info('Adding payment');   
+            Log::info('Adding payment'); 
 
             $item_list = array();
             $amount = 0;
@@ -206,7 +206,7 @@ class PaymentController extends Controller
 
                 // return response()->json($snapToken);
                 return response()->json([
-                    "message" => "Transaction added successfully",
+                    "message" => "Transaction with bank transfer method is successful",
                     "status" => true,
                     "results" => $snapToken,
                     "data" => [
