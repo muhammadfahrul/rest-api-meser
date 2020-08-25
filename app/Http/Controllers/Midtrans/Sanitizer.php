@@ -54,22 +54,22 @@ class Sanitizer extends Controller
 
     private static function fieldCustomerDetails(&$field)
     {
-        $full_name = new self;
-        $field['full_name'] = $full_name
+        $first_name = new self;
+        $field['first_name'] = $first_name
             ->maxLength(20)
-            ->apply($field['full_name']);
-        if (array_key_exists('username', $field)) {
-            $username = new self;
-            $field['username'] = $username
+            ->apply($field['first_name']);
+        if (array_key_exists('last_name', $field)) {
+            $last_name = new self;
+            $field['last_name'] = $last_name
                 ->maxLength(20)
-                ->apply($field['username']);
+                ->apply($field['last_name']);
         }
         $email = new self;
         $field['email'] = $email
             ->maxLength(45)
             ->apply($field['email']);
 
-        static::fieldPhone($field['phone_number']);
+        static::fieldPhone($field['phone']);
 
         // if (!empty($field['billing_address']) || !empty($field['shipping_address'])) {
         //     $keys = array('billing_address', 'shipping_address');
