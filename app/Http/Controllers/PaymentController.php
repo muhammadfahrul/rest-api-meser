@@ -252,7 +252,7 @@ class PaymentController extends Controller
             ];
     
             $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            $results = $response->json();
+            $results = response()->json($response);
             if ( $data["status_code"] == "406") {
                 return response()->json(["status" => "failed", 
                                          "message" => "Transaksi sudah dilakukan! periksa kembali order_id anda"], 406);
