@@ -25,10 +25,11 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->delete('/users/{id}', 'UserController@delete');
 
     $router->get('/products', 'ProductController@showAll');
-    $router->get('/products-category/{id}', 'ProductController@showCategoryId');
     $router->get('/products-image', 'ProductController@showAllImage');
+    $router->get('/products-order', 'ProductController@showProductOrder');
     $router->get('/products-join', 'ProductController@showAllJoin');
     $router->get('/products/{id}', 'ProductController@showId');
+    $router->get('/products-category/{id}', 'ProductController@showCategoryId');
     $router->get('/products-join/{id}', 'ProductController@showIdJoin');
     $router->post('/products', 'ProductController@add');
     $router->put('/products/{id}', 'ProductController@update');

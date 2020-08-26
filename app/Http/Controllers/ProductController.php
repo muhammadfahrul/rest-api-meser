@@ -56,6 +56,26 @@ class ProductController extends Controller
         }
     }
 
+    public function showProductOrder()
+    {
+        $data = Product::with(array('order'=>function($query){
+            $query->select();
+        }))->get();
+        if($data) {
+            Log::info('Showing all product with order');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Data Not Found"
+            ]);
+        }
+    }
+
     public function showAllJoin()
     {
         $data = Product::with(array('category'=>function($query){
