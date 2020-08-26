@@ -235,7 +235,7 @@ class PaymentController extends Controller
             }
         }else {
             return response()->json([
-                "message" => "An unexpected error occurred",
+                "message" => "An sasd error occurred",
                 "status" => false
             ]);
         }
