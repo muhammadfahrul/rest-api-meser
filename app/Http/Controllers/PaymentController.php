@@ -7,6 +7,7 @@ use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 use App\Http\Controllers\Midtrans\Config;
 
