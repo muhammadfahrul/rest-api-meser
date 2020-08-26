@@ -180,7 +180,7 @@ class PaymentController extends Controller
             // Required
             $item_details[] = $order_join;
 
-            return response()->json($item_details);
+            return response()->json($order_join);
 
             // $transaction_details = array(
             //     'order_code' => $data->order_code,
