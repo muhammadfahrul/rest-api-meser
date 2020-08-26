@@ -215,24 +215,26 @@ class PaymentController extends Controller
     
             $response = Http::withHeaders($http_header)->post($url, $transaction_req);
             $results = $response->json();
-            $data->transaction_id = 0;
-            $data->transaction_time = "";
-            $data->transaction_status = "created";
 
-            if ($data->save()){
-                Log::info('Adding payment');
+            return response()->json($results);
+            // $data->transaction_id = 0;
+            // $data->transaction_time = "";
+            // $data->transaction_status = "created";
 
-                return response()->json([
-                    "message" => "Transaction with bank transfer method is successful",
-                    "status" => true, 
-                    "data" => $data
-                ], 200);
-            }else {
-                return response()->json([
-                    "status" => false,
-                    "message" => "Data failed to save"
-                ], 401);
-            }
+            // if ($data->save()){
+            //     Log::info('Adding payment');
+
+            //     return response()->json([
+            //         "message" => "Transaction with bank transfer method is successful",
+            //         "status" => true, 
+            //         "data" => $data
+            //     ], 200);
+            // }else {
+            //     return response()->json([
+            //         "status" => false,
+            //         "message" => "Data failed to save"
+            //     ], 401);
+            // }
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
