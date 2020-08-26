@@ -9,21 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
-use App\Http\Controllers\Midtrans\Config;
-
-// Midtrans API Resources
-use App\Http\Controllers\Midtrans\Transaction;
-
-// Plumbing
-use App\Http\Controllers\Midtrans\ApiRequestor;
-use App\Http\Controllers\Midtrans\SnapApiRequestor;
-use App\Http\Controllers\Midtrans\Notification;
-use App\Http\Controllers\Midtrans\CoreApi;
-use App\Http\Controllers\Midtrans\Snap;
-
-// Sanitization
-use App\Http\Controllers\Midtrans\Sanitizer;
-
 class PaymentController extends Controller
 {
     /**
@@ -31,10 +16,9 @@ class PaymentController extends Controller
      *
      * @return void
      */
-    protected $auth;
     public function __construct()
     {
-        $this->auth = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj:');
+        //
     }
 
     public function showAll()
@@ -141,25 +125,7 @@ class PaymentController extends Controller
                 "status" => true,
                 "data" => $data
             ]);
-        }elseif ($data->payment_type == "bank_transfer") {
-            $data->transaction_id = 0;
-            $data->transaction_time = "";
-            $data->transaction_status = "created";
-            $data->save();
-
-            Log::info('Adding payment'); 
-
-            $item_list = array();
-            $amount = 0;
-            Config::$serverKey = 'SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj';
-            if (!isset(Config::$serverKey)) {
-                return "Please set your payment server key";
-            }
-            Config::$isSanitized = true;
-
-            // Enable 3D-Secure
-            Config::$is3ds = true;
-            
+        }elseif ($data->payment_type == "bank_transfer") { 
             $order_join = Order::where('code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
@@ -198,93 +164,80 @@ class PaymentController extends Controller
                 'va_number' => mt_rand(100000, 999999)
             );
 
-            // Fill transaction details
-            $transaction = array(
-                'payment_type' => $enable_payments,
-                'transaction_details' => $transaction_details,
-                'customer_details' => $customer_details,
-                'item_details' => $item_details,
-                'bank_transfer' => $bank_transfer_details,
-            );
-            // return $transaction;
-            try {
-                // $chargeToken = CoreApi::charge($transaction);
+            // // Fill transaction details
+            // $transaction = array(
+            //     'payment_type' => $enable_payments,
+            //     'transaction_details' => $transaction_details,
+            //     'customer_details' => $customer_details,
+            //     'item_details' => $item_details,
+            //     'bank_transfer' => $bank_transfer_details,
+            // );
+            // // return $transaction;
+            // try {
+            //     $chargeToken = CoreApi::charge($transaction);
 
-                // return response()->json($chargeToken);
-                return response()->json([
-                    "message" => "Transaction with bank transfer method is successful",
-                    "status" => true,
-                    // "results" => $chargeToken,
-                    "data" => $transaction
-                ]);
-            } catch (\Exception $e) {
-                dd($e);
-                // return ['code' => 0 , 'message' => 'failed'];
-                return response()->json([
-                    "message" => "failed",
-                    "status" => false,
-                    // "results" => $chargeToken,
-                    // "data" => [
-                    //     "attributes" => $data
-                    // ]
-                ]);
-            }
-
-
-            // $transaction_req = [
-            //     "payment_type" => $data->payment_type,
-            //     "transaction_details" => [
-            //         "order_id" => $data->order_code,
-            //         "gross_amount" => $data->gross_amount
-            //     ],
-            //     "customer_details" => [
-            //         "email" => "messer@gmail.com",
-            //         "first_name" => "Messer",
-            //         "last_name" => "App",
-            //         "phone" => "+6281 1234 1234"
-            //     ],
-            //     "item_details" => $item_details,
-            //     "bank_transfer" => [
-            //         "bank" => $data->bank,
-            //         "va_number" => mt_rand(100000, 999999)
-            //     ]
-            // ];
-    
-            // $url = 'https://api.sandbox.midtrans.com/v2/charge';
-            
-            // $http_header = [
-            //     'Content-Type' => 'application/json',
-            //     'Authorization' => 'Basic '.$this->auth,
-            //     'Accept' => 'application/json'
-            // ];
-    
-            // $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            // $results = $response->json();
-            // if ( $data["status_code"] == "406") {
+            //     // return response()->json($chargeToken);
             //     return response()->json([
-            //         "message" => "Transaction has been done! check your order_id again",
-            //         "status" => "failed"
-            //     ], 406);
-            // }else {
-            //     $data->transaction_id = $results["transaction_id"];
-            //     $data->transaction_time = $results["transaction_time"];
-            //     $data->transaction_status = "created";
-
-            //     if ($data->save()){
-            //         Log::info('Adding payment'); 
-
-            //         return response()->json([
-            //             "message" => "Transaction is successful, please wait for confirmation!",
-            //             "status" => true, 
-            //             "data" => $data
-            //         ], 200);
-            //     }else {
-            //         return response()->json([
-            //             "message" => "Data failed to save!",
-            //             "status" => false
-            //         ], 401);
-            //     }
+            //         "message" => "Transaction with bank transfer method is successful",
+            //         "status" => true,
+            //         // "results" => $chargeToken,
+            //         "data" => $data
+            //     ]);
+            // } catch (\Exception $e) {
+            //     dd($e);
+            //     // return ['code' => 0 , 'message' => 'failed'];
+            //     return response()->json([
+            //         "message" => "failed",
+            //         "status" => false,
+            //         // "results" => $chargeToken,
+            //         // "data" => [
+            //         //     "attributes" => $data
+            //         // ]
+            //     ]);
             // }
+
+            $transaction_req = [
+                "payment_type" => $enable_payments,
+                "transaction_details" => $transaction_details,
+                "item_details" => $item_details,
+                "bank_transfer" => $bank_transfer_details
+            ];
+    
+            $url = 'https://api.sandbox.midtrans.com/v2/charge';
+            
+            $http_header = [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic '.$this->auth,
+                'Accept' => 'application/json'
+            ];
+    
+            $response = Http::withHeaders($http_header)->post($url, $transaction_req);
+            $results = $response->json();
+            if ( $results["status_code"] == "406") {
+                return response()->json([
+                    "message" => "Transaction has been done, check your order_id again",
+                    "status" => false
+                ], 406);
+            }else {
+                $data->transaction_id = 0;
+                $data->transaction_time = "";
+                $data->transaction_status = "created";
+
+                if ($data->save()){
+                    Log::info('Adding payment');
+
+                    return response()->json([
+                        "message" => "Transaction with bank transfer method is successful",
+                        "status" => true, 
+                        "data" => $data
+                    ], 200);
+                }else {
+                    return response()->json([
+                        "status" => false,
+                        "message" => "Data failed to save"
+                    ], 401);
+                }
+            }
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
