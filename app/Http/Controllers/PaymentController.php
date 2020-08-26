@@ -163,7 +163,7 @@ class PaymentController extends Controller
             $order_join = Order::where('code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
-            $array_item = [];
+            $order_join = [];
             // for ($i=0; $i < count($order_join); $i++) { 
             //     $array_item['id'] = $order_join[$i]['product']['id'];
             //     $array_item['price'] = $order_join[$i]['product']['price'];
@@ -171,16 +171,16 @@ class PaymentController extends Controller
             //     $array_item['name'] = $order_join[$i]['product']['name'];
             // }
             foreach ($order_join as $key => $value) {
-                $key['product']['id'];
-                $key['product']['price'];
-                $key['quantity'];
-                $key['product']['name'];
-
-                // Required
-                $item_details[] = $key;
-
-                return response()->json($item_details);
+                $order_join['id'] = $value['product']['id'];
+                $order_join['price'] = $value['product']['price'];
+                $order_join['quantity'] = $value['quantity'];
+                $order_join['name'] = $value['product']['name'];
             }
+
+            // Required
+            $item_details[] = $order_join;
+
+            return response()->json($item_details);
 
             // $transaction_details = array(
             //     'order_code' => $data->order_code,
