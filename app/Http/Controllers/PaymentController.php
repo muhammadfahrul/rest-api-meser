@@ -225,7 +225,7 @@ class PaymentController extends Controller
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true, 
-                    "data" => $results
+                    "data" => $data
                 ], 200);
             }else {
                 return response()->json([
@@ -235,7 +235,7 @@ class PaymentController extends Controller
             }
         }else {
             return response()->json([
-                "message" => "An sasd error occurred",
+                "message" => "An unexpected error occurred",
                 "status" => false
             ]);
         }
