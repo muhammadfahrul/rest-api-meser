@@ -58,7 +58,7 @@ class OrderController extends Controller
 
     public function showId($code)
     {
-        $data = Order::find($code);
+        $data = Order::where('code', $code)->get();
         if($data) {
             Log::info('Showing order by id');
 
@@ -76,7 +76,7 @@ class OrderController extends Controller
 
     public function showIdJoin($code)
     {
-        $findId = Order::find($code);
+        $findId = Order::where('code', $code)->get();
         $data = Order::where('code', $code)->with(array('product'=>function($query){
             $query->select();
         }))->get();
