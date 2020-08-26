@@ -31,6 +31,7 @@ class PaymentController extends Controller
      *
      * @return void
      */
+    protected $auth;
     public function __construct()
     {
         $this->auth = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj:');
