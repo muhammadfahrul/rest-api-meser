@@ -141,7 +141,7 @@ class PaymentController extends Controller
             $item_details[] = $array_item;
 
             $transaction_details = array(
-                'order_code' => $data->order_code,
+                'order_id' => $data->order_code,
                 'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
             );
 
