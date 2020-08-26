@@ -215,9 +215,9 @@ class PaymentController extends Controller
     
             $response = Http::withHeaders($http_header)->post($url, $transaction_req);
             $results = $response->json();
-            $data->transaction_id = 0;
-            $data->transaction_time = "";
-            $data->transaction_status = "created";
+            $data->transaction_id = $results["transaction_id"];
+            $data->transaction_time = $results["transaction_time"];
+            $data->transaction_status = $results["transaction_status"];
 
             if ($data->save()){
                 Log::info('Adding payment');
@@ -225,7 +225,7 @@ class PaymentController extends Controller
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true, 
-                    "data" => $data
+                    "data" => $results
                 ], 200);
             }else {
                 return response()->json([
