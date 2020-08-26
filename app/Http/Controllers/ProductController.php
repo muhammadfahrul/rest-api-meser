@@ -253,7 +253,7 @@ class ProductController extends Controller
     {
         $data = Product::find($id);
         if($data) {
-            Storage::disk('gcs')->delete('images/' . $data['data']['image']);
+            Storage::disk('gcs')->delete('images/' . isset($data['data']['image']));
             $data->delete();
 
             Log::info('Deleting product by id');
