@@ -193,8 +193,8 @@ class PaymentController extends Controller
                 return response()->json($results);
             }else {
                 return response()->json([
-                    "status" => false,
-                    "message" => "Data failed to save"
+                    "message" => "Data failed to save",
+                    "status" => false
                 ], 401);
             }
         }else {
