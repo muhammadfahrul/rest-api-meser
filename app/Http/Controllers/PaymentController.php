@@ -170,15 +170,15 @@ class PaymentController extends Controller
             //     $array_item['quantity'] = $order_join[$i]['quantity'];
             //     $array_item['name'] = $order_join[$i]['product']['name'];
             // }
-            foreach ($order_join as $key => $value) {
-                $key['id'] = $value['product']['id'];
-                $key['price'] = $value['product']['price'];
-                $key['quantity'] = $value['quantity'];
-                $key['name'] = $value['product']['name'];
-            }
+            // foreach ($order_join as $key => $value) {
+            //     $key['id'] = $value['product']['id'];
+            //     $key['price'] = $value['product']['price'];
+            //     $key['quantity'] = $value['quantity'];
+            //     $key['name'] = $value['product']['name'];
+            // }
 
-            // Required
-            $item_details[] = $order_join;
+            // // Required
+            // $item_details[] = $order_join;
 
             return response()->json($order_join);
 
