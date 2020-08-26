@@ -215,6 +215,8 @@ class ProductController extends Controller
         
         $data = Product::find($id);
         if ($data) {
+            Storage::disk('gcs')->delete('images/' . $data->image);
+            
             $data->name = $request->input('name');
             $data->price = $request->input('price');
             $data->stock = $request->input('stock');
