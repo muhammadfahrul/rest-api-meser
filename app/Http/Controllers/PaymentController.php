@@ -163,22 +163,22 @@ class PaymentController extends Controller
             $order_join = Order::where('code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
-            $order_join = [];
+            $array_item = [];
             // for ($i=0; $i < count($order_join); $i++) { 
             //     $array_item['id'] = $order_join[$i]['product']['id'];
             //     $array_item['price'] = $order_join[$i]['product']['price'];
             //     $array_item['quantity'] = $order_join[$i]['quantity'];
             //     $array_item['name'] = $order_join[$i]['product']['name'];
             // }
-            foreach ($order_join as $key => $value) {
-                $order_join['id'] = $value['product']['id'];
-                $order_join['price'] = $value['product']['price'];
-                $order_join['quantity'] = $value['quantity'];
-                $order_join['name'] = $value['product']['name'];
+            foreach ($order_join as $array_item => $value) {
+                $array_item['id'] = $value['product']['id'];
+                $array_item['price'] = $value['product']['price'];
+                $array_item['quantity'] = $value['quantity'];
+                $array_item['name'] = $value['product']['name'];
             }
 
             // Required
-            $item_details[] = $order_join;
+            $item_details[] = $array_item;
 
             return response()->json($item_details);
 
