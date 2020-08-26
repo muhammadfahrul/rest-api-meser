@@ -208,14 +208,14 @@ class PaymentController extends Controller
             );
             // return $transaction;
             try {
-                $chargeToken = CoreApi::charge($transaction);
+                // $chargeToken = CoreApi::charge($transaction);
 
                 // return response()->json($chargeToken);
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true,
                     // "results" => $chargeToken,
-                    "data" => $data
+                    "data" => $transaction
                 ]);
             } catch (\Exception $e) {
                 dd($e);
