@@ -266,7 +266,7 @@ class PaymentController extends Controller
     public function midtransPush(Request $request)
     {
         $req = $request->all();
-        $pay = Payment::where('order_code', $req['order_code'])->get();
+        $pay = Payment::where('order_code', $req['order_id'])->get();
         // return $pay;
         $pays = Payment::find($pay[0]->id);
         if($pay) {
