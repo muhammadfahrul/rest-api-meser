@@ -26,35 +26,35 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->get('/products', 'ProductController@showAll');
     $router->get('/products-image', 'ProductController@showAllImage');
-    $router->get('/products-order', 'ProductController@showProductOrder');
-    $router->get('/products-join', 'ProductController@showAllJoin');
+    $router->get('/products-order', 'ProductController@showAllProductOrder');
+    $router->get('/products-category', 'ProductController@showAllProductCategory');
     $router->get('/products/{id}', 'ProductController@showId');
-    $router->get('/products-category/{id}', 'ProductController@showCategoryId');
-    $router->get('/products-join/{id}', 'ProductController@showIdJoin');
+    $router->get('/products-category-id/{id}', 'ProductController@showIdCategory');
+    $router->get('/products-category/{id}', 'ProductController@showIdProductCategory');
     $router->post('/products', 'ProductController@add');
     $router->put('/products/{id}', 'ProductController@update');
     $router->delete('/products/{id}', 'ProductController@delete');
 
     $router->get('/categories', 'CategoryController@showAll');
-    $router->get('/categories-join', 'CategoryController@showAllJoin');
+    $router->get('/categories-product', 'CategoryController@showAllCategoryProduct');
     $router->get('/categories/{id}', 'CategoryController@showId');
-    $router->get('/categories-join/{id}', 'CategoryController@showIdJoin');
+    $router->get('/categories-product/{id}', 'CategoryController@showIdCategoryProduct');
     $router->post('/categories', 'CategoryController@add');
     $router->put('/categories/{id}', 'CategoryController@update');
     $router->delete('/categories/{id}', 'CategoryController@delete');
 
     $router->get('/orders', 'OrderController@showAll');
-    $router->get('/orders-join', 'OrderController@showAllJoin');
+    $router->get('/orders-product', 'OrderController@showAllOrderProduct');
     $router->get('/orders/{code}', 'OrderController@showId');
-    $router->get('/orders-join/{code}', 'OrderController@showIdJoin');
+    $router->get('/orders-product/{code}', 'OrderController@showIdOrderProduct');
     $router->post('/orders', 'OrderController@add');
     $router->put('/orders/{code}', 'OrderController@update');
     $router->delete('/orders/{code}', 'OrderController@delete');
 
     $router->get('/payments', 'PaymentController@showAll');
-    $router->get('/payments-join', 'PaymentController@showAllJoin');
+    $router->get('/payments-order', 'PaymentController@showAllPaymentOrder');
     $router->get('/payments/{id}', 'PaymentController@showId');
-    $router->get('/payments-join/{id}', 'PaymentController@showIdJoin');
+    $router->get('/payments-order/{id}', 'PaymentController@showIdPaymentOrder');
     $router->post('/payments', 'PaymentController@add');
     $router->delete('/payments/{id}', 'PaymentController@delete');
     $router->post('/payments/midtrans/push', 'PaymentController@midtransPush');

@@ -36,7 +36,7 @@ class OrderController extends Controller
         }
     }
 
-    public function showAllJoin()
+    public function showAllOrderProduct()
     {
         $data = Order::with(array('product'=>function($query){
             $query->select();
@@ -74,7 +74,7 @@ class OrderController extends Controller
         }
     }
 
-    public function showIdJoin($code)
+    public function showIdOrderProduct($code)
     {
         $findId = Order::where('code', $code)->get();
         $data = Order::where('code', $code)->with(array('product'=>function($query){

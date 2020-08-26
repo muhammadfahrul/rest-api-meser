@@ -36,7 +36,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function showAllJoin()
+    public function showAllCategoryProduct()
     {
         $data = Category::with(array('product'=>function($query){
             $query->select();
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function showIdJoin($id)
+    public function showIdCategoryProduct($id)
     {
         $findId = Category::find($id);
         $data = Category::where('id', $id)->with(array('product'=>function($query){

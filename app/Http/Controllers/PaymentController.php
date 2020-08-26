@@ -39,7 +39,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function showAllJoin()
+    public function showAllPaymentOrder()
     {
         $data = Payment::with(array('order'=>function($query){
             $query->select();
@@ -77,7 +77,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function showIdJoin($id)
+    public function showIdPaymentOrder($id)
     {
         $findId = Payment::find($id);
         $data = Payment::where('id', $id)->with(array('order'=>function($query){

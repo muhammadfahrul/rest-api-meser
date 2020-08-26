@@ -37,26 +37,37 @@ class ProductController extends Controller
         }
     }
 
-    public function showCategoryId($id)
+    public function showAllImage()
     {
-        $findId = Product::find($id);
-        $data = Product::where('category_id', $id)->get();
-        if($findId) {
-            Log::info('Showing product with category by id');
+        // $image_path = storage_path('images') . '/' . $name;
+        // if (file_exists($image_path)) {
+        //     $file = file_get_contents($image_path);
 
-            return response()->json([
-                "message" => "Success retrieve data",
-                "status" => true,
-                "data" => $data
-            ]);
-        }else {
-            return response()->json([
-                "message" => "Parameter Not Found"
-            ]);
+        //     return response($file, 200)->header('Content-Type', 'image/jpeg');
+        // }
+
+        // return response()->json([
+        //     "message" => "Image Not Found",
+        //     "status" => false
+        // ]);
+
+        $images = [];
+        $files = Storage::disk('gcs')->files('images');
+        foreach ($files as $file) {
+            $images[] = [
+                'name' => str_replace('images/', '', $file),
+                'src'  => Storage::disk('gcs')->url($file),
+            ];
         }
+
+        return response()->json([
+            "message" => "Success retrieve data",
+            "status" => true,
+            "data" => $images
+        ]);
     }
 
-    public function showProductOrder()
+    public function showAllProductOrder()
     {
         $data = Product::with(array('order'=>function($query){
             $query->select();
@@ -76,7 +87,7 @@ class ProductController extends Controller
         }
     }
 
-    public function showAllJoin()
+    public function showAllProductCategory()
     {
         $data = Product::with(array('category'=>function($query){
             $query->select();
@@ -114,7 +125,26 @@ class ProductController extends Controller
         }
     }
 
-    public function showIdJoin($id)
+    public function showIdCategory($id)
+    {
+        $findId = Product::find($id);
+        $data = Product::where('category_id', $id)->get();
+        if($findId) {
+            Log::info('Showing product with category by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);
+        }
+    }
+
+    public function showIdProductCategory($id)
     {
         $findId = Product::find($id);
         $data = Product::where('id', $id)->with(array('category'=>function($query){
@@ -218,36 +248,6 @@ class ProductController extends Controller
             ]);
         }
 
-    }
-
-    public function showAllImage()
-    {
-        // $image_path = storage_path('images') . '/' . $name;
-        // if (file_exists($image_path)) {
-        //     $file = file_get_contents($image_path);
-
-        //     return response($file, 200)->header('Content-Type', 'image/jpeg');
-        // }
-
-        // return response()->json([
-        //     "message" => "Image Not Found",
-        //     "status" => false
-        // ]);
-
-        $images = [];
-        $files = Storage::disk('gcs')->files('images');
-        foreach ($files as $file) {
-            $images[] = [
-                'name' => str_replace('images/', '', $file),
-                'src'  => Storage::disk('gcs')->url($file),
-            ];
-        }
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $images
-        ]);
     }
 
     public function delete($id)
