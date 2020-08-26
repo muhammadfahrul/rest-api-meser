@@ -127,9 +127,8 @@ class ProductController extends Controller
 
     public function showIdCategory($id)
     {
-        $findId = Product::find($id);
         $data = Product::where('category_id', $id)->get();
-        if($findId) {
+        if($data) {
             Log::info('Showing product with category by id');
 
             return response()->json([
