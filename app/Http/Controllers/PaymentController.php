@@ -225,7 +225,7 @@ class PaymentController extends Controller
                 return response()->json([
                     "message" => "Transaction with bank transfer method is successful",
                     "status" => true, 
-                    "data" => $data
+                    "data" => $results
                 ], 200);
             }else {
                 return response()->json([
