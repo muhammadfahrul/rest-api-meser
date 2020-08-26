@@ -170,7 +170,7 @@ class PaymentController extends Controller
             //     $array_item['quantity'] = $order_join[$i]['quantity'];
             //     $array_item['name'] = $order_join[$i]['product']['name'];
             // }
-            foreach ($order_join as $array_item => $value) {
+            foreach ($order_join as $key => $value) {
                 $array_item['id'] = [$value['product']['id']];
                 $array_item['price'] = $value['product']['price'];
                 $array_item['quantity'] = $value['quantity'];
