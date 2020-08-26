@@ -78,9 +78,7 @@ class ProductController extends Controller
     public function showIdJoin($id)
     {
         $findId = Product::find($id);
-        $data = Product::where('category_id', $id)->with(array('category'=>function($query){
-            $query->select();
-        }))->get();
+        $data = Product::where('category_id', $id)->get();
         if($findId) {
             Log::info('Showing product with category by id');
 
