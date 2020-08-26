@@ -37,6 +37,25 @@ class ProductController extends Controller
         }
     }
 
+    public function showCategoryId($id)
+    {
+        $findId = Product::find($id);
+        $data = Product::where('category_id', $id)->get();
+        if($findId) {
+            Log::info('Showing product with category by id');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter Not Found"
+            ]);
+        }
+    }
+
     public function showAllJoin()
     {
         $data = Product::with(array('category'=>function($query){
@@ -78,7 +97,9 @@ class ProductController extends Controller
     public function showIdJoin($id)
     {
         $findId = Product::find($id);
-        $data = Product::where('category_id', $id)->get();
+        $data = Product::where('id', $id)->with(array('category'=>function($query){
+            $query->select();
+        }))->get();
         if($findId) {
             Log::info('Showing product with category by id');
 
