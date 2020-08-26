@@ -163,80 +163,72 @@ class PaymentController extends Controller
             $order_join = Order::where('code', $data->order_code)->with(array('product'=>function($query){
                 $query->select();
             }))->get();
-            // $array_item = [];
-            // for ($i=0; $i < count($order_join); $i++) { 
-            //     $array_item['id'] = $order_join[$i]['product']['id'];
-            //     $array_item['price'] = $order_join[$i]['product']['price'];
-            //     $array_item['quantity'] = $order_join[$i]['quantity'];
-            //     $array_item['name'] = $order_join[$i]['product']['name'];
-            // }
-            // foreach ($order_join as $key => $value) {
-            //     $key['id'] = $value['product']['id'];
-            //     $key['price'] = $value['product']['price'];
-            //     $key['quantity'] = $value['quantity'];
-            //     $key['name'] = $value['product']['name'];
-            // }
+            $array_item = [];
+            for ($i=0; $i < count($order_join); $i++) { 
+                $array_item['id'] = $order_join[$i]['product']['id'];
+                $array_item['price'] = $order_join[$i]['product']['price'];
+                $array_item['quantity'] = $order_join[$i]['quantity'];
+                $array_item['name'] = $order_join[$i]['product']['name'];
+            }
 
-            // // Required
-            // $item_details[] = $order_join;
+            // Required
+            $item_details[] = $array_item;
 
-            return response()->json($order_join);
+            $transaction_details = array(
+                'order_code' => $data->order_code,
+                'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
+            );
 
-            // $transaction_details = array(
-            //     'order_code' => $data->order_code,
-            //     'gross_amount' => $data->gross_amount, // no decimal allowed for creditcard
-            // );
+            $order = Order::find($data->order_code);
+            // $customer = Customer::find($order->user_id);
 
-            // $order = Order::find($data->order_code);
-            // // $customer = Customer::find($order->user_id);
+            // Optional
+            $customer_details = array(
+                'first_name' => 'Messer',
+                'last_name' => 'App',
+                'email' => 'messer@gmail.com',
+                'phone' => '082467528825'
+            );
 
-            // // Optional
-            // $customer_details = array(
-            //     'first_name' => 'Messer',
-            //     'last_name' => 'App',
-            //     'email' => 'messer@gmail.com',
-            //     'phone' => '082467528825'
-            // );
+            // Optional, remove this to display all available payment methods
+            $enable_payments = array($data->payment_type);
 
-            // // Optional, remove this to display all available payment methods
-            // $enable_payments = array($data->payment_type);
+            $bank_transfer_details = array(
+                'bank' => $data->bank,
+                'va_number' => mt_rand(100000, 999999)
+            );
 
-            // $bank_transfer_details = array(
-            //     'bank' => $data->bank,
-            //     'va_number' => mt_rand(100000, 999999)
-            // );
+            // Fill transaction details
+            $transaction = array(
+                'payment_type' => $enable_payments,
+                'transaction_details' => $transaction_details,
+                'customer_details' => $customer_details,
+                'item_details' => $item_details,
+                'bank_transfer' => $bank_transfer_details,
+            );
+            // return $transaction;
+            try {
+                $chargeToken = CoreApi::charge($transaction);
 
-            // // Fill transaction details
-            // $transaction = array(
-            //     'payment_type' => $enable_payments,
-            //     'transaction_details' => $transaction_details,
-            //     'customer_details' => $customer_details,
-            //     'item_details' => $item_details,
-            //     'bank_transfer' => $bank_transfer_details,
-            // );
-            // // return $transaction;
-            // try {
-            //     $chargeToken = CoreApi::charge($transaction);
-
-            //     // return response()->json($chargeToken);
-            //     return response()->json([
-            //         "message" => "Transaction with bank transfer method is successful",
-            //         "status" => true,
-            //         // "results" => $chargeToken,
-            //         "data" => $data
-            //     ]);
-            // } catch (\Exception $e) {
-            //     dd($e);
-            //     // return ['code' => 0 , 'message' => 'failed'];
-            //     return response()->json([
-            //         "message" => "failed",
-            //         "status" => false,
-            //         // "results" => $chargeToken,
-            //         // "data" => [
-            //         //     "attributes" => $data
-            //         // ]
-            //     ]);
-            // }
+                // return response()->json($chargeToken);
+                return response()->json([
+                    "message" => "Transaction with bank transfer method is successful",
+                    "status" => true,
+                    // "results" => $chargeToken,
+                    "data" => $data
+                ]);
+            } catch (\Exception $e) {
+                dd($e);
+                // return ['code' => 0 , 'message' => 'failed'];
+                return response()->json([
+                    "message" => "failed",
+                    "status" => false,
+                    // "results" => $chargeToken,
+                    // "data" => [
+                    //     "attributes" => $data
+                    // ]
+                ]);
+            }
 
 
             // $transaction_req = [
