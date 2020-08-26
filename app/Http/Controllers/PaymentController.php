@@ -205,7 +205,7 @@ class PaymentController extends Controller
     
             $url = 'https://api.sandbox.midtrans.com/v2/charge';
 
-            $serverKey = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj');
+            $serverKey = base64_encode('SB-Mid-server-VbqKS4xIPoo0ZR3Qu3xKt8Jj:');
             
             $http_header = [
                 'Content-Type' => 'application/json',
