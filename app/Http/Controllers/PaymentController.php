@@ -258,7 +258,7 @@ class PaymentController extends Controller
             ];
     
             $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            $results = $response->json();
+            $results = response()->json($response);
             if ( $data["status_code"] == "406") {
                 return response()->json([
                     "message" => "Transaction has been done! check your order_id again",
