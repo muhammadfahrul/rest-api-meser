@@ -129,7 +129,7 @@ class OrderController extends Controller
         ]);
         
         $findId = Order::where('code', $code)->get();
-        $order = DB::table('t_orders')->where('code', '=', $code);
+        $order = DB::table('t_orders')->where('code', '=', $code)->get();
         if ($findId) {
             $products = $request->input('products');
 
