@@ -125,7 +125,7 @@ class OrderController extends Controller
     public function update(Request $request, $code)
     {
         $this->validate($request, [
-            'code' => 'required',
+            // 'code' => 'required',
         ]);
         
         $order = Order::where('code', $code)->first();
@@ -133,13 +133,13 @@ class OrderController extends Controller
             $products = $request->input('products');
 
             for ($i=0; $i < count($products); $i++) { 
-                $order->code = $request->input('code');
+                // $order->code = $request->input('code');
                 $order->quantity = $request->input('products.'.$i.'.quantity');
                 $order->product_id = $request->input('products.'.$i.'.product_id');
                 $order->save();
 
-                DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
                 DB::table('t_products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
+                DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
             }
 
             Log::info('Updating order by id');
