@@ -108,9 +108,9 @@ class OrderController extends Controller
 
         foreach ($products as $product) {
             $product_records[] = [
-                'code' => $request->input('code'),
-                'quantity' => $request->input('products.quantity'),
-                'product_id' => $request->input('products.product_id')
+                'code' => $request->code,
+                'quantity' => $request->quantity,
+                'product_id' => $request->product_id
             ];
         }
 
@@ -126,7 +126,7 @@ class OrderController extends Controller
 
         Order::insert($product_records);
 
-        DB::table('t_products')->where('id', '=', $request->input('products.product_id'))->decrement('stock', $request->input('products.quantity'));
+        DB::table('t_products')->where('id', '=', $request->product_id)->decrement('stock', $request->quantity);
 
         Log::info('Adding order');
 
