@@ -178,19 +178,20 @@ class ProductController extends Controller
         $data->name = $request->input('name');
         $data->price = $request->input('price');
         $data->stock = $request->input('stock');
-        $image = $request->file('image');
-        if(!empty($image)){
-            // $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
-            // $rand_md5 = md5($rand).".".$image->extension();
-            // $data->image = $rand_md5;
+        $data->image = $request->input('image');
+        // $image = $request->file('image');
+        // if(!empty($image)){
+        //     // $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
+        //     // $rand_md5 = md5($rand).".".$image->extension();
+        //     // $data->image = $rand_md5;
 
-            // $image->move(storage_path('images'),$rand_md5);
+        //     // $image->move(storage_path('images'),$rand_md5);
             
-            $name = time() . '-' . $image->getClientOriginalName();
-            $data->image = $name;
-            $filePath = 'images/' . $name;
-            Storage::disk('gcs')->put($filePath, file_get_contents($image));
-        }
+        //     $name = time() . '-' . $image->getClientOriginalName();
+        //     $data->image = $name;
+        //     $filePath = 'images/' . $name;
+        //     Storage::disk('gcs')->put($filePath, file_get_contents($image));
+        // }
         $data->category_id = $request->input('category_id');
         $data->save();
 
