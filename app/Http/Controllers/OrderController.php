@@ -155,7 +155,7 @@ class OrderController extends Controller
 
     public function delete($code)
     {
-        $order = Order::where('code', $code)->get();
+        $order = Order::where('code', $code);
         if($order) {
             $order->delete();
 
