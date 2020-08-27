@@ -104,29 +104,15 @@ class OrderController extends Controller
 
         $products = $request->input('products');
 
-        $product_records = [];
+        for ($i=0; $i < count($products); $i++) { 
+            $order = new Order();
+            $order->code = $request->input('code');
+            $order->quantity = $request->input('products.'.$i.'.quantity');
+            $order->product_id = $request->input('products.'.$i.'.product_id');
+            $order->save();
 
-        foreach ($products as $product) {
-            $product_records[] = [
-                'code' => $request->code,
-                'quantity' => $request->product->quantity,
-                'product_id' => $request->product->product_id
-            ];
+            DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
         }
-
-        // for ($i=0; $i < count($products); $i++) { 
-        //     $order = new Order();
-        //     $order->code = $request->input('code');
-        //     $order->quantity = $request->input('products.'.$i.'.quantity');
-        //     $order->product_id = $request->input('products.'.$i.'.product_id');
-        //     $order->save();
-
-        //     DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
-        // }
-
-        Order::insert($product_records);
-
-        DB::table('t_products')->where('id', '=', $request->product->product_id)->decrement('stock', $request->product->quantity);
 
         Log::info('Adding order');
 
