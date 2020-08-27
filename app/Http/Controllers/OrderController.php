@@ -130,23 +130,23 @@ class OrderController extends Controller
         
         $order = DB::table('t_orders')->where('code', '=', $code)->get();
         if ($order) {
-            // $products = $request->input('products');
+            $products = $request->input('products');
 
-            // for ($i=0; $i < count($products); $i++) { 
-            //     $order->code = $request->input('code');
-            //     $order->quantity = $request->input('products.'.$i.'.quantity');
-            //     $order->product_id = $request->input('products.'.$i.'.product_id');
-            //     $order->save();
+            for ($i=0; $i < count($products); $i++) { 
+                $order->code = $request->input('code');
+                $order->quantity = $request->input('products.'.$i.'.quantity');
+                $order->product_id = $request->input('products.'.$i.'.product_id');
+                $order->save();
 
-            //     DB::table('t_products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
-            //     DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
-            // }
+                DB::table('t_products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
+                DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
+            }
 
             Log::info('Updating order by id');
 
             return response()->json([
                 "message" => "Success Updated",
-                "status" => $order
+                "status" => true
             ]);        
         }else {
             return response()->json([
