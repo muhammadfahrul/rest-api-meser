@@ -162,14 +162,14 @@ class PaymentController extends Controller
 
             $bank_transfer_details = [
                 'bank' => $data->bank,
-                // 'va_number' => mt_rand(100000, 999999)
+                'va_number' => mt_rand(100000, 999999)
             ];
 
             $transaction_req = [
                 "payment_type" => $enable_payments,
                 "transaction_details" => $transaction_details,
                 // "item_details" => $item_details,
-                "bank_transfer" => $bank_transfer_details
+                // "bank_transfer" => $bank_transfer_details
             ];
     
             $url = 'https://api.sandbox.midtrans.com/v2/charge';
