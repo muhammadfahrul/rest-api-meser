@@ -128,15 +128,20 @@ class OrderController extends Controller
             // 'code' => 'required',
         ]);
         
-        $order = DB::table('t_orders')->where('code', '=', $code)->get();
-        if ($order) {
+        $findId = Order::where('code', $code)->get();
+        if ($findId) {
             $products = $request->input('products');
 
             for ($i=0; $i < count($products); $i++) { 
-                $order->code = $request->input('code');
-                $order->quantity = $request->input('products.'.$i.'.quantity');
-                $order->product_id = $request->input('products.'.$i.'.product_id');
-                $order->save();
+                $order = DB::table('t_orders')->where('code', '=', $code)->update([
+                    'code' => $request->input('code'),
+                    'quantity' => $request->input('products.'.$i.'.quantity'),
+                    'product_id' => $request->input('products.'.$i.'.product_id')
+                ]);
+                // $order->code = $request->input('code');
+                // $order->quantity = $request->input('products.'.$i.'.quantity');
+                // $order->product_id = $request->input('products.'.$i.'.product_id');
+                // $order->save();
 
                 DB::table('t_products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
                 DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
