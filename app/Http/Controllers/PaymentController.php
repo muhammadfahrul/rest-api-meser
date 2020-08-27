@@ -193,9 +193,7 @@ class PaymentController extends Controller
                 $data->transaction_id = $results["transaction_id"];
                 $data->transaction_time = $results["transaction_time"];
                 $data->transaction_status = $results["transaction_status"];
-                foreach ($results["va_numbers"] as $key => $value) {
-                    $data->va_number = $key["va_number"];
-                }
+                $data->va_number = $results["va_numbers"][0]["va_number"];
     
                 if ($data->save()){
                     Log::info('Adding payment');
