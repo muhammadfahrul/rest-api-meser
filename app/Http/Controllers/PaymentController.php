@@ -187,7 +187,7 @@ class PaymentController extends Controller
             $data->transaction_id = $results["transaction_id"];
             $data->transaction_time = $results["transaction_time"];
             $data->transaction_status = $results["transaction_status"];
-            $data->va_number = $bank_transfer_details['va_number'];
+            $data->va_number = mt_rand(100000, 999999);
 
             if ($data->save()){
                 Log::info('Adding payment');
