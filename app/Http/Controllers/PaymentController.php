@@ -182,23 +182,25 @@ class PaymentController extends Controller
                 'Accept' => 'application/json'
             ];
     
-            $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            $results = $response->json();
-            $data->transaction_id = $results["transaction_id"];
-            $data->transaction_time = $results["transaction_time"];
-            $data->transaction_status = $results["transaction_status"];
+            // $response = Http::withHeaders($http_header)->post($url, $transaction_req);
+            // $results = $response->json();
+            // $data->transaction_id = $results["transaction_id"];
+            // $data->transaction_time = $results["transaction_time"];
+            // $data->transaction_status = $results["transaction_status"];
             // $data->va_number = $results["va_numbers"]["va_number"];
 
-            if ($data->save()){
-                Log::info('Adding payment');
+            return response()->json($transaction_req);
 
-                return response()->json($results);
-            }else {
-                return response()->json([
-                    "message" => "Data failed to save",
-                    "status" => false
-                ], 401);
-            }
+            // if ($data->save()){
+            //     Log::info('Adding payment');
+
+            //     return response()->json($results);
+            // }else {
+            //     return response()->json([
+            //         "message" => "Data failed to save",
+            //         "status" => false
+            //     ], 401);
+            // }
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
