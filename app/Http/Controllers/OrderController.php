@@ -133,7 +133,7 @@ class OrderController extends Controller
             $products = $request->input('products');
 
             for ($i=0; $i < count($products); $i++) { 
-                // $order->code = $request->input('code');
+                $order->code = $request->input('code');
                 $order->quantity = $request->input('products.'.$i.'.quantity');
                 $order->product_id = $request->input('products.'.$i.'.product_id');
                 $order->save();
