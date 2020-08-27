@@ -104,15 +104,29 @@ class OrderController extends Controller
 
         $products = $request->input('products');
 
-        for ($i=0; $i < count($products); $i++) { 
-            $order = new Order();
-            $order->code = $request->input('code');
-            $order->quantity = $request->input('products.'.$i.'.quantity');
-            $order->product_id = $request->input('products.'.$i.'.product_id');
-            $order->save();
+        $product_records = [];
 
-            DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
+        foreach ($products as $product) {
+            $product_records[] = [
+                'code' => $request->input('code'),
+                'quantity' => $request->input('quantity'),
+                'product_id' => $request->input('product_id')
+            ];
         }
+
+        // for ($i=0; $i < count($products); $i++) { 
+        //     $order = new Order();
+        //     $order->code = $request->input('code');
+        //     $order->quantity = $request->input('products.'.$i.'.quantity');
+        //     $order->product_id = $request->input('products.'.$i.'.product_id');
+        //     $order->save();
+
+        //     DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
+        // }
+
+        Order::insert($product_records);
+
+        DB::table('t_products')->where('id', '=', $request->input('product_id'))->decrement('stock', $request->input('quantity'));
 
         Log::info('Adding order');
 
@@ -128,20 +142,15 @@ class OrderController extends Controller
             // 'code' => 'required',
         ]);
         
-        $findId = Order::where('code', $code)->get();
-        if ($findId) {
+        $order = Order::where('code', $code)->first();
+        if ($order) {
             $products = $request->input('products');
 
             for ($i=0; $i < count($products); $i++) { 
-                $order = Order::where('code', $code)->update([
-                    'code' => $request->input('code'),
-                    'quantity' => $request->input('products.'.$i.'.quantity'),
-                    'product_id' => $request->input('products.'.$i.'.product_id')
-                ]);
-                // $order->code = $request->input('code');
-                // $order->quantity = $request->input('products.'.$i.'.quantity');
-                // $order->product_id = $request->input('products.'.$i.'.product_id');
-                // $order->update();
+                $order->code = $request->input('code');
+                $order->quantity = $request->input('products.'.$i.'.quantity');
+                $order->product_id = $request->input('products.'.$i.'.product_id');
+                $order->save();
 
                 DB::table('t_products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
                 DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
