@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -109,6 +110,8 @@ class OrderController extends Controller
             $order->quantity = $request->input('products.'.$i.'.quantity');
             $order->product_id = $request->input('products.'.$i.'.product_id');
             $order->save();
+
+            DB::table('t_products')->decrement('stock', $order->quantity);
         }
 
         Log::info('Adding order');
