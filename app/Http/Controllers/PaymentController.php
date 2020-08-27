@@ -182,12 +182,12 @@ class PaymentController extends Controller
                 'Accept' => 'application/json'
             ];
     
-            $response = Http::withHeaders($http_header)->post($url, $transaction_req);
-            $results = $response->json();
-            $data->transaction_id = $results["transaction_id"];
-            $data->transaction_time = $results["transaction_time"];
-            $data->transaction_status = $results["transaction_status"];
-            $data->va_number = mt_rand(100000, 999999);
+            // $response = Http::withHeaders($http_header)->post($url, $transaction_req);
+            // $results = $response->json();
+            // $data->transaction_id = $results["transaction_id"];
+            // $data->transaction_time = $results["transaction_time"];
+            // $data->transaction_status = $results["transaction_status"];
+            // $data->va_number = mt_rand(100000, 999999);
 
             return response()->json($transaction_req);
 
