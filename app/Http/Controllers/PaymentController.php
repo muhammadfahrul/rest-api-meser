@@ -189,16 +189,18 @@ class PaymentController extends Controller
             $data->transaction_status = $results["transaction_status"];
             $data->va_number = mt_rand(100000, 999999);
 
-            if ($data->save()){
-                Log::info('Adding payment');
+            return response()->json($transaction_req);
 
-                return response()->json($results);
-            }else {
-                return response()->json([
-                    "message" => "Data failed to save",
-                    "status" => false
-                ], 401);
-            }
+            // if ($data->save()){
+            //     Log::info('Adding payment');
+
+            //     return response()->json($results);
+            // }else {
+            //     return response()->json([
+            //         "message" => "Data failed to save",
+            //         "status" => false
+            //     ], 401);
+            // }
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
