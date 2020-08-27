@@ -192,6 +192,11 @@ class PaymentController extends Controller
                     "message" => "Transaction has been done! check your order_code again",
                     "status" => false
                 ]);
+            }elseif ($results["status_code"] == "505") {
+                return response()->json([
+                    "message" => "Unable to create va_number for this transaction",
+                    "status" => false
+                ]);
             }else {
                 $data->transaction_id = $results["transaction_id"];
                 $data->transaction_time = $results["transaction_time"];
