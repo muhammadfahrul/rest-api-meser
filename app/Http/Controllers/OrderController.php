@@ -128,7 +128,7 @@ class OrderController extends Controller
             'code' => 'required',
         ]);
         
-        $order = Order::where('code', $code);
+        $order = Order::where('code', $code)->first();
         if ($order) {
             $products = $request->input('products');
 
