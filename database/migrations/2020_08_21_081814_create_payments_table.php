@@ -20,6 +20,7 @@ class CreatePaymentsTable extends Migration
             $table->string('payment_type');
             $table->integer('gross_amount');
             $table->string('bank');
+            $table->string('va_number');
             $table->string('transaction_time');
             $table->string('transaction_status');
             $table->timestamps();

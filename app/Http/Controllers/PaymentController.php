@@ -116,6 +116,7 @@ class PaymentController extends Controller
             $data->transaction_id = 0;
             $data->transaction_time = "";
             $data->transaction_status = "success";
+            $data->va_number = "";
             $data->save();
 
             Log::info('Adding payment');   
@@ -186,6 +187,7 @@ class PaymentController extends Controller
             $data->transaction_id = $results["transaction_id"];
             $data->transaction_time = $results["transaction_time"];
             $data->transaction_status = $results["transaction_status"];
+            $data->va_number = $results["va_numbers"]["va_number"];
 
             if ($data->save()){
                 Log::info('Adding payment');
@@ -237,6 +239,7 @@ class PaymentController extends Controller
             $pays->transaction_time = $req['transaction_time'];
             $pays->transaction_status = $req['transaction_status'];
             $pays->transaction_id = $req['transaction_id'];
+            $pays->va_number = $req['va_numbers']['va_number'];
             if($pays->save()) {
                 return response()->json([
                     "messages" => "Transaction changes"
