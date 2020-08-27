@@ -186,7 +186,7 @@ class PaymentController extends Controller
             $results = $response->json();
             if ($results["status_code"] == "406") {
                 return response()->json([
-                    "message" => "Transaction has been done! check your order_id again",
+                    "message" => "Transaction has been done! check your order_code again",
                     "status" => false
                 ]);
             }else {
