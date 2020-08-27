@@ -128,7 +128,7 @@ class OrderController extends Controller
             'code' => 'required',
         ]);
         
-        $order = Order::where('code', $code)->get();;
+        $order = Order::where('code', $code)->get();
         if ($order) {
             $products = $request->input('products');
 
@@ -155,7 +155,7 @@ class OrderController extends Controller
 
     public function delete($code)
     {
-        $order = Order::where('code', $code)->get();;
+        $order = Order::where('code', $code)->get();
         if($order) {
             $order->delete();
 
