@@ -111,7 +111,7 @@ class OrderController extends Controller
             $order->product_id = $request->input('products.'.$i.'.product_id');
             $order->save();
 
-            DB::table('t_products')->decrement('stock', $order->quantity);
+            DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
         }
 
         Log::info('Adding order');
