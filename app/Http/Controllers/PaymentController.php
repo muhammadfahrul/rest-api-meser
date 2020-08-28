@@ -169,7 +169,7 @@ class PaymentController extends Controller
                 "payment_type" => $enable_payments,
                 "transaction_details" => $transaction_details,
                 // "item_details" => $item_details,
-                // "bank_transfer" => $bank_transfer_details
+                "bank_transfer" => $bank_transfer_details
             ];
     
             $url = 'https://api.sandbox.midtrans.com/v2/charge';
