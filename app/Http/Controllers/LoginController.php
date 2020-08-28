@@ -41,7 +41,8 @@ class LoginController extends Controller
 
         if (!$user) {
             return response()->json([
-                "message" => "Login failed"
+                "message" => "Login failed",
+                "status" => false
             ]);
         }
 

@@ -32,7 +32,8 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data not found"
+                "message" => "Data not found",
+                "status" => false
             ]);
         }
     }
@@ -89,7 +90,8 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data not found"
+                "message" => "Data not found",
+                "status" => false
             ]);
         }
     }
@@ -109,7 +111,8 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data not found"
+                "message" => "Data not found",
+                "status" => false
             ]);
         }
     }
@@ -127,7 +130,8 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
     }
@@ -145,7 +149,8 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
     }
@@ -166,7 +171,8 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
     }
@@ -254,7 +260,8 @@ class ProductController extends Controller
             ]);        
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
 
@@ -277,7 +284,8 @@ class ProductController extends Controller
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
     }

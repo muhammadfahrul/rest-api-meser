@@ -34,7 +34,8 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data not found"
+                "message" => "Data not found",
+                "status" => false
             ]);
         }
     }
@@ -54,7 +55,8 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data not found"
+                "message" => "Data not found",
+                "status" => false
             ]);
         }
     }
@@ -72,7 +74,8 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
     }
@@ -93,7 +96,8 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);            
         }
     }
@@ -243,7 +247,8 @@ class PaymentController extends Controller
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter not found"
+                "message" => "Parameter not found",
+                "status" => false
             ]);
         }
     }
@@ -260,8 +265,9 @@ class PaymentController extends Controller
             $pays->transaction_id = $req['transaction_id'];
             if($pays->save()) {
                 return response()->json([
-                    "messages" => "Transaction changes"
-                ], 200);
+                    "messages" => "Transaction changes",
+                    "status" => true
+                ]);
             }
         }else {
             return response()->json([
