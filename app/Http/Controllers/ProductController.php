@@ -53,7 +53,7 @@ class ProductController extends Controller
 
         $images = [];
         $files = Storage::disk('gcs')->files('images');
-        if (file_exists($files)) {
+        if (file_exists(str_replace('images/', '', $files))) {
             foreach ($files as $file) {
                 $images[] = [
                     'name' => str_replace('images/', '', $file),
