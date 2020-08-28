@@ -26,6 +26,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->get('/products', 'ProductController@showAll');
     $router->get('/product-images', 'ProductController@showAllImage');
+    $router->get('/product-image/{name}', 'ProductController@showIdImage');
     $router->get('/product-orders', 'ProductController@showAllProductOrder');
     $router->get('/product-categories', 'ProductController@showAllProductCategory');
     $router->get('/product/{id}', 'ProductController@showId');
