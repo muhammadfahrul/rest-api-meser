@@ -64,43 +64,6 @@ class ProductController extends Controller
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
-                "data" => $files
-            ]);
-        }else {
-            return response()->json([
-                "message" => "Images not found",
-                "status" => false
-            ]);
-        }
-    }
-
-    public function showIdImage($name)
-    {
-        // $image_path = storage_path('images') . '/' . $name;
-        // if (file_exists($image_path)) {
-        //     $file = file_get_contents($image_path);
-
-        //     return response($file, 200)->header('Content-Type', 'image/jpeg');
-        // }
-
-        // return response()->json([
-        //     "message" => "Image Not Found",
-        //     "status" => false
-        // ]);
-
-        $images = [];
-        $files = Storage::disk('gcs')->files('product-images');
-        if(!empty($files)) {
-            foreach ($files as $file) {
-                $images[] = [
-                    'name' => str_replace('product-images/', '', $file),
-                    'src'  => Storage::disk('gcs')->url($file),
-                ];
-            }
-    
-            return response()->json([
-                "message" => "Success retrieve data",
-                "status" => true,
                 "data" => $images
             ]);
         }else {
