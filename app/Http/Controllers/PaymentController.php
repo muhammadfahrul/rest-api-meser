@@ -204,10 +204,7 @@ class PaymentController extends Controller
                     ]);
                 }
             }else {
-                return response()->json([
-                    "message" => $results["status_message"],
-                    "status" => $results["status_code"]
-                ]);
+                return response()->json($results);
             }
         }elseif ($data->payment_type == "pending") {
             $data->transaction_id = 0;
