@@ -217,7 +217,7 @@ class PaymentController extends Controller
         }elseif ($data->payment_type == "pending") {
             $data->transaction_id = 0;
             $data->transaction_time = "";
-            $data->transaction_status = $request->input('pending');
+            $data->transaction_status = $request->input('transaction_status');
             $data->va_number = "";
             $data->save();
 
