@@ -34,7 +34,7 @@ class UserController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -52,7 +52,7 @@ class UserController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);            
         }
     }
@@ -72,7 +72,7 @@ class UserController extends Controller
         Log::info('Adding user');
 
         return response()->json([
-            "message" => "Success Added",
+            "message" => "Success added",
             "status" => true,
             "data" => $data
         ]);
@@ -94,13 +94,13 @@ class UserController extends Controller
             Log::info('Updating user by id');
 
             return response()->json([
-                "message" => "Success Updated",
+                "message" => "Success updated",
                 "status" => true,
                 "data" => $data
             ]);        
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
 
@@ -115,13 +115,13 @@ class UserController extends Controller
             Log::info('Deleting user by id');
 
             return response()->json([
-                "message" => "Success Deleted",
+                "message" => "Success deleted",
                 "status" => true,
                 "data" => $data
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }

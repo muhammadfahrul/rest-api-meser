@@ -32,7 +32,7 @@ class OrderController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -52,7 +52,7 @@ class OrderController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -70,7 +70,7 @@ class OrderController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
@@ -91,7 +91,7 @@ class OrderController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
@@ -117,7 +117,7 @@ class OrderController extends Controller
         Log::info('Adding order');
 
         return response()->json([
-            "message" => "Success Added",
+            "message" => "Success added",
             "status" => true,
         ]);
     }
@@ -145,12 +145,12 @@ class OrderController extends Controller
             Log::info('Updating order by id');
 
             return response()->json([
-                "message" => "Success Updated",
+                "message" => "Success updated",
                 "status" => true
             ]);        
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
 
@@ -165,12 +165,12 @@ class OrderController extends Controller
             Log::info('Deleting order by id');
 
             return response()->json([
-                "message" => "Success Deleted",
+                "message" => "Success deleted",
                 "status" => true
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }

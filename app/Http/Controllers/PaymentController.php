@@ -34,7 +34,7 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -54,7 +54,7 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -72,7 +72,7 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
@@ -93,7 +93,7 @@ class PaymentController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);            
         }
     }
@@ -243,7 +243,7 @@ class PaymentController extends Controller
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }

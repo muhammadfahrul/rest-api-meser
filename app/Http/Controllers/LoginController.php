@@ -41,13 +41,13 @@ class LoginController extends Controller
 
         if (!$user) {
             return response()->json([
-                "message" => "Login Failed"
+                "message" => "Login failed"
             ]);
         }
 
         if (Hash::check($password, $user->password)) {
             return response()->json([
-                "message" => "Login Success",
+                "message" => "Login success",
                 "status" => true,
                 "data" => $user
             ]);

@@ -126,7 +126,7 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -146,7 +146,7 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -164,7 +164,7 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
@@ -182,7 +182,7 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
@@ -203,7 +203,7 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
@@ -222,27 +222,27 @@ class ProductController extends Controller
         $data->name = $request->input('name');
         $data->price = $request->input('price');
         $data->stock = $request->input('stock');
-        // $data->image = $request->input('image');
-        $image = $request->file('image');
-        if(!empty($image)){
-            // $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
-            // $rand_md5 = md5($rand).".".$image->extension();
-            // $data->image = $rand_md5;
+        $data->image = $request->input('image');
+        // $image = $request->file('image');
+        // if(!empty($image)){
+        //     // $rand = bin2hex(openssl_random_pseudo_bytes(100)).".".$image->extension();
+        //     // $rand_md5 = md5($rand).".".$image->extension();
+        //     // $data->image = $rand_md5;
 
-            // $image->move(storage_path('images'),$rand_md5);
+        //     // $image->move(storage_path('images'),$rand_md5);
             
-            $name = time() . '-' . $image->getClientOriginalName();
-            $data->image = $name;
-            $filePath = 'images/' . $name;
-            Storage::disk('gcs')->put($filePath, file_get_contents($image));
-        }
+        //     $name = time() . '-' . $image->getClientOriginalName();
+        //     $data->image = $name;
+        //     $filePath = 'images/' . $name;
+        //     Storage::disk('gcs')->put($filePath, file_get_contents($image));
+        // }
         $data->category_id = $request->input('category_id');
         $data->save();
 
         Log::info('Adding product');
 
         return response()->json([
-            "message" => "Success Added",
+            "message" => "Success added",
             "status" => true,
             "data" => $data
         ]);
@@ -285,13 +285,13 @@ class ProductController extends Controller
             Log::info('Updating product by id');
 
             return response()->json([
-                "message" => "Success Updated",
+                "message" => "Success updated",
                 "status" => true,
                 "data" => $data
             ]);        
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
 
@@ -308,13 +308,13 @@ class ProductController extends Controller
             Log::info('Deleting product by id');
 
             return response()->json([
-                "message" => "Success Deleted",
+                "message" => "Success deleted",
                 "status" => true,
                 "data" => $data
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter Not Found"
+                "message" => "Parameter not found"
             ]);
         }
     }
