@@ -52,7 +52,7 @@ class ProductController extends Controller
         // ]);
 
         $images = [];
-        $files = Storage::disk('gcs')->files('images');
+        $files = Storage::disk('gcs')->files('product-images');
         if(!empty($files)) {
             foreach ($files as $file) {
                 $images[] = [
@@ -89,7 +89,7 @@ class ProductController extends Controller
         // ]);
 
         $images = [];
-        $files = Storage::disk('gcs')->files('images');
+        $files = Storage::disk('gcs')->files('product-images');
         if(!empty($files)) {
             foreach ($files as $file) {
                 $images[] = [
