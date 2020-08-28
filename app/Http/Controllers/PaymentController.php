@@ -214,6 +214,20 @@ class PaymentController extends Controller
                     ]);
                 }
             }
+        }elseif ($data->payment_type == "pending") {
+            $data->transaction_id = 0;
+            $data->transaction_time = "";
+            $data->transaction_status = $request->input('pending');
+            $data->va_number = "";
+            $data->save();
+
+            Log::info('Adding payment');   
+
+            return response()->json([
+                "message" => "Transaction pending is successful",
+                "status" => true,
+                "data" => $data
+            ]);
         }else {
             return response()->json([
                 "message" => "An unexpected error occurred",
