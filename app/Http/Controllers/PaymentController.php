@@ -187,17 +187,7 @@ class PaymentController extends Controller
 
             // return response()->json($transaction_req);
 
-            if ($results["status_code"] == "406") {
-                return response()->json([
-                    "message" => "Transaction has been done! check your order_code again",
-                    "status" => false
-                ]);
-            }elseif ($results["status_code"] == "505") {
-                return response()->json([
-                    "message" => "Unable to create va_number for this transaction",
-                    "status" => false
-                ]);
-            }else {
+            if ($results["status_code"] == "201") {
                 $data->transaction_id = $results["transaction_id"];
                 $data->transaction_time = $results["transaction_time"];
                 $data->transaction_status = $results["transaction_status"];
@@ -213,6 +203,11 @@ class PaymentController extends Controller
                         "status" => false
                     ]);
                 }
+            }else {
+                return response()->json([
+                    "message" => $results["status_message"],
+                    "status" => $results["status_code"]
+                ]);
             }
         }elseif ($data->payment_type == "pending") {
             $data->transaction_id = 0;
