@@ -173,13 +173,13 @@ class ProductController extends Controller
 
     public function add(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required',
-        //     'price' => 'required',
-        //     'stock' => 'required',
-        //     'image' => 'required|image',
-        //     'category_id' => 'required|exists:t_categories,id'
-        // ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            // 'image' => 'required|image',
+            'category_id' => 'required|exists:t_categories,id'
+        ]);
         
         $data = new Product();
         $data->name = $request->input('name');
@@ -213,13 +213,13 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $this->validate($request, [
-        //     'name' => 'required',
-        //     'price' => 'required',
-        //     'stock' => 'required',
-        //     'image' => 'required|image',
-        //     'category_id' => 'required|exists:t_categories,id'
-        // ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            // 'image' => 'required|image',
+            'category_id' => 'required|exists:t_categories,id'
+        ]);
         
         $data = Product::find($id);
         if ($data) {
