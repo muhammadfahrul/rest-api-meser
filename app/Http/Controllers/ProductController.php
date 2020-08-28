@@ -260,7 +260,7 @@ class ProductController extends Controller
         
         $data = Product::find($id);
         if ($data) {
-            Storage::disk('gcs')->delete('images/' . $data->image);
+            // Storage::disk('gcs')->delete('images/' . $data->image);
             
             $data->name = $request->input('name');
             $data->price = $request->input('price');
@@ -303,7 +303,7 @@ class ProductController extends Controller
         if($data) {
             $data->delete();
             
-            Storage::disk('gcs')->delete('images/' . $data->image);
+            // Storage::disk('gcs')->delete('images/' . $data->image);
 
             Log::info('Deleting product by id');
 
