@@ -64,7 +64,7 @@ class ProductController extends Controller
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
-                "data" => $images
+                "data" => $files
             ]);
         }else {
             return response()->json([
@@ -101,11 +101,11 @@ class ProductController extends Controller
             return response()->json([
                 "message" => "Success retrieve data",
                 "status" => true,
-                "data" => $files
+                "data" => $images
             ]);
         }else {
             return response()->json([
-                "message" => "Image not found",
+                "message" => "Images not found",
                 "status" => false
             ]);
         }
