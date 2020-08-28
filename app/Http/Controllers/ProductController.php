@@ -56,7 +56,7 @@ class ProductController extends Controller
         if(!empty($files)) {
             foreach ($files as $file) {
                 $images[] = [
-                    'name' => str_replace('images/', '', $file),
+                    'name' => str_replace('product-images/', '', $file),
                     'src'  => Storage::disk('gcs')->url($file),
                 ];
             }
@@ -93,7 +93,7 @@ class ProductController extends Controller
         if(!empty($files)) {
             foreach ($files as $file) {
                 $images[] = [
-                    'name' => str_replace('images/', '', $file),
+                    'name' => str_replace('product-images/', '', $file),
                     'src'  => Storage::disk('gcs')->url($file),
                 ];
             }
@@ -233,7 +233,7 @@ class ProductController extends Controller
             
             $name = time() . '-' . $image->getClientOriginalName();
             $data->image = $name;
-            $filePath = 'images/' . $name;
+            $filePath = 'product-images/' . $name;
             Storage::disk('gcs')->put($filePath, file_get_contents($image));
         }
         $data->category_id = $request->input('category_id');
@@ -260,7 +260,7 @@ class ProductController extends Controller
         
         $data = Product::find($id);
         if ($data) {
-            // Storage::disk('gcs')->delete('images/' . $data->image);
+            // Storage::disk('gcs')->delete('product-images/' . $data->image);
             
             $data->name = $request->input('name');
             $data->price = $request->input('price');
@@ -276,7 +276,7 @@ class ProductController extends Controller
                 
             //     $name = time() . '-' . $image->getClientOriginalName();
             //     $data->image = $name;
-            //     $filePath = 'images/' . $name;
+            //     $filePath = 'product-images/' . $name;
             //     Storage::disk('gcs')->put($filePath, file_get_contents($image));
             // }
             $data->category_id = $request->input('category_id');
@@ -303,7 +303,7 @@ class ProductController extends Controller
         if($data) {
             $data->delete();
             
-            // Storage::disk('gcs')->delete('images/' . $data->image);
+            // Storage::disk('gcs')->delete('product-images/' . $data->image);
 
             Log::info('Deleting product by id');
 
