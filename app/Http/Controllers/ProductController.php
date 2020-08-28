@@ -32,7 +32,7 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Data Not Found"
+                "message" => "Data not found"
             ]);
         }
     }
@@ -68,13 +68,13 @@ class ProductController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Image Not Found",
+                "message" => "Images not found",
                 "status" => false
             ]);
         }
     }
 
-    public function showIdImage()
+    public function showIdImage($name)
     {
         // $image_path = storage_path('images') . '/' . $name;
         // if (file_exists($image_path)) {
@@ -90,18 +90,25 @@ class ProductController extends Controller
 
         $images = [];
         $files = Storage::disk('gcs')->files('images');
-        foreach ($files as $file) {
-            $images[] = [
-                'name' => str_replace('images/', '', $file),
-                'src'  => Storage::disk('gcs')->url($file),
-            ];
+        if(!empty($files)) {
+            foreach ($files as $file) {
+                $images[] = [
+                    'name' => str_replace('images/', '', $file),
+                    'src'  => Storage::disk('gcs')->url($file),
+                ];
+            }
+    
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $files
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Image not found",
+                "status" => false
+            ]);
         }
-
-        return response()->json([
-            "message" => "Success retrieve data",
-            "status" => true,
-            "data" => $images
-        ]);
     }
 
     public function showAllProductOrder()
