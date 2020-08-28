@@ -162,7 +162,7 @@ class PaymentController extends Controller
 
             $bank_transfer_details = [
                 'bank' => $data->bank,
-                'va_number' => mt_rand(100000, 999999)
+                'va_number' => 111111
             ];
 
             $transaction_req = [
