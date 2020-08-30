@@ -87,7 +87,7 @@ class OrderController extends Controller
         $data = DB::table('t_orders')
                     ->where('code', '=', $code)
                     ->join('t_products', 't_orders.product_id', '=', 't_products.id')
-                    ->select('t_orders.*', 't_products.name', '=', 'product_name')
+                    ->select('t_orders.*', 't_products.name')
                     ->get();
         if($findId) {
             Log::info('Showing order with product by id');
