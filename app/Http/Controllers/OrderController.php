@@ -82,7 +82,7 @@ class OrderController extends Controller
     {
         $findId = Order::where('code', $code)->get();
         $data = Order::where('code', $code)->with(array('product'=>function($query){
-            $query->select();
+            $query->select('name');
         }))->get();
         if($findId) {
             Log::info('Showing order with product by id');
