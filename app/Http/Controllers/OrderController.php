@@ -82,7 +82,7 @@ class OrderController extends Controller
     {
         $findId = Order::where('code', $code)->get();
         $data = Order::where('code', $code)->with(array('product'=>function($query){
-            $query->select('product.name');
+            $query->select('name');
         }))->get();
         // $data = DB::table('t_orders')
         //             ->where('code', '=', $code)
