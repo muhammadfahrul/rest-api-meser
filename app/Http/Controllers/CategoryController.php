@@ -77,6 +77,26 @@ class CategoryController extends Controller
         }
     }
 
+    public function showName($name)
+    {
+        $findName = Category::find($name);
+        $data = Category::where('name', $name)->get();
+        if($findName) {
+            Log::info('Showing category with product by name');
+
+            return response()->json([
+                "message" => "Success retrieve data",
+                "status" => true,
+                "data" => $data
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Parameter not found",
+                "status" => false 
+            ]);
+        }
+    }
+
     public function showIdCategoryProduct($id)
     {
         $findId = Category::find($id);
