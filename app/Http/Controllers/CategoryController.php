@@ -80,7 +80,7 @@ class CategoryController extends Controller
     public function showName($name)
     {
         // $findName = Category::find($name);
-        $data = Category::where('name', $name)->get();
+        $data = DB::table('t_categories')->where('name', '=', $name)->get();
         if($data) {
             Log::info('Showing category by name');
 
