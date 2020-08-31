@@ -240,8 +240,9 @@ class PaymentController extends Controller
     {
         $this->validate($request, [
             'payment_type' => 'required',
-            'gross_amount' => 'required',
-            'bank' => 'required_if:payment_type,bank_transfer',
+            'transaction_status' => 'required',
+            // 'gross_amount' => 'required',
+            // 'bank' => 'required_if:payment_type,bank_transfer',
             // 'order_code' => 'required|exists:t_orders,code'
         ]);
         
