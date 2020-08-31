@@ -166,7 +166,7 @@ class PaymentController extends Controller
 
             $bank_transfer_details = [
                 'bank' => $data->bank,
-                'va_number' => 1234567863214
+                'va_number' => 1234567890
             ];
 
             $transaction_req = [
