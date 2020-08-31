@@ -38,7 +38,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('/categories', 'CategoryController@showAll');
     $router->get('/category-products', 'CategoryController@showAllCategoryProduct');
     $router->get('/category/{id}', 'CategoryController@showId');
-    $router->get('/category-name/{name}', 'CategoryController@showName');
+    $router->get('/category-name/(:all?)', 'CategoryController@showName');
     $router->get('/category-product/{id}', 'CategoryController@showIdCategoryProduct');
     $router->post('/category', 'CategoryController@add');
     $router->put('/category/{id}', 'CategoryController@update');
