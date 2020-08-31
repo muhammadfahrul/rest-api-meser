@@ -79,9 +79,9 @@ class CategoryController extends Controller
 
     public function showName($name)
     {
-        $findName = Category::find($name);
+        // $findName = Category::find($name);
         $data = Category::where('name', $name)->get();
-        if($findName) {
+        if($data) {
             Log::info('Showing category with product by name');
 
             return response()->json([
