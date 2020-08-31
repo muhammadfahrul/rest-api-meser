@@ -39,13 +39,6 @@ class LoginController extends Controller
 
         $user = User::where('username', $username)->first();
 
-        if (!$user) {
-            return response()->json([
-                "message" => "Login failed",
-                "status" => false
-            ]);
-        }
-
         if (Hash::check($password, $user->password)) {
             return response()->json([
                 "message" => "Login success",
