@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function showAll()
     {
         $data = Order::all();
-        if(!empty($data)) {
+        if($data) {
             Log::info('Showing all order');
 
             return response()->json([
@@ -43,7 +43,7 @@ class OrderController extends Controller
         $data = Order::with(array('product'=>function($query){
             $query->select();
         }))->get();
-        if(!empty($data)) {
+        if($data) {
             Log::info('Showing all order with product');
 
             return response()->json([

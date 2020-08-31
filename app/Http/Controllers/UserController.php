@@ -24,7 +24,7 @@ class UserController extends Controller
     public function showAll()
     {
         $data = User::all();
-        if(!empty($data)) {
+        if($data) {
             Log::info('Showing all user');
 
             return response()->json([
