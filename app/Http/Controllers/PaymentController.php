@@ -246,7 +246,7 @@ class PaymentController extends Controller
             // 'order_code' => 'required|exists:t_orders,code'
         ]);
         
-        $data = Payment::find($id);
+        $data = Payment::where('order_code', $id)->first();
         if ($data) {
             $data->payment_type = $request->input('payment_type');
             $data->transaction_status = $request->input('transaction_status');
