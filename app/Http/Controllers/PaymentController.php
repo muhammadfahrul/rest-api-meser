@@ -24,7 +24,7 @@ class PaymentController extends Controller
     public function showAll()
     {
         $data = Payment::all();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all payment');
 
             return response()->json([
@@ -45,7 +45,7 @@ class PaymentController extends Controller
         $data = Payment::with(array('order'=>function($query){
             $query->select();
         }))->get();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all payment with order');
 
             return response()->json([
