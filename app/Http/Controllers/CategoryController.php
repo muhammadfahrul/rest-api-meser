@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function showAll()
     {
         $data = Category::all();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all category');
 
             return response()->json([
@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $data = Category::with(array('product'=>function($query){
             $query->select();
         }))->get();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all category with product');
 
             return response()->json([

@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function showAll()
     {
         $data = Product::all();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all product');
 
             return response()->json([
@@ -80,7 +80,7 @@ class ProductController extends Controller
         $data = Product::with(array('order'=>function($query){
             $query->select();
         }))->get();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all product with order');
 
             return response()->json([
@@ -101,7 +101,7 @@ class ProductController extends Controller
         $data = Product::with(array('category'=>function($query){
             $query->select();
         }))->get();
-        if($data) {
+        if(!empty($data)) {
             Log::info('Showing all product with category');
 
             return response()->json([
