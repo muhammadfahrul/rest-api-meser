@@ -82,7 +82,7 @@ class CategoryController extends Controller
         // $findName = Category::find($name);
         $data = Category::where('name', $name)->get();
         if($data) {
-            Log::info('Showing category with product by name');
+            Log::info('Showing category by name');
 
             return response()->json([
                 "message" => "Success retrieve data",
