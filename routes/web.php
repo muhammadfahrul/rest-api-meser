@@ -57,6 +57,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('/payment/{id}', 'PaymentController@showId');
     $router->get('/payment-order/{id}', 'PaymentController@showIdPaymentOrder');
     $router->post('/payment', 'PaymentController@add');
+    $router->put('/payment/{id}', 'PaymentController@update');
     $router->delete('/payment/{id}', 'PaymentController@delete');
     $router->post('/payment/midtrans/push', 'PaymentController@midtransPush');
 });

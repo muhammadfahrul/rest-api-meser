@@ -236,6 +236,37 @@ class PaymentController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'payment_type' => 'required',
+            'gross_amount' => 'required',
+            'bank' => 'required_if:payment_type,bank_transfer',
+            // 'order_code' => 'required|exists:t_orders,code'
+        ]);
+        
+        $data = Payment::find($id);
+        if ($data) {
+            $data->payment_type = $request->input('payment_type');
+            $data->transaction_status = $request->input('transaction_status');
+            $data->save();
+
+            Log::info('Updating payment by id');
+
+            return response()->json([
+                "message" => "Success updated",
+                "status" => true,
+                "data" => $data
+            ]);        
+        }else {
+            return response()->json([
+                "message" => "Parameter not found",
+                "status" => false
+            ]);
+        }
+
+    }
+
     public function delete($id)
     {
         $data = Payment::find($id);
