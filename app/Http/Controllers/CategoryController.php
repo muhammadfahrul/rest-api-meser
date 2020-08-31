@@ -82,7 +82,7 @@ class CategoryController extends Controller
     {
         $findName = DB::table('t_categories')->find($name);
         $data = DB::table('t_categories')->where('name', '=', $name)->get();
-        if($data) {
+        if($findName) {
             Log::info('Showing category by name');
 
             return response()->json([
