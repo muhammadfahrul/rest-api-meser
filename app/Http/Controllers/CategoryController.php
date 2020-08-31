@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -79,7 +80,7 @@ class CategoryController extends Controller
 
     public function showName($name)
     {
-        // $findName = Category::find($name);
+        $findName = DB::table('t_categories')->find($name);
         $data = DB::table('t_categories')->where('name', '=', $name)->get();
         if($data) {
             Log::info('Showing category by name');
