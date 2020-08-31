@@ -200,7 +200,11 @@ class PaymentController extends Controller
                 if ($data->save()){
                     Log::info('Adding payment');
     
-                    return response()->json($results);
+                    return response()->json([
+                        "message" => "Transaction with bank transfer method is successful",
+                        "status" => true,
+                        "data" => $results
+                    ]);
                 }else {
                     return response()->json([
                         "message" => "Data failed to save",
