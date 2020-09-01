@@ -62,12 +62,14 @@ class UserController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required',
+            'username' => 'required|unique',
+            'email' => 'required|unique',
             'password' => 'required|min:8'
         ]);
         
         $data = new User();
         $data->username = $request->input('username');
+        $data->email = $request->input('email');
         $data->password = Hash::make($request->input('password'));
         $data->save();
 
@@ -83,13 +85,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'username' => 'required',
+            'username' => 'required|unique',
+            'email' => 'required|unique',
             'password' => 'required|min:8'
         ]);
         
         $data = User::find($id);
         if ($data) {
             $data->username = $request->input('username');
+            $data->email = $request->input('email');
             $data->password = Hash::make($request->input('password'));
             $data->save();
 
