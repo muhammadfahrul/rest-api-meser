@@ -16,7 +16,8 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
-    $router->post('/login', 'LoginController@login');
+    $router->post('/login', 'AuthenticationController@login');
+    $router->post('/register', 'AuthenticationController@register');
 
     $router->get('/users', 'UserController@showAll');
     $router->get('/user/{id}', 'UserController@showId');
