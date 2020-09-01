@@ -71,8 +71,8 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-    'username' => 'rera.support@powersoft.in', //env('rera.support@powersoft.in'),
-    'password' => 'Rera@2017',// env('Rera@2017'),
+    'username' => 'messerapp2020@gmail.com', //env('rera.support@powersoft.in'),
+    'password' => 'mamangsekayu97',// env('Rera@2017'),
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path
