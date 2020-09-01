@@ -30,8 +30,8 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|unique',
-            'password' => 'required|unique',
+            'username' => 'required|unique:t_users',
+            'password' => 'required',
         ]);
 
         $username = $request->input('username');
@@ -57,8 +57,8 @@ class AuthenticationController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|unique',
-            'email' => 'required|unique',
+            'username' => 'required|unique:t_users',
+            'email' => 'required|unique:t_users',
             'password' => 'required',
         ]);
 
