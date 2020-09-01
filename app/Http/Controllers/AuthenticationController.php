@@ -57,8 +57,8 @@ class AuthenticationController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|unique:t_users',
-            'email' => 'required|unique:t_users',
+            'username' => 'required|unique:users',
+            'email' => 'required|unique:users',
             'password' => 'required',
         ]);
 

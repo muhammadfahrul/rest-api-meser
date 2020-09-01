@@ -13,7 +13,7 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('t_payments', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('order_code')->unique();
             $table->string('transaction_id');
@@ -34,6 +34,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_payments');
+        Schema::dropIfExists('payments');
     }
 }

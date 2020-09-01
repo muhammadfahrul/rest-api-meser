@@ -80,8 +80,8 @@ class CategoryController extends Controller
 
     public function showName($name)
     {
-        // $findName = DB::table('t_categories')->find($name);
-        $data = DB::table('t_categories')->where('name', '=', $name)->get();
+        // $findName = DB::table('categories')->find($name);
+        $data = DB::table('categories')->where('name', '=', $name)->get();
         if($data) {
             Log::info('Showing category by name');
 
@@ -123,7 +123,7 @@ class CategoryController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:t_categories'
+            'name' => 'required|unique:categories'
         ]);
         
         $data = new Category();
@@ -142,7 +142,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:t_categories'
+            'name' => 'required|unique:categories'
         ]);
         
         $data = Category::find($id);

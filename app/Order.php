@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = 't_orders';
+    protected $table = 'orders';
     // protected $primaryKey = 'code';
 
     public function product(){

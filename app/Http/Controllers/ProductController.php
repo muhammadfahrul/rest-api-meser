@@ -180,11 +180,11 @@ class ProductController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:t_products',
+            'name' => 'required|unique:products',
             'price' => 'required',
             'stock' => 'required',
             'image' => 'required',
-            'category_id' => 'required|exists:t_categories,id'
+            'category_id' => 'required|exists:categories,id'
         ]);
         
         $data = new Product();
@@ -220,11 +220,11 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:t_products',
+            'name' => 'required|unique:products',
             'price' => 'required',
             'stock' => 'required',
             'image' => 'required',
-            'category_id' => 'required|exists:t_categories,id'
+            'category_id' => 'required|exists:categories,id'
         ]);
         
         $data = Product::find($id);

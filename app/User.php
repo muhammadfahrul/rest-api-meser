@@ -30,5 +30,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
-    protected $table = 't_users';
+    protected $table = 'users';
 }
