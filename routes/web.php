@@ -19,6 +19,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('/login', 'AuthenticationController@login');
     $router->post('/register', 'AuthenticationController@register');
 
+    $router->post('/password/reset-request', 'RequestPasswordController@sendResetLinkEmail');
+    $router->post('/password/reset', [ 'as' => 'password.reset', 'uses' => 'ResetPasswordController@reset' ]);
+
     $router->get('/users', 'UserController@showAll');
     $router->get('/user/{id}', 'UserController@showId');
     $router->post('/user', 'UserController@add');
