@@ -91,4 +91,56 @@ class AuthenticationController extends Controller
         }
     }
 
+    public function resetRequest(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required'
+        ]);
+
+        $email = $request->input('email');
+
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            return response()->json([
+                "message" => "Email found",
+                "status" => true
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Email not found",
+                "status" => false
+            ]);
+        }
+    }
+
+    public function reset(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:8'
+        ]);
+        
+        $email = $request->input('email');
+        
+        $data = User::where('email', $email)->first();
+        if ($data) {
+            $data->password = Hash::make($request->input('password'));
+            $data->save();
+
+            Log::info('Updating user by email');
+
+            return response()->json([
+                "message" => "Success updated",
+                "status" => true,
+                "data" => $data
+            ]);        
+        }else {
+            return response()->json([
+                "message" => "Parameter not found",
+                "status" => false
+            ]);
+        }
+    }
+
 }
