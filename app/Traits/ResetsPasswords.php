@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 trait ResetsPasswords
 {
-    use RedirectsUsers;
+    // use RedirectsUsers;
 
     /**
      * Display the password reset view for the given token.
