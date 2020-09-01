@@ -60,8 +60,8 @@ $app->singleton(
 */
 
 $app->configure('app');
-$app->configure('mail');
-$app->configure('services');
+// $app->configure('mail');
+// $app->configure('services');
 
 /*
 |--------------------------------------------------------------------------
@@ -98,9 +98,9 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 // $app->register(Irazasyed\Larasupport\Providers\ArtisanServiceProvider::class);
 $app->register(Superbalist\LaravelGoogleCloudStorage\GoogleCloudStorageServiceProvider::class);
-$app->register(Illuminate\Mail\MailServiceProvider::class);
-$app->register(Illuminate\Auth\Passwords\PasswordResetServiceProvider::class);
-$app->register(Illuminate\Notifications\NotificationServiceProvider::class);
+// $app->register(Illuminate\Mail\MailServiceProvider::class);
+// $app->register(Illuminate\Auth\Passwords\PasswordResetServiceProvider::class);
+// $app->register(Illuminate\Notifications\NotificationServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
