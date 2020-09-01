@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 use Image;
 
-class LoginController extends Controller
+class AuthenticationController extends Controller
 {
     /**
      * Create a new controller instance.
