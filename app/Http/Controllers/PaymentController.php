@@ -108,7 +108,7 @@ class PaymentController extends Controller
             'payment_type' => 'required',
             'gross_amount' => 'required',
             'bank' => 'required_if:payment_type,bank_transfer',
-            // 'order_code' => 'required|exists:t_orders,code'
+            'order_code' => 'required|exists:t_orders,code|unique:t_payments'
         ]);
         
         $data = new Payment();
@@ -243,7 +243,7 @@ class PaymentController extends Controller
             'transaction_status' => 'required',
             // 'gross_amount' => 'required',
             // 'bank' => 'required_if:payment_type,bank_transfer',
-            // 'order_code' => 'required|exists:t_orders,code'
+            // 'order_code' => 'required|exists:t_orders,code|unique:t_payments'
         ]);
         
         $data = Payment::where('order_code', $id)->first();

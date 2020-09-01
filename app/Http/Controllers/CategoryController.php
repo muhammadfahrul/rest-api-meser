@@ -123,7 +123,7 @@ class CategoryController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required|unique:t_categories'
         ]);
         
         $data = new Category();
@@ -142,7 +142,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required|unique:t_categories'
         ]);
         
         $data = Category::find($id);

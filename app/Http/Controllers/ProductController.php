@@ -180,10 +180,10 @@ class ProductController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:t_products',
             'price' => 'required',
             'stock' => 'required',
-            // 'image' => 'required|image',
+            'image' => 'required',
             'category_id' => 'required|exists:t_categories,id'
         ]);
         
@@ -220,10 +220,10 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:t_products',
             'price' => 'required',
             'stock' => 'required',
-            // 'image' => 'required|image',
+            'image' => 'required',
             'category_id' => 'required|exists:t_categories,id'
         ]);
         
