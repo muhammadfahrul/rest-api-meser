@@ -7,13 +7,10 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Notifiable, CanResetPassword;
+    use Authenticatable, Authorizable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +18,7 @@ class User extends Model implements CanResetPasswordContract
      * @var array
      */
     protected $fillable = [
-        'username',
+        'username', 'email',
     ];
 
     /**
@@ -30,7 +27,7 @@ class User extends Model implements CanResetPasswordContract
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password',
     ];
 
     protected $table = 'users';
