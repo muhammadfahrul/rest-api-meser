@@ -125,7 +125,7 @@
           <tr>
             <td align="center" valign="top" style="padding: 36px 24px;">
               <a href="https://sendgrid.com" target="_blank" style="display: inline-block;">
-                <img src="https://i.ibb.co/8XvhNSb/Frame-1-3.png" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
+                <img src="https://i.ibb.co/qrM47HV/meser-1.png" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
               </a>
             </td>
           </tr>
@@ -190,7 +190,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                          <h3>{{ $messages }}</h3>
+                          <h2 style="margin: 10px;">{{ $messages }}</h2>
                         </td>
                       </tr>
                     </table>
