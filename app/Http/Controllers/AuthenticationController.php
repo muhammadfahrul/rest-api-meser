@@ -172,7 +172,7 @@ class AuthenticationController extends Controller
     public function resetRequest(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required|email',
             'message' => 'required'
         ]);
 
