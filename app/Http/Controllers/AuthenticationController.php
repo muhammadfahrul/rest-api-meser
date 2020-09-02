@@ -161,7 +161,7 @@ class AuthenticationController extends Controller
                 'messages' => $request->message
             ];
 
-            Mail::send('email', $data, function ($message) use ($request)
+            Mail::send('reset-password', $data, function ($message) use ($request)
             {
                 $message->subject($request->subject);
                 $message->from('messerapp2020@gmail.com', 'messer app');
