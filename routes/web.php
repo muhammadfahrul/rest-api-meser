@@ -18,6 +18,8 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('/login', 'AuthenticationController@login');
     $router->post('/register', 'AuthenticationController@register');
+
+    $router->get('/email-activation/{token}', 'AuthenticationController@emailActivation');
     
     $router->post('/send-email', 'AuthenticationController@sendEmail');
 

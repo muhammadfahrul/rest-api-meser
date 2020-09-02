@@ -42,11 +42,18 @@ class AuthenticationController extends Controller
 
         $user = User::where('username', $username)->first();
 
-        if ($user && Hash::check($password, $user->password)) {
+        $token = User::where('status', 'Active')->first();
+
+        if ($user && $token && Hash::check($password, $user->password)) {
             return response()->json([
                 "message" => "Login success",
                 "status" => true,
                 "data" => $user
+            ]);
+        }elseif (!$token) {
+            return response()->json([
+                "message" => "Please activate your email first",
+                "status" => false
             ]);
         }else {
             return response()->json([
@@ -70,7 +77,7 @@ class AuthenticationController extends Controller
         $data->email = $request->input('email');
         $data->password = Hash::make($request->input('password'));
         $data->status = "false";
-        $data->token = "";
+        $data->token = Str::random(10);
 
         $checkUsername = User::where('username', $data->username)->first();
         $checkEmail = User::where('email', $data->email)->first();
@@ -88,10 +95,76 @@ class AuthenticationController extends Controller
         }else {
             $data->save();
 
+            Mail::send('email-activation', ['token' => $data->token], function ($email) use ($request)
+            {
+                $email->subject('Email Activation');
+                $email->from('messerapp2020@gmail.com', 'messer app');
+                $email->to($data->email);
+                // $email->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
+            });
+
             return response()->json([
                 "message" => "Register Success",
                 "status" => true,
                 "data" => $data
+            ]);
+        }
+    }
+
+    public function emailActivation(Request $request, $token)
+    {
+        $data = User::where('token', $token)->first();
+
+        if ($data) {
+            $data->status = "Active";
+            $data->save();
+
+            return response()->json([
+                "message" => "Successful activation of email",
+                "status" => true
+            ]);
+        }else {
+            return response()->json([
+                "message" => "Token Not Found",
+                "status" => false
+            ]);
+        }
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'name' => 'required',
+            'message' => 'required',
+            'subject' => 'required'
+        ]);
+
+        try{
+            $data = [
+                'names' => $request->name, 
+                'messages' => $request->message
+            ];
+
+            Mail::send('reset-password', $data, function ($message) use ($request)
+            {
+                $message->subject($request->subject);
+                $message->from('messerapp2020@gmail.com', 'messer app');
+                $message->to($request->email);
+                // $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
+            });
+            // return back()->with('alert-success','Berhasil Kirim Email');
+            return response()->json([
+                "message" => "Successfully sending email",
+                "status" => true,
+                // "data" => $data['name']
+            ]);
+        }
+        catch (Exception $e){
+            // return response (['status' => false,'errors' => $e->getMessage()]);
+            return response()->json([
+                "message" => $e->getMessage(),
+                "status" => false
             ]);
         }
     }
@@ -143,44 +216,6 @@ class AuthenticationController extends Controller
         }else {
             return response()->json([
                 "message" => "Parameter not found",
-                "status" => false
-            ]);
-        }
-    }
-
-    public function sendEmail(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'name' => 'required',
-            'message' => 'required',
-            'subject' => 'required'
-        ]);
-
-        try{
-            $data = [
-                'names' => $request->name, 
-                'messages' => $request->message
-            ];
-
-            Mail::send('reset-password', $data, function ($message) use ($request)
-            {
-                $message->subject($request->subject);
-                $message->from('messerapp2020@gmail.com', 'messer app');
-                $message->to($request->email);
-                // $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
-            });
-            // return back()->with('alert-success','Berhasil Kirim Email');
-            return response()->json([
-                "message" => "Successfully sending email",
-                "status" => true,
-                // "data" => $data['name']
-            ]);
-        }
-        catch (Exception $e){
-            // return response (['status' => false,'errors' => $e->getMessage()]);
-            return response()->json([
-                "message" => $e->getMessage(),
                 "status" => false
             ]);
         }
