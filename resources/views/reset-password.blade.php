@@ -190,7 +190,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center">
-                          <h1 style="margin: 10px; text-color: white;">{{ $messages }}</h1>
+                          <h1 style="margin: 10px; text-color: white;">{{ $message }}</h1>
                         </td>
                       </tr>
                     </table>

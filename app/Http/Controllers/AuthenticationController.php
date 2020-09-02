@@ -172,7 +172,8 @@ class AuthenticationController extends Controller
     public function resetRequest(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required'
+            'email' => 'required',
+            'message' => 'required'
         ]);
 
         $email = $request->email;
@@ -182,15 +183,15 @@ class AuthenticationController extends Controller
         if ($user) {
             $data = [
                 'names' => $user->username, 
-                'messages' => $request->message
+                'message' => $request->message
             ];
 
-            Mail::send('reset-password', $data, function ($message) use ($request)
+            Mail::send('reset-password', $data, function ($req) use ($request)
             {
-                $message->subject('Reset Password');
-                $message->from('messerapp2020@gmail.com', 'messer app');
-                $message->to($request->email);
-                // $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
+                $req->subject('Reset Password');
+                $req->from('messerapp2020@gmail.com', 'messer app');
+                $req->to($request->email);
+                // $req->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
             });
 
             return response()->json([
