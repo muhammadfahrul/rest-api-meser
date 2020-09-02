@@ -95,11 +95,14 @@ class AuthenticationController extends Controller
         }else {
             $data->save();
 
-            Mail::send('email-activation', ['token' => $data->token], function ($email)
+            $varToken = $data->token;
+            $varEmail = $data->email;
+
+            Mail::send('email-activation', ['token' => $varToken], function ($email)
             {
                 $email->subject('Email Activation');
                 $email->from('messerapp2020@gmail.com', 'messer app');
-                $email->to($data->email);
+                $email->to($varEmail);
                 // $email->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
             });
 
