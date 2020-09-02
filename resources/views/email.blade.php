@@ -291,7 +291,9 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p>Hi {{ $name }}</p>
+                                        @foreach ($name as $item)
+                                            <p>Hi {{ $item }}</p>
+                                        @endforeach
                                         <p>Terimakasih telah mengirimkan email :)</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
@@ -304,7 +306,9 @@
                                                             <td> <div class="container">
                                                                     <center><p>Pesanmu Yaitu :</p></center>
                                                                     <hr>
-                                                                    <center><p>{{ $message }}</p></center>
+                                                                    @foreach ($message as $item)
+                                                                    <center><p>{{ $item }}</p></center>
+                                                                    @endforeach
                                                                     <hr>
                                                                     <center><p>Telah Disampaikan! <br> Terimakasih telah menghubungi kami!</p></center>
                                                                 </div>
