@@ -148,6 +148,13 @@ class AuthenticationController extends Controller
 
     public function sendEmail(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'name' => 'required',
+            'message' => 'required',
+            'subject' => 'required'
+        ]);
+
         try{
             Mail::send('email', ['name' => $request->name, 'message' => $request->message], function ($message) use ($request)
             {
