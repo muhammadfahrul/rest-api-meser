@@ -173,7 +173,7 @@ class AuthenticationController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'message' => 'required'
+            'messages' => 'required'
         ]);
 
         $email = $request->email;
@@ -182,8 +182,8 @@ class AuthenticationController extends Controller
 
         if ($user) {
             $data = [
-                'name' => $user->username, 
-                'message' => $request->message
+                'names' => $user->username, 
+                'messages' => $request->message
             ];
 
             Mail::send('reset-password', $data, function ($req) use ($request)

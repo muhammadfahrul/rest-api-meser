@@ -190,7 +190,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center">
-                          <h1 style="margin: 10px; text-color: white;">{{ $message }}</h1>
+                          <h1 style="margin: 10px; text-color: white;">{{ $messages }}</h1>
                         </td>
                       </tr>
                     </table>
@@ -213,7 +213,7 @@
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-              <p style="margin: 0; text-color: white;">Cheers,<br> {{ $name }}</p>
+              <p style="margin: 0; text-color: white;">Cheers,<br> {{ $names }}</p>
             </td>
           </tr>
           <!-- end copy -->
