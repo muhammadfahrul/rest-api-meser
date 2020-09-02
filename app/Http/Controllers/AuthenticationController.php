@@ -173,7 +173,7 @@ class AuthenticationController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'messages' => 'required'
+            'message' => 'required'
         ]);
 
         $email = $request->email;
