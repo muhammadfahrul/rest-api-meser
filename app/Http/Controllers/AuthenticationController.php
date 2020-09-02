@@ -148,25 +148,31 @@ class AuthenticationController extends Controller
 
     public function sendEmail(Request $request)
     {
+        $config = array(
+            'driver' => 'smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'from' => array('address' => 'from_email_id', 'name' => 'From_name'),
+            'encryption' => 'tls',
+            'username' => 'messerapp2020@gmail.com',
+            'password' => 'mamangsekayu97',
+            'sendmail' => '/usr/sbin/sendmail -bs',
+            'pretend' => false
+        );
+
+        Config::set('mail',$config);
+
         try{
-            Mail::send('email', ['nama' => $request->nama, 'pesan' => $request->pesan], function ($message) use ($request)
-            {
-                $message->subject($request->judul);
-                $message->from('messerapp2020@gmail.com', 'messer app');
-                $message->to($request->email);
+            Mail::raw('This is Email Body', function($msg) { 
+                $msg->to(['harerdnyaneshwar@gmail.com']); $msg->from(['From_email']); 
             });
-            // return back()->with('alert-success','Berhasil Kirim Email');
-            return response()->json([
-                "message" => "Successfully sending email",
-                "status" => true
-            ]);
-        }
-        catch (Exception $e){
-            // return response (['status' => false,'errors' => $e->getMessage()]);
-            return response()->json([
-                "message" => $e->getMessage(),
-                "status" => false
-            ]);
+
+            echo "Mail Sent Successfully";
+
+        }catch(Exception $e){
+            echo "error Sending Mail <pre>";
+            // print_r($e);
+            echo "</pre>";
         }
     }
 
