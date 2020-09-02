@@ -277,12 +277,11 @@
 <body class="">
 <table border="0" cellpadding="0" cellspacing="0" class="body">
     <tr>
-        <td>&nbsp;</td>
         <td class="container">
             <div class="content">
 
                 <!-- START CENTERED WHITE CONTAINER -->
-                <span class="preheader">Email Untuk Kamu !.</span>
+                {{-- <span class="preheader">Email For You!</span> --}}
                 <table class="main">
 
                     <!-- START MAIN CONTENT AREA -->
