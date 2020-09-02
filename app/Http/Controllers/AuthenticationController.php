@@ -181,13 +181,13 @@ class AuthenticationController extends Controller
 
         if ($user) {
             $data = [
-                'names' => $request->name, 
+                'names' => $user->username, 
                 'messages' => $request->message
             ];
 
             Mail::send('reset-password', $data, function ($message) use ($request)
             {
-                $message->subject($request->subject);
+                $message->subject('Reset Password');
                 $message->from('messerapp2020@gmail.com', 'messer app');
                 $message->to($request->email);
                 // $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
