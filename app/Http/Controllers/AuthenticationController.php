@@ -182,7 +182,7 @@ class AuthenticationController extends Controller
 
         if ($user) {
             $data = [
-                'names' => $user->username, 
+                'name' => $user->username, 
                 'message' => $request->message
             ];
 
