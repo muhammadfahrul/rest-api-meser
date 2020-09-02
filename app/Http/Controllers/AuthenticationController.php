@@ -175,11 +175,24 @@ class AuthenticationController extends Controller
             'email' => 'required'
         ]);
 
-        $email = $request->input('email');
+        $email = $request->email;
 
         $user = User::where('email', $email)->first();
 
         if ($user) {
+            $data = [
+                'names' => $request->name, 
+                'messages' => $request->message
+            ];
+
+            Mail::send('reset-password', $data, function ($message) use ($request)
+            {
+                $message->subject($request->subject);
+                $message->from('messerapp2020@gmail.com', 'messer app');
+                $message->to($request->email);
+                // $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
+            });
+
             return response()->json([
                 "message" => "Email found",
                 "status" => true
