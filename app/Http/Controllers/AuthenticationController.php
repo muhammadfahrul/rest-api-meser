@@ -156,11 +156,12 @@ class AuthenticationController extends Controller
         ]);
 
         try{
-            Mail::send('email', ['name' => $request->name, 'message' => $request->message], function ($message) use ($request)
+            Mail::send([], ['name' => $request->name, 'message' => $request->message], function ($message) use ($request)
             {
                 $message->subject($request->subject);
                 $message->from('messerapp2020@gmail.com', 'messer app');
                 $message->to($request->email);
+                $message->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
             });
             // return back()->with('alert-success','Berhasil Kirim Email');
             return response()->json([
