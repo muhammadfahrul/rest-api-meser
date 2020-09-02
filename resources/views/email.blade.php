@@ -340,7 +340,7 @@ ul.social li{
 	      </tr><!-- end tr -->
 	      <tr>
           <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
-            <img src="images/email.png" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
+            <img src="https://i.ibb.co/f2DC5by/logo.png" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
           </td>
 	      </tr><!-- end tr -->
 				<tr>
@@ -351,7 +351,7 @@ ul.social li{
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
             				<h2>Hi, {{ $names }}</h2>
             				<h3>This is a code to reset your password : </h3>
-            				<h4 style="font-weight: bold;">{{ $messages }}</h4>
+            				<h2 style="font-weight: bold; font-family:Arial;">{{ $messages }}</h2>
             			</div>
             		</td>
             	</tr>
