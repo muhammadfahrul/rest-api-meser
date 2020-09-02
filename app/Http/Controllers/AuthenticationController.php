@@ -42,7 +42,7 @@ class AuthenticationController extends Controller
 
         $user = User::where('username', $username)->first();
 
-        $token = User::where('status', 'Active')->first();
+        $token = User::where('status', 'true')->first();
 
         if ($user && $token && Hash::check($password, $user->password)) {
             return response()->json([
@@ -116,7 +116,7 @@ class AuthenticationController extends Controller
         $data = User::where('token', $token)->first();
 
         if ($data) {
-            $data->status = "Active";
+            $data->status = "true";
             $data->save();
 
             return response()->json([
