@@ -172,7 +172,7 @@ class AuthenticationController extends Controller
             return response()->json([
                 "message" => "Successfully sending email",
                 "status" => true,
-                "data" => $data
+                "data" => $data['name']
             ]);
         }
         catch (Exception $e){
