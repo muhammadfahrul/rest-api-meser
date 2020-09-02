@@ -149,7 +149,7 @@ class AuthenticationController extends Controller
     public function sendEmail(Request $request)
     {
         try{
-            Mail::send([], ['name' => $request->name, 'message' => $request->message], function ($message) use ($request)
+            Mail::send('email', ['name' => $request->name, 'message' => $request->message], function ($message) use ($request)
             {
                 $message->subject($request->subject);
                 $message->from('messerapp2020@gmail.com', 'messer app');
