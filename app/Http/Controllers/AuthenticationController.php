@@ -161,7 +161,7 @@ class AuthenticationController extends Controller
                 'message' => $request->message
             ];
 
-            Mail::send([], $data, function ($message) use ($request)
+            Mail::send('email', $data, function ($message) use ($request)
             {
                 $message->subject($request->subject);
                 $message->from('messerapp2020@gmail.com', 'messer app');
@@ -172,7 +172,7 @@ class AuthenticationController extends Controller
             return response()->json([
                 "message" => "Successfully sending email",
                 "status" => true,
-                "data" => $data['name']
+                // "data" => $data['name']
             ]);
         }
         catch (Exception $e){
