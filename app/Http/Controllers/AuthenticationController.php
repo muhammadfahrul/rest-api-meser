@@ -44,15 +44,13 @@ class AuthenticationController extends Controller
 
         $token = User::where('status', 'true')->first();
 
-        $checkPassword = Hash::check($password, $user->password);
-
-        if ($user && $token && $checkPassword) {
+        if ($user && $token && Hash::check($password, $user->password)) {
             return response()->json([
                 "message" => "Login success",
                 "status" => true,
                 "data" => $user
             ]);
-        }elseif (!$user && !$checkPassword) {
+        }elseif (!$user) {
             return response()->json([
                 "message" => "Invalid username or Password",
                 "status" => false
