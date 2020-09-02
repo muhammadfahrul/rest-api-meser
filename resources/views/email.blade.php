@@ -291,7 +291,7 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p>Hi {{ $name }}</p>
+                                        <p>Hi {{ $names }}</p>
                                         <p>Terimakasih telah mengirimkan email :)</p>
 
                                         <table border="0" cellpadding="0" cellspacing="0">
@@ -304,7 +304,7 @@
                                                             <td> <div class="container">
                                                                     <center><p>Pesanmu Yaitu :</p></center>
                                                                     <hr>
-                                                                    <center><p>{{ $message }}</p></center>
+                                                                    <center><p>{{ $messages }}</p></center>
                                                                     <hr>
                                                                     <center><p>Telah Disampaikan! <br> Terimakasih telah menghubungi kami!</p></center>
                                                                 </div>

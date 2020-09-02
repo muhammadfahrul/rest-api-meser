@@ -157,8 +157,8 @@ class AuthenticationController extends Controller
 
         try{
             $data = [
-                'name' => $request->name, 
-                'message' => $request->message
+                'names' => $request->name, 
+                'messages' => $request->message
             ];
 
             Mail::send('email', $data, function ($message) use ($request)
