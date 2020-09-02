@@ -340,7 +340,7 @@ ul.social li{
 	      </tr><!-- end tr -->
 	      <tr>
           <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
-            <img src="https://i.ibb.co/f2DC5by/logo.png" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
+            <img src="https://i.ibb.co/qrM47HV/meser-1.png" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
           </td>
 	      </tr><!-- end tr -->
 				<tr>
