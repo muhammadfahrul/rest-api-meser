@@ -71,6 +71,8 @@ class UserController extends Controller
         $data->username = $request->input('username');
         $data->email = $request->input('email');
         $data->password = Hash::make($request->input('password'));
+        $data->status = "false";
+        $data->token = "";
         $data->save();
 
         Log::info('Adding user');
@@ -95,6 +97,8 @@ class UserController extends Controller
             $data->username = $request->input('username');
             $data->email = $request->input('email');
             $data->password = Hash::make($request->input('password'));
+            $data->status = "false";
+            $data->token = "";
             $data->save();
 
             Log::info('Updating user by id');
