@@ -1,203 +1,272 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
- 
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>A Simple Responsive HTML Email</title>
-  <style type="text/css">
-  body {margin: 0; padding: 0; min-width: 100%!important;}
-  img {height: auto;}
-  .content {width: 100%; max-width: 600px;}
-  .header {padding: 40px 30px 20px 30px;}
-  .innerpadding {padding: 30px 30px 30px 30px;}
-  .borderbottom {border-bottom: 1px solid #f2eeed;}
-  .subhead {font-size: 15px; color: #ffffff; font-family: sans-serif; letter-spacing: 10px;}
-  .h1, .h2, .bodycopy {color: #153643; font-family: sans-serif;}
-  .h1 {font-size: 33px; line-height: 38px; font-weight: bold;}
-  .h2 {padding: 0 0 15px 0; font-size: 24px; line-height: 28px; font-weight: bold;}
-  .bodycopy {font-size: 16px; line-height: 22px;}
-  .button {text-align: center; font-size: 18px; font-family: sans-serif; font-weight: bold; padding: 0 30px 0 30px;}
-  .button a {color: #ffffff; text-decoration: none;}
-  .footer {padding: 20px 30px 15px 30px;}
-  .footercopy {font-family: sans-serif; font-size: 14px; color: #ffffff;}
-  .footercopy a {color: #ffffff; text-decoration: underline;}
 
-  @media only screen and (max-width: 550px), screen and (max-device-width: 550px) {
-  body[yahoo] .hide {display: none!important;}
-  body[yahoo] .buttonwrapper {background-color: transparent!important;}
-  body[yahoo] .button {padding: 0px!important;}
-  body[yahoo] .button a {background-color: #e05443; padding: 15px 15px 13px!important;}
-  body[yahoo] .unsubscribe {display: block; margin-top: 20px; padding: 10px 50px; background: #2f3942; border-radius: 5px; text-decoration: none!important; font-weight: bold;}
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Password Reset</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+  /**
+   * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
+   */
+  @media screen {
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format('woff');
+    }
   }
 
-  /*@media only screen and (min-device-width: 601px) {
-    .content {width: 600px !important;}
-    .col425 {width: 425px!important;}
-    .col380 {width: 380px!important;}
-    }*/
+  /**
+   * Avoid browser level font resizing.
+   * 1. Windows Mobile
+   * 2. iOS / OSX
+   */
+  body,
+  table,
+  td,
+  a {
+    -ms-text-size-adjust: 100%; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+  }
 
+  /**
+   * Remove extra space added to tables and cells in Outlook.
+   */
+  table,
+  td {
+    mso-table-rspace: 0pt;
+    mso-table-lspace: 0pt;
+  }
+
+  /**
+   * Better fluid images in Internet Explorer.
+   */
+  img {
+    -ms-interpolation-mode: bicubic;
+  }
+
+  /**
+   * Remove blue links for iOS devices.
+   */
+  a[x-apple-data-detectors] {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /**
+   * Fix centering issues in Android 4.4.
+   */
+  div[style*="margin: 16px 0;"] {
+    margin: 0 !important;
+  }
+
+  body {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /**
+   * Collapse table borders to avoid space between cells.
+   */
+  table {
+    border-collapse: collapse !important;
+  }
+
+  a {
+    color: #1a82e2;
+  }
+
+  img {
+    height: auto;
+    line-height: 100%;
+    text-decoration: none;
+    border: 0;
+    outline: none;
+  }
   </style>
-</head>
 
-<body yahoo bgcolor="#f6f8f1">
-<table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
-<tr>
-  <td>
-    <!--[if (gte mso 9)|(IE)]>
-      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+</head>
+<body style="background-color: #e9ecef;">
+
+  <!-- start preheader -->
+  <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
+    A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
+  </div>
+  <!-- end preheader -->
+
+  <!-- start body -->
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+    <!-- start logo -->
+    <tr>
+      <td align="center" bgcolor="#e9ecef">
+        <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
         <tr>
-          <td>
-    <![endif]-->     
-    <table bgcolor="#ffffff" class="content" align="center" cellpadding="0" cellspacing="0" border="0">
-      <tr>
-        <td bgcolor="#c7d8a7" class="header">
-          <table width="70" align="left" border="0" cellpadding="0" cellspacing="0">  
-            <tr>
-              <td height="70" style="padding: 0 20px 20px 0;">
-                <img class="fix" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/icon.gif" width="70" height="70" border="0" alt="" />
-              </td>
-            </tr>
-          </table>
-          <!--[if (gte mso 9)|(IE)]>
-            <table width="425" align="left" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td>
-          <![endif]-->
-          <table class="col425" align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 425px;">  
-            <tr>
-              <td height="70">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td class="subhead" style="padding: 0 0 0 3px;">
-                      CREATING
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="h1" style="padding: 5px 0 0 0;">
-                      Responsive Email Magic
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-          <!--[if (gte mso 9)|(IE)]>
-                </td>
-              </tr>
-          </table>
-          <![endif]-->
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+          <tr>
+            <td align="center" valign="top" style="padding: 36px 24px;">
+              <a href="https://sendgrid.com" target="_blank" style="display: inline-block;">
+                <img src="./img/paste-logo-light@2x.png" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
+              </a>
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
         </td>
-      </tr>
-      <tr>
-        <td class="innerpadding borderbottom">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td class="h2">
-                Welcome to our responsive email!
-              </td>
-            </tr>
-            <tr>
-              <td class="bodycopy">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat.
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td class="innerpadding borderbottom">
-          <table width="115" align="left" border="0" cellpadding="0" cellspacing="0">  
-            <tr>
-              <td height="115" style="padding: 0 20px 20px 0;">
-                <img class="fix" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/article1.png" width="115" height="115" border="0" alt="" />
-              </td>
-            </tr>
-          </table>
-          <!--[if (gte mso 9)|(IE)]>
-            <table width="380" align="left" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td>
-          <![endif]-->
-          <table class="col380" align="left" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 380px;">  
-            <tr>
-              <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td class="bodycopy">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 20px 0 0 0;">
-                      <table class="buttonwrapper" bgcolor="#e05443" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                          <td class="button" height="45">
-                            <a href="#">Claim yours!</a>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-          <!--[if (gte mso 9)|(IE)]>
-                </td>
-              </tr>
-          </table>
-          <![endif]-->
-        </td>
-      </tr>
-      <tr>
-        <td class="innerpadding borderbottom">
-          <img class="fix" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/wide.png" width="100%" border="0" alt="" />
-        </td>
-      </tr>
-      <tr>
-        <td class="innerpadding bodycopy">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat.
-        </td>
-      </tr>
-      <tr>
-        <td class="footer" bgcolor="#44525f">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td align="center" class="footercopy">
-                &reg; Someone, somewhere 20XX<br/>
-                <a href="#" class="unsubscribe"><font color="#ffffff">Unsubscribe</font></a> 
-                <span class="hide">from this newsletter instantly</span>
-              </td>
-            </tr>
-            <tr>
-              <td align="center" style="padding: 20px 0 0 0;">
-                <table border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="37" style="text-align: center; padding: 0 10px 0 10px;">
-                      <a href="http://www.facebook.com/">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/facebook.png" width="37" height="37" alt="Facebook" border="0" />
-                      </a>
-                    </td>
-                    <td width="37" style="text-align: center; padding: 0 10px 0 10px;">
-                      <a href="http://www.twitter.com/">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/twitter.png" width="37" height="37" alt="Twitter" border="0" />
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    <!--[if (gte mso 9)|(IE)]>
-          </td>
         </tr>
-    </table>
-    <![endif]-->
-    </td>
-  </tr>
-</table>
+        </table>
+        <![endif]-->
+      </td>
+    </tr>
+    <!-- end logo -->
+
+    <!-- start hero -->
+    <tr>
+      <td align="center" bgcolor="#e9ecef">
+        <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
+              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Reset Your Password</h1>
+            </td>
+          </tr>
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+      </td>
+    </tr>
+    <!-- end hero -->
+
+    <!-- start copy block -->
+    <tr>
+      <td align="center" bgcolor="#e9ecef">
+        <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+
+          <!-- start copy -->
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">Tap the button below to reset your customer account password. If you didn't request a new password, you can safely delete this email.</p>
+            </td>
+          </tr>
+          <!-- end copy -->
+
+          <!-- start button -->
+          <tr>
+            <td align="left" bgcolor="#ffffff">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center" bgcolor="#ffffff" style="padding: 12px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
+                          <a href="https://sendgrid.com" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Do Something Sweet</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- end button -->
+
+          <!-- start copy -->
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+              <p style="margin: 0;"><a href="https://sendgrid.com" target="_blank">https://same-link-as-button.url/xxx-xxx-xxxx</a></p>
+            </td>
+          </tr>
+          <!-- end copy -->
+
+          <!-- start copy -->
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
+              <p style="margin: 0;">Cheers,<br> Paste</p>
+            </td>
+          </tr>
+          <!-- end copy -->
+
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+      </td>
+    </tr>
+    <!-- end copy block -->
+
+    <!-- start footer -->
+    <tr>
+      <td align="center" bgcolor="#e9ecef" style="padding: 24px;">
+        <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+
+          <!-- start permission -->
+          <tr>
+            <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+              <p style="margin: 0;">You received this email because we received a request for [type_of_action] for your account. If you didn't request [type_of_action] you can safely delete this email.</p>
+            </td>
+          </tr>
+          <!-- end permission -->
+
+          <!-- start unsubscribe -->
+          <tr>
+            <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+              <p style="margin: 0;">To stop receiving these emails, you can <a href="https://sendgrid.com" target="_blank">unsubscribe</a> at any time.</p>
+              <p style="margin: 0;">Paste 1234 S. Broadway St. City, State 12345</p>
+            </td>
+          </tr>
+          <!-- end unsubscribe -->
+
+        </table>
+        <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+      </td>
+    </tr>
+    <!-- end footer -->
+
+  </table>
+  <!-- end body -->
+
 </body>
 </html>
