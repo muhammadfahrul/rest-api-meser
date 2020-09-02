@@ -44,20 +44,22 @@ class AuthenticationController extends Controller
 
         $token = User::where('status', 'true')->first();
 
+        if (!$token) {
+            return response()->json([
+                "message" => "Please activate your email first",
+                "status" => false
+            ]);
+        }
+
         if ($user && $token && Hash::check($password, $user->password)) {
             return response()->json([
                 "message" => "Login success",
                 "status" => true,
                 "data" => $user
             ]);
-        }elseif (!$user) {
-            return response()->json([
-                "message" => "Invalid username or Password",
-                "status" => false
-            ]);
         }else {
             return response()->json([
-                "message" => "Please activate your email first",
+                "message" => "Invalid username or Password",
                 "status" => false
             ]);
         }
