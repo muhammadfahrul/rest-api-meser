@@ -140,7 +140,7 @@
     <!-- end logo -->
 
     <!-- start hero -->
-    <tr>
+    <tr style="text-color: white;">
       <td align="center" bgcolor="#e9ecef">
         <!--[if (gte mso 9)|(IE)]>
         <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
