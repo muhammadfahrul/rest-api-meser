@@ -95,7 +95,7 @@ class AuthenticationController extends Controller
         }else {
             $data->save();
 
-            Mail::send('email-activation', ['token' => $data->token], function ($email) use ($request)
+            Mail::send('email-activation', ['token' => $data->token], function ($email)
             {
                 $email->subject('Email Activation');
                 $email->from('messerapp2020@gmail.com', 'messer app');
