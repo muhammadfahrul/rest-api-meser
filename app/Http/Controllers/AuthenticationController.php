@@ -42,7 +42,7 @@ class AuthenticationController extends Controller
 
         $user = User::where('username', $username)->first();
 
-        $token = DB::table('users')->where('status', 'true')->first();
+        $token = User::where('status', 'true')->first();
 
         if ($user && $token && Hash::check($password, $user->password)) {
             return response()->json([
@@ -118,7 +118,7 @@ class AuthenticationController extends Controller
 
     public function emailActivation(Request $request, $token)
     {
-        $data = DB::table('users')->where('token', $token)->first();
+        $data = User::where('token', $token)->first();
 
         if ($data) {
             $data->status = "true";
