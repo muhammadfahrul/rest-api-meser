@@ -101,7 +101,7 @@ class AuthenticationController extends Controller
 
             Mail::send('email-activation', $sendData, function ($req) use ($request)
             {
-                $req->subject('Reset Password');
+                $req->subject('Email Activation');
                 $req->from('messerapp2020@gmail.com', 'messer app');
                 $req->to($request->email);
                 // $req->setBody('<h1>Hi, welcome user!</h1>', 'text/html');
@@ -199,7 +199,7 @@ class AuthenticationController extends Controller
             });
 
             return response()->json([
-                "message" => "Email found",
+                "message" => "The code for resetting the password has been sent successfully",
                 "status" => true
             ]);
         }else {
