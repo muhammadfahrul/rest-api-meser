@@ -96,7 +96,8 @@ class AuthenticationController extends Controller
             $data->save();
 
             $sendData = [
-                'tokens' => $data->token
+                'tokens' => $data->token,
+                'usernames' => $data->username
             ];
 
             Mail::send('email-activation', $sendData, function ($req) use ($request)
@@ -199,7 +200,7 @@ class AuthenticationController extends Controller
             });
 
             return response()->json([
-                "message" => "The code for resetting the password has been sent successfully",
+                "message" => "The code to reset your password has been sent successfully",
                 "status" => true
             ]);
         }else {
