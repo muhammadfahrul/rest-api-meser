@@ -122,6 +122,7 @@ class AuthenticationController extends Controller
 
         if ($data) {
             $data->status = "true";
+            $data->token = "";
             $data->save();
 
             return response()->json([
