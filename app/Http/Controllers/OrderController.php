@@ -85,8 +85,8 @@ class OrderController extends Controller
         // }))->get();
         $data = DB::table('orders')
                     ->where('code', '=', $code)
-                    ->join('t_products', 'orders.product_id', '=', 't_products.id')
-                    ->select('orders.*', 't_products.name')
+                    ->join('products', 'orders.product_id', '=', 'products.id')
+                    ->select('orders.*', 'products.name')
                     ->get();
         if($data) {
             Log::info('Showing order with product by id');
@@ -119,7 +119,7 @@ class OrderController extends Controller
             $order->product_id = $request->input('products.'.$i.'.product_id');
             $order->save();
 
-            DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
+            DB::table('products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
         }
 
         Log::info('Adding order');
@@ -146,8 +146,8 @@ class OrderController extends Controller
                 $order->product_id = $request->input('products.'.$i.'.product_id');
                 $order->save();
 
-                DB::table('t_products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
-                DB::table('t_products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
+                DB::table('products')->where('id', '=', $order->product_id)->increment('stock', $order->quantity);
+                DB::table('products')->where('id', '=', $order->product_id)->decrement('stock', $order->quantity);
             }
 
             Log::info('Updating order by id');
