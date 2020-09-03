@@ -215,17 +215,17 @@ class PaymentController extends Controller
             }else {
                 return response()->json($results);
             }
-        }elseif ($data->payment_type == "pending") {
+        }elseif ($data->payment_type == "nfc") {
             $data->transaction_id = 0;
             $data->transaction_time = "";
-            $data->transaction_status = $request->input('transaction_status');
+            $data->transaction_status = "success";
             $data->va_number = "";
             $data->save();
 
             Log::info('Adding payment');   
 
             return response()->json([
-                "message" => "Transaction pending is successful",
+                "message" => "Transaction with nfc method is successful",
                 "status" => true,
                 "data" => $data
             ]);
