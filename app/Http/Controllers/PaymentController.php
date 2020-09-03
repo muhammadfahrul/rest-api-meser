@@ -312,4 +312,22 @@ class PaymentController extends Controller
             ]);
         }
     }
+
+    public function deletePayments()
+    {
+        $data = DB::table('payments')->truncate();
+        if($data) {
+            Log::info('Deleting payments');
+
+            return response()->json([
+                "message" => "Success deleted",
+                "status" => true
+            ]);   
+        }else {
+            return response()->json([
+                "message" => "Data not found",
+                "status" => false
+            ]);
+        }
+    }
 }

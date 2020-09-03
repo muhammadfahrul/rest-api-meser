@@ -186,4 +186,22 @@ class CategoryController extends Controller
             ]);
         }
     }
+
+    public function deleteCategories()
+    {
+        $data = DB::table('categories')->truncate();
+        if($data) {
+            Log::info('Deleting categories');
+
+            return response()->json([
+                "message" => "Success deleted",
+                "status" => true
+            ]);   
+        }else {
+            return response()->json([
+                "message" => "Data not found",
+                "status" => false
+            ]);
+        }
+    }
 }

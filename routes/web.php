@@ -44,6 +44,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('/product', 'ProductController@add');
     $router->put('/product/{id}', 'ProductController@update');
     $router->delete('/product/{id}', 'ProductController@delete');
+    $router->get('/delete-products', 'ProductController@deleteProducts');
 
     $router->get('/categories', 'CategoryController@showAll');
     $router->get('/category-products', 'CategoryController@showAllCategoryProduct');
@@ -53,6 +54,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('/category', 'CategoryController@add');
     $router->put('/category/{id}', 'CategoryController@update');
     $router->delete('/category/{id}', 'CategoryController@delete');
+    $router->get('/delete-categories', 'CategoryController@deleteCategories');
 
     $router->get('/orders', 'OrderController@showAll');
     $router->get('/order-products', 'OrderController@showAllOrderProduct');
@@ -61,6 +63,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->post('/order', 'OrderController@add');
     $router->put('/order/{code}', 'OrderController@update');
     $router->delete('/order/{code}', 'OrderController@delete');
+    $router->get('/delete-orders', 'OrderController@deleteOrders');
 
     $router->get('/payments', 'PaymentController@showAll');
     $router->get('/payment-orders', 'PaymentController@showAllPaymentOrder');
@@ -70,4 +73,5 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->put('/payment/{id}', 'PaymentController@update');
     $router->delete('/payment/{id}', 'PaymentController@delete');
     $router->post('/payment/midtrans/push', 'PaymentController@midtransPush');
+    $router->get('/delete-payments', 'PaymentController@deletePayments');
 });

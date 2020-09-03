@@ -150,7 +150,7 @@ class UserController extends Controller
             ]);   
         }else {
             return response()->json([
-                "message" => "Parameter not found",
+                "message" => "Data not found",
                 "status" => false
             ]);
         }

@@ -289,4 +289,22 @@ class ProductController extends Controller
             ]);
         }
     }
+
+    public function deleteProducts()
+    {
+        $data = DB::table('products')->truncate();
+        if($data) {
+            Log::info('Deleting products');
+
+            return response()->json([
+                "message" => "Success deleted",
+                "status" => true
+            ]);   
+        }else {
+            return response()->json([
+                "message" => "Data not found",
+                "status" => false
+            ]);
+        }
+    }
 }

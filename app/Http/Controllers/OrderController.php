@@ -184,4 +184,22 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function deleteOrders()
+    {
+        $data = DB::table('orders')->truncate();
+        if($data) {
+            Log::info('Deleting orders');
+
+            return response()->json([
+                "message" => "Success deleted",
+                "status" => true
+            ]);   
+        }else {
+            return response()->json([
+                "message" => "Data not found",
+                "status" => false
+            ]);
+        }
+    }
 }

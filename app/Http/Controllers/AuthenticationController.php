@@ -80,14 +80,14 @@ class AuthenticationController extends Controller
         $data->token = Str::random(10);
 
         $checkUsername = User::where('username', $data->username)->first();
-        $checkEmail = User::where('email', $data->email)->first();
+        // $checkEmail = User::where('email', $data->email)->first();
 
         if ($checkUsername) {
             return response()->json([
                 "message" => "Username already exists",
                 "status" => false
             ]);
-        }elseif ($checkEmail) {
+        }elseif ($checkUsername->email == $data->email) {
             return response()->json([
                 "message" => "Email already exists",
                 "status" => false
