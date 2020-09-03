@@ -44,10 +44,11 @@ class AuthenticationController extends Controller
 
         $token = User::where('status', 'true')->first();
 
-        if (!$token) {
+        if ($user > 0 && $token > 0 && Hash::check($password, $user->password)) {
             return response()->json([
-                "message" => "Please activate your email first",
-                "status" => false
+                "message" => "Login success",
+                "status" => true,
+                "data" => $user
             ]);
         }elseif (!$user || !Hash::check($password, $user->password)) {
             return response()->json([
@@ -56,9 +57,8 @@ class AuthenticationController extends Controller
             ]);
         }else {
             return response()->json([
-                "message" => "Login success",
-                "status" => true,
-                "data" => $user
+                "message" => "Please activate your email first",
+                "status" => false
             ]);
         }
     }
