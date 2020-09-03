@@ -137,4 +137,22 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function deleteUsers()
+    {
+        $data = DB::table('users')->truncate();
+        if($data) {
+            Log::info('Deleting users');
+
+            return response()->json([
+                "message" => "Success deleted",
+                "status" => true
+            ]);   
+        }else {
+            return response()->json([
+                "message" => "Parameter not found",
+                "status" => false
+            ]);
+        }
+    }
 }
