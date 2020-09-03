@@ -78,7 +78,7 @@ class AuthenticationController extends Controller
         $data->email = $request->input('email');
         $data->password = Hash::make($request->input('password'));
         $data->status = "false";
-        $data->token = Str::random(20);
+        $data->token = Str::random(32);
 
         $checkUsername = User::where('username', $data->username)->first();
         $checkEmail = User::where('email', $data->email)->first();
