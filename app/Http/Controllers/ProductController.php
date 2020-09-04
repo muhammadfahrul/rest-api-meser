@@ -221,7 +221,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:products',
+            'name' => 'required',
             'price' => 'required',
             'stock' => 'required',
             'image' => 'required',
@@ -229,6 +229,7 @@ class ProductController extends Controller
         ]);
         
         $data = Product::find($id);
+        $check = Product::where('name', $data->name)->first();
         if ($data) {
             // Storage::disk('gcs')->delete('product-images/' . $data->image);
             
@@ -259,6 +260,11 @@ class ProductController extends Controller
                 "status" => true,
                 "data" => $data
             ]);        
+        }elseif ($check) {
+            return response()->json([
+                "message" => "Product name already exists",
+                "status" => false
+            ]);
         }else {
             return response()->json([
                 "message" => "Parameter not found",
