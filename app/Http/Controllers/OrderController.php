@@ -107,7 +107,7 @@ class OrderController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required',
+            'code' => 'required|unique:orders',
         ]);
 
         $products = $request->input('products');
